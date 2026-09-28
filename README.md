@@ -27,28 +27,29 @@ later in the build) for that comparison.
 ## Repository structure
 
 ```
-transformer-from-scratch/
+Transformer-From-Scratch/
 ├── README.md
 ├── design.md              # full architecture & design decisions
-├── roadmap.md              # day-by-day build plan
+├── roadmap.md             # day-by-day build plan
 ├── requirements-torch.txt
 ├── requirements-tf.txt
-├── pytorch/
-│   ├── model/               # embeddings, attention, encoder, decoder, transformer
-│   ├── data/                # tokenizer, dataset
-│   ├── train.py
-│   ├── inference.py
-│   ├── config.py
+├── pytest.ini / Makefile
+├── tests/                 # framework-agnostic tests (config validation & parity)
+├── torch_impl/            # PyTorch implementation
+│   ├── config.py          # TransformerConfig (identical to tf_impl/config.py)
+│   ├── model/
+│   │   └── masking.py     # padding / look-ahead / decoder masks
+│   ├── data/              # tokenizer, dataset (later)
 │   └── tests/
-├── tensorflow/               # mirrors pytorch/ module-for-module
-├── notebooks/                # attention visualization, framework comparison
-└── assets/diagrams/          # architecture diagrams, attention heatmaps
+├── tf_impl/               # TensorFlow implementation, mirrors torch_impl/
+├── notebooks/             # attention visualization, framework comparison
+└── assets/diagrams/       # architecture diagrams, attention heatmaps
 ```
 
 ## Status / Progress
 
 - [x] Day 1 — Repo scaffolding & environment setup
-- [ ] Day 2 — Config & masking utilities
+- [x] Day 2 — Config & masking utilities
 - [ ] Day 3 — Embeddings & positional encoding
 - [ ] Day 4–7 — Attention mechanism (+ numerical parity check)
 - [ ] Day 8–13 — Encoder/decoder stacks & overfit test
@@ -74,6 +75,27 @@ python -m venv .venv-tf
 source .venv-tf/bin/activate
 pip install -r requirements-tf.txt
 ```
+
+## Running the tests
+
+Each framework's tests run in its own virtualenv; the framework-agnostic tests in
+`tests/` run in either.
+
+```bash
+# PyTorch env
+make test-torch        # == python -m pytest tests torch_impl
+
+# TensorFlow env
+make test-tf           # == python -m pytest tests tf_impl
+```
+
+## Conventions shared by both implementations
+
+- **Masks are boolean, `True` = may attend, `False` = blocked**, and broadcast to
+  `(batch, heads, q_len, k_len)`.
+- **Special tokens:** `PAD=0, BOS=1, EOS=2, UNK=3`.
+- **One `TransformerConfig`** per framework with identical fields/defaults; a test
+  fails if they ever drift.
 
 ## License
 

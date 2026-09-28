@@ -21,7 +21,7 @@ transformer-from-scratch/
 ├── design.md
 ├── requirements-torch.txt
 ├── requirements-tf.txt
-├── pytorch/
+├── torch_impl/
 │   ├── model/
 │   │   ├── embeddings.py         # token + positional embeddings
 │   │   ├── attention.py          # scaled dot-product + multi-head attention
@@ -37,8 +37,8 @@ transformer-from-scratch/
 │   ├── inference.py
 │   ├── config.py
 │   └── tests/
-├── tensorflow/
-│   ├── model/                    # same submodule breakdown as pytorch/model
+├── tf_impl/
+│   ├── model/                    # same submodule breakdown as torch_impl/model
 │   ├── data/
 │   ├── train.py
 │   ├── inference.py
@@ -51,7 +51,15 @@ transformer-from-scratch/
     └── diagrams/                 # architecture diagrams, attention heatmaps
 ```
 
-Mirroring the folder structure across `pytorch/` and `tensorflow/` is intentional — it lets a visitor open both `attention.py` files and diff the *ideas*, not the boilerplate.
+Mirroring the folder structure across `torch_impl/` and `tf_impl/` is intentional — it lets a visitor open both `attention.py` files and diff the *ideas*, not the boilerplate.
+
+> **Naming note:** the implementation folders are called `torch_impl/` and `tf_impl/` rather than `pytorch/` and `tensorflow/`. A top-level folder named `tensorflow/` shadows the real `tensorflow` package on import (`import tensorflow as tf` would resolve to the local folder), so both are given the `_impl` treatment for symmetry.
+
+### Shared conventions (both frameworks)
+
+- **Mask convention:** boolean masks where `True` = "may attend", `False` = "blocked". Masks broadcast to attention scores of shape `(batch, heads, q_len, k_len)`.
+- **Special token ids:** `PAD=0, BOS=1, EOS=2, UNK=3`.
+- **Config:** one `TransformerConfig` dataclass per framework with identical fields and defaults (stdlib only), verified by `tests/test_config_parity.py`.
 
 ---
 
