@@ -60,6 +60,8 @@ Mirroring the folder structure across `torch_impl/` and `tf_impl/` is intentiona
 - **Mask convention:** boolean masks where `True` = "may attend", `False` = "blocked". Masks broadcast to attention scores of shape `(batch, heads, q_len, k_len)`.
 - **Special token ids:** `PAD=0, BOS=1, EOS=2, UNK=3`.
 - **Config:** one `TransformerConfig` dataclass per framework with identical fields and defaults (stdlib only), verified by `tests/test_config_parity.py`.
+- **Embeddings:** `TokenEmbedding` (scaled by `sqrt(d_model)`) and `PositionalEncoding` (fixed sinusoidal, precomputed up to `max_len`) live in each `model/embeddings.py`. Positional encoding has no learned parameters, so it's checked for exact cross-framework numerical parity in `tests/test_embeddings_parity.py` — attention (Day 6) is where parity gets harder, since it requires loading identical weights into both frameworks.
+- **Known framework gap:** PyTorch's `nn.Embedding(padding_idx=...)` zeroes the pad token's gradient automatically; Keras' `Embedding` has no built-in equivalent. The TF `TokenEmbedding` accepts `pad_idx` for interface symmetry but doesn't enforce this yet — documented in `tf_impl/model/embeddings.py` rather than silently diverging.
 
 ---
 

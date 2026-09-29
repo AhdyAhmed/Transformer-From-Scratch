@@ -34,23 +34,24 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
-├── tests/                 # framework-agnostic tests (config validation & parity)
+├── tests/                 # framework-agnostic tests (config parity, PE parity)
 ├── torch_impl/            # PyTorch implementation
 │   ├── config.py          # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/
-│   │   └── masking.py     # padding / look-ahead / decoder masks
-│   ├── data/              # tokenizer, dataset (later)
+│   │   ├── masking.py      # padding / look-ahead / decoder masks
+│   │   └── embeddings.py   # TokenEmbedding + sinusoidal PositionalEncoding
+│   ├── data/               # tokenizer, dataset (later)
 │   └── tests/
-├── tf_impl/               # TensorFlow implementation, mirrors torch_impl/
-├── notebooks/             # attention visualization, framework comparison
-└── assets/diagrams/       # architecture diagrams, attention heatmaps
+├── tf_impl/                # TensorFlow implementation, mirrors torch_impl/
+├── notebooks/               # attention visualization, framework comparison
+└── assets/diagrams/         # architecture diagrams, attention heatmaps
 ```
 
 ## Status / Progress
 
 - [x] Day 1 — Repo scaffolding & environment setup
 - [x] Day 2 — Config & masking utilities
-- [ ] Day 3 — Embeddings & positional encoding
+- [x] Day 3 — Embeddings & positional encoding
 - [ ] Day 4–7 — Attention mechanism (+ numerical parity check)
 - [ ] Day 8–13 — Encoder/decoder stacks & overfit test
 - [ ] Day 14–18 — Data pipeline & training setup
@@ -88,6 +89,8 @@ make test-torch        # == python -m pytest tests torch_impl
 # TensorFlow env
 make test-tf           # == python -m pytest tests tf_impl
 ```
+
+`tests/test_embeddings_parity.py` and `tests/test_config_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected.
 
 ## Conventions shared by both implementations
 
