@@ -34,12 +34,13 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
-├── tests/                 # framework-agnostic tests (config parity, PE parity)
+├── tests/                 # framework-agnostic tests (config, PE & attention parity)
 ├── torch_impl/            # PyTorch implementation
 │   ├── config.py          # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/
 │   │   ├── masking.py      # padding / look-ahead / decoder masks
-│   │   └── embeddings.py   # TokenEmbedding + sinusoidal PositionalEncoding
+│   │   ├── embeddings.py   # TokenEmbedding + sinusoidal PositionalEncoding
+│   │   └── attention.py    # scaled dot-product attention
 │   ├── data/               # tokenizer, dataset (later)
 │   └── tests/
 ├── tf_impl/                # TensorFlow implementation, mirrors torch_impl/
@@ -52,7 +53,8 @@ Transformer-From-Scratch/
 - [x] Day 1 — Repo scaffolding & environment setup
 - [x] Day 2 — Config & masking utilities
 - [x] Day 3 — Embeddings & positional encoding
-- [ ] Day 4–7 — Attention mechanism (+ numerical parity check)
+- [x] Day 4 — Scaled dot-product attention (+ numerical parity check)
+- [ ] Day 5–7 — Multi-head attention
 - [ ] Day 8–13 — Encoder/decoder stacks & overfit test
 - [ ] Day 14–18 — Data pipeline & training setup
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
@@ -90,7 +92,7 @@ make test-torch        # == python -m pytest tests torch_impl
 make test-tf           # == python -m pytest tests tf_impl
 ```
 
-`tests/test_embeddings_parity.py` and `tests/test_config_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected.
+`tests/test_config_parity.py`, `tests/test_embeddings_parity.py` and `tests/test_attention_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected. They compare raw Q/K/V math directly since attention (so far) has no learned weights — once multi-head attention adds projections (Day 5), true parity needs matching weights loaded into both frameworks.
 
 ## Conventions shared by both implementations
 
