@@ -34,19 +34,22 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
-├── tests/                 # framework-agnostic tests (config, PE & attention parity)
-├── torch_impl/            # PyTorch implementation
-│   ├── config.py          # TransformerConfig (identical to tf_impl/config.py)
+├── tests/                  # framework-agnostic tests
+│   ├── weight_sync.py       # copy weights from a torch module into its tf twin
+│   ├── test_mha_parity.py   # weight-matched MultiHeadAttention parity (Day 6)
+│   └── ...                  # config / embeddings / attention parity
+├── torch_impl/              # PyTorch implementation
+│   ├── config.py             # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/
 │   │   ├── masking.py               # padding / look-ahead / decoder masks
 │   │   ├── embeddings.py            # TokenEmbedding + sinusoidal PositionalEncoding
 │   │   ├── attention.py             # scaled dot-product attention
 │   │   └── multi_head_attention.py  # Q/K/V projections + head split/merge
-│   ├── data/               # tokenizer, dataset (later)
+│   ├── data/                 # tokenizer, dataset (later)
 │   └── tests/
-├── tf_impl/                # TensorFlow implementation, mirrors torch_impl/
-├── notebooks/               # attention visualization, framework comparison
-└── assets/diagrams/         # architecture diagrams, attention heatmaps
+├── tf_impl/                  # TensorFlow implementation, mirrors torch_impl/
+├── notebooks/                 # attention visualization, framework comparison
+└── assets/diagrams/            # architecture diagrams, attention heatmaps
 ```
 
 ## Status / Progress
@@ -56,7 +59,8 @@ Transformer-From-Scratch/
 - [x] Day 3 — Embeddings & positional encoding
 - [x] Day 4 — Scaled dot-product attention (+ numerical parity check)
 - [x] Day 5 — Multi-head attention
-- [ ] Day 6–7 — Weight-matched cross-framework parity check + buffer
+- [x] Day 6 — Weight-matched cross-framework parity check (MultiHeadAttention)
+- [ ] Day 7 — Buffer / bug-fix day
 - [ ] Day 8–13 — Encoder/decoder stacks & overfit test
 - [ ] Day 14–18 — Data pipeline & training setup
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
@@ -94,7 +98,9 @@ make test-torch        # == python -m pytest tests torch_impl
 make test-tf           # == python -m pytest tests tf_impl
 ```
 
-`tests/test_config_parity.py`, `tests/test_embeddings_parity.py` and `tests/test_attention_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected. They compare raw Q/K/V math directly, which works because those modules have no learned weights. `MultiHeadAttention` (Day 5) does have weights (the Q/K/V/output projections), so its cross-framework parity check (Day 6) needs the same weights loaded into both implementations before comparing outputs — that test hasn't been written yet.
+`tests/test_config_parity.py`, `tests/test_embeddings_parity.py`, `tests/test_attention_parity.py` and `tests/test_mha_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected.
+
+The first three compare raw math on identical inputs, since those modules have no learned weights. `tests/test_mha_parity.py` is different: `MultiHeadAttention` has real weights (the Q/K/V/output projections), so it uses `tests/weight_sync.py` to copy the *same* weights from the PyTorch layer into the TensorFlow one — accounting for PyTorch's `(out, in)` weight layout vs. Keras' `(in, out)` — before comparing outputs. It also includes a negative control that checks the two frameworks do **not** match without syncing, so the parity test can't trivially pass for the wrong reason.
 
 ## Conventions shared by both implementations
 
