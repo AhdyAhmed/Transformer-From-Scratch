@@ -34,22 +34,25 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
-├── tests/                  # framework-agnostic tests
-│   ├── weight_sync.py       # copy weights from a torch module into its tf twin
-│   ├── test_mha_parity.py   # weight-matched MultiHeadAttention parity (Day 6)
-│   └── ...                  # config / embeddings / attention parity
-├── torch_impl/              # PyTorch implementation
-│   ├── config.py             # TransformerConfig (identical to tf_impl/config.py)
+├── tests/                   # framework-agnostic tests
+│   ├── weight_sync.py         # copy weights from a torch module into its tf twin
+│   ├── test_mha_parity.py     # weight-matched MultiHeadAttention parity (Day 6)
+│   ├── test_ffn_residual_parity.py  # weight-matched FFN/LayerNorm parity (Day 8)
+│   └── ...                    # config / embeddings / attention parity
+├── torch_impl/                # PyTorch implementation
+│   ├── config.py                # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/
 │   │   ├── masking.py               # padding / look-ahead / decoder masks
 │   │   ├── embeddings.py            # TokenEmbedding + sinusoidal PositionalEncoding
 │   │   ├── attention.py             # scaled dot-product attention
-│   │   └── multi_head_attention.py  # Q/K/V projections + head split/merge
+│   │   ├── multi_head_attention.py  # Q/K/V projections + head split/merge
+│   │   ├── feed_forward.py          # position-wise FFN
+│   │   └── residual.py              # residual + LayerNorm wrapper (pre/post-norm)
 │   ├── data/                 # tokenizer, dataset (later)
 │   └── tests/
-├── tf_impl/                  # TensorFlow implementation, mirrors torch_impl/
-├── notebooks/                 # attention visualization, framework comparison
-└── assets/diagrams/            # architecture diagrams, attention heatmaps
+├── tf_impl/                    # TensorFlow implementation, mirrors torch_impl/
+├── notebooks/                   # attention visualization, framework comparison
+└── assets/diagrams/              # architecture diagrams, attention heatmaps
 ```
 
 ## Status / Progress
@@ -61,7 +64,8 @@ Transformer-From-Scratch/
 - [x] Day 5 — Multi-head attention
 - [x] Day 6 — Weight-matched cross-framework parity check (MultiHeadAttention)
 - [ ] Day 7 — Buffer / bug-fix day
-- [ ] Day 8–13 — Encoder/decoder stacks & overfit test
+- [x] Day 8 — Feed-forward network, residual connections & LayerNorm
+- [ ] Day 9–13 — Encoder/decoder stacks & overfit test
 - [ ] Day 14–18 — Data pipeline & training setup
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
@@ -98,9 +102,11 @@ make test-torch        # == python -m pytest tests torch_impl
 make test-tf           # == python -m pytest tests tf_impl
 ```
 
-`tests/test_config_parity.py`, `tests/test_embeddings_parity.py`, `tests/test_attention_parity.py` and `tests/test_mha_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected.
+`tests/test_config_parity.py`, `tests/test_embeddings_parity.py`, `tests/test_attention_parity.py`, `tests/test_mha_parity.py` and `tests/test_ffn_residual_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected.
 
-The first three compare raw math on identical inputs, since those modules have no learned weights. `tests/test_mha_parity.py` is different: `MultiHeadAttention` has real weights (the Q/K/V/output projections), so it uses `tests/weight_sync.py` to copy the *same* weights from the PyTorch layer into the TensorFlow one — accounting for PyTorch's `(out, in)` weight layout vs. Keras' `(in, out)` — before comparing outputs. It also includes a negative control that checks the two frameworks do **not** match without syncing, so the parity test can't trivially pass for the wrong reason.
+The parameter-free ones (config, positional encoding, raw attention) compare math directly on identical inputs. The weight-bearing ones (`MultiHeadAttention`, `PositionwiseFeedForward`, `ResidualConnection`'s LayerNorm) use `tests/weight_sync.py` to copy the *same* weights from the PyTorch module into its TensorFlow twin first — accounting for PyTorch's `(out, in)` Linear layout vs. Keras' `(in, out)` Dense layout — before comparing outputs. `test_mha_parity.py` additionally includes a negative control confirming the two frameworks genuinely diverge *without* syncing, so parity can't trivially pass for the wrong reason.
+
+LayerNorm's epsilon is pinned to `1e-6` explicitly on both sides — PyTorch's `nn.LayerNorm` default is `1e-5` and Keras' `LayerNormalization` default is `1e-3`, and leaving either at its default would have silently broken this parity check.
 
 ## Conventions shared by both implementations
 

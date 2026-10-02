@@ -42,3 +42,28 @@ def copy_multi_head_attention(torch_mha, tf_mha) -> None:
     copy_linear_to_dense(torch_mha.w_k, tf_mha.w_k)
     copy_linear_to_dense(torch_mha.w_v, tf_mha.w_v)
     copy_linear_to_dense(torch_mha.w_o, tf_mha.w_o)
+
+
+def copy_feed_forward(torch_ffn, tf_ffn) -> None:
+    """Copy both linear layers of a PyTorch ``PositionwiseFeedForward`` into
+    an already-built TensorFlow one."""
+    copy_linear_to_dense(torch_ffn.linear1, tf_ffn.linear1)
+    copy_linear_to_dense(torch_ffn.linear2, tf_ffn.linear2)
+
+
+def copy_layer_norm(torch_ln: torch.nn.LayerNorm, tf_ln: tf.keras.layers.LayerNormalization) -> None:
+    """Copy an ``nn.LayerNorm``'s gamma/beta into an already-built Keras
+    ``LayerNormalization``. Both store gamma (scale) and beta (shift) as a
+    plain ``(d_model,)`` vector each, so no transpose is needed here —
+    unlike the Linear/Dense weight matrices."""
+    gamma = torch_ln.weight.detach().cpu().numpy()
+    beta = torch_ln.bias.detach().cpu().numpy()
+    tf_ln.gamma.assign(gamma)
+    tf_ln.beta.assign(beta)
+
+
+def copy_residual_connection(torch_res, tf_res) -> None:
+    """Copy a PyTorch ``ResidualConnection``'s LayerNorm into an
+    already-built TensorFlow one. The residual add/dropout logic has no
+    weights of its own — only the wrapped LayerNorm does."""
+    copy_layer_norm(torch_res.norm, tf_res.norm)
