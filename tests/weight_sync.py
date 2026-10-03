@@ -67,3 +67,13 @@ def copy_residual_connection(torch_res, tf_res) -> None:
     already-built TensorFlow one. The residual add/dropout logic has no
     weights of its own — only the wrapped LayerNorm does."""
     copy_layer_norm(torch_res.norm, tf_res.norm)
+
+
+def copy_encoder_layer(torch_layer, tf_layer) -> None:
+    """Copy every weight of a PyTorch ``EncoderLayer`` (self-attention,
+    feed-forward, and both residual blocks' LayerNorms) into an
+    already-built TensorFlow one with the same architecture."""
+    copy_multi_head_attention(torch_layer.self_attn, tf_layer.self_attn)
+    copy_feed_forward(torch_layer.feed_forward, tf_layer.feed_forward)
+    copy_residual_connection(torch_layer.self_attn_block, tf_layer.self_attn_block)
+    copy_residual_connection(torch_layer.feed_forward_block, tf_layer.feed_forward_block)
