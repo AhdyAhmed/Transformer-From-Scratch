@@ -34,15 +34,16 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
-├── tests/                       # framework-agnostic tests
-│   ├── weight_sync.py             # copy weights from a torch module into its tf twin
-│   ├── test_mha_parity.py         # weight-matched MultiHeadAttention parity (Day 6)
-│   ├── test_ffn_residual_parity.py    # weight-matched FFN/LayerNorm parity (Day 8)
-│   ├── test_encoder_parity.py     # weight-matched EncoderLayer parity (Day 9)
-│   ├── test_encoder_stack_parity.py   # weight-matched full Encoder parity (Day 10)
-│   └── ...                        # config / embeddings / attention parity
-├── torch_impl/                    # PyTorch implementation
-│   ├── config.py                    # TransformerConfig (identical to tf_impl/config.py)
+├── tests/                         # framework-agnostic tests
+│   ├── weight_sync.py               # copy weights from a torch module into its tf twin
+│   ├── test_mha_parity.py           # weight-matched MultiHeadAttention parity (Day 6)
+│   ├── test_ffn_residual_parity.py      # weight-matched FFN/LayerNorm parity (Day 8)
+│   ├── test_encoder_parity.py       # weight-matched EncoderLayer parity (Day 9)
+│   ├── test_encoder_stack_parity.py     # weight-matched full Encoder parity (Day 10)
+│   ├── test_decoder_parity.py       # weight-matched DecoderLayer parity (Day 11)
+│   └── ...                          # config / embeddings / attention parity
+├── torch_impl/                      # PyTorch implementation
+│   ├── config.py                      # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/
 │   │   ├── masking.py               # padding / look-ahead / decoder masks
 │   │   ├── embeddings.py            # TokenEmbedding + sinusoidal PositionalEncoding
@@ -51,12 +52,13 @@ Transformer-From-Scratch/
 │   │   ├── feed_forward.py          # position-wise FFN
 │   │   ├── residual.py              # residual + LayerNorm wrapper (pre/post-norm)
 │   │   ├── encoder.py               # EncoderLayer: self-attn + FFN sublayers
-│   │   └── encoder_stack.py         # Encoder: N EncoderLayers + final norm
-│   ├── data/                     # tokenizer, dataset (later)
+│   │   ├── encoder_stack.py         # Encoder: N EncoderLayers + final norm
+│   │   └── decoder.py               # DecoderLayer: masked self-attn + cross-attn + FFN
+│   ├── data/                       # tokenizer, dataset (later)
 │   └── tests/
-├── tf_impl/                        # TensorFlow implementation, mirrors torch_impl/
-├── notebooks/                        # attention visualization, framework comparison
-└── assets/diagrams/                   # architecture diagrams, attention heatmaps
+├── tf_impl/                          # TensorFlow implementation, mirrors torch_impl/
+├── notebooks/                          # attention visualization, framework comparison
+└── assets/diagrams/                     # architecture diagrams, attention heatmaps
 ```
 
 ## Status / Progress
@@ -71,7 +73,8 @@ Transformer-From-Scratch/
 - [x] Day 8 — Feed-forward network, residual connections & LayerNorm
 - [x] Day 9 — Encoder layer
 - [x] Day 10 — Encoder stack
-- [ ] Day 11–13 — Decoder layer/stack, full assembly & overfit test
+- [x] Day 11 — Decoder layer
+- [ ] Day 12–13 — Decoder stack, full assembly & overfit test
 - [ ] Day 14–18 — Data pipeline & training setup
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
@@ -117,6 +120,8 @@ LayerNorm's epsilon is pinned to `1e-6` explicitly on both sides — PyTorch's `
 `torch_impl/tests/test_encoder.py` and `tf_impl/tests/test_encoder.py` also each check a structural property, not just shapes: perturbing *only* the padded positions of the input must leave the encoder's output at the real positions unchanged. That's an easy property to silently break (e.g. a mask applied to the wrong axis) and a cheap, high-value thing to test for.
 
 `test_encoder_stack.py` (Day 10) checks that property *survives stacking* N layers deep, and adds two more stack-specific checks: the N layers must have genuinely independent weights (not six references to one set — that would silently collapse the stack's capacity to a single layer), and a deeper stack must actually produce a different output than a shallow one on the same input.
+
+`test_decoder.py` (Day 11) checks three analogous invariants for the decoder layer: the causal mask blocks future target positions (perturbing position 4 must not change the output at position 1), the cross-attention memory mask blocks padded *source* positions, and — the easy-to-get-wrong direction — changing *non-padded* encoder memory actually does change the decoder's output, proving cross-attention isn't accidentally a no-op.
 
 ## Conventions shared by both implementations
 

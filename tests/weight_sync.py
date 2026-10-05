@@ -79,6 +79,19 @@ def copy_encoder_layer(torch_layer, tf_layer) -> None:
     copy_residual_connection(torch_layer.feed_forward_block, tf_layer.feed_forward_block)
 
 
+def copy_decoder_layer(torch_layer, tf_layer) -> None:
+    """Copy every weight of a PyTorch ``DecoderLayer`` (self-attention,
+    cross-attention, feed-forward, and all three residual blocks'
+    LayerNorms) into an already-built TensorFlow one with the same
+    architecture."""
+    copy_multi_head_attention(torch_layer.self_attn, tf_layer.self_attn)
+    copy_multi_head_attention(torch_layer.cross_attn, tf_layer.cross_attn)
+    copy_feed_forward(torch_layer.feed_forward, tf_layer.feed_forward)
+    copy_residual_connection(torch_layer.self_attn_block, tf_layer.self_attn_block)
+    copy_residual_connection(torch_layer.cross_attn_block, tf_layer.cross_attn_block)
+    copy_residual_connection(torch_layer.feed_forward_block, tf_layer.feed_forward_block)
+
+
 def copy_encoder_stack(torch_encoder, tf_encoder) -> None:
     """Copy every layer of a PyTorch ``Encoder`` (Day 10) into an
     already-built TensorFlow one with the same number of layers, plus the
