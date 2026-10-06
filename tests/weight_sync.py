@@ -99,3 +99,41 @@ def copy_encoder_stack(torch_encoder, tf_encoder) -> None:
     for torch_layer, tf_layer in zip(torch_encoder.layers, tf_encoder.enc_layers):
         copy_encoder_layer(torch_layer, tf_layer)
     copy_layer_norm(torch_encoder.final_norm, tf_encoder.final_norm)
+
+
+def copy_decoder_stack(torch_decoder, tf_decoder) -> None:
+    """Copy every layer of a PyTorch ``Decoder`` (Day 12) into an
+    already-built TensorFlow one with the same number of layers, plus the
+    stack's own final LayerNorm."""
+    for torch_layer, tf_layer in zip(torch_decoder.layers, tf_decoder.dec_layers):
+        copy_decoder_layer(torch_layer, tf_layer)
+    copy_layer_norm(torch_decoder.final_norm, tf_decoder.final_norm)
+
+
+def copy_token_embedding(torch_emb, tf_emb) -> None:
+    """Copy a PyTorch ``TokenEmbedding``'s weight into an already-built
+    TensorFlow one. Both store the table as ``(vocab_size, d_model)`` —
+    unlike Linear/Dense, there's no transpose here."""
+    weight = torch_emb.embedding.weight.detach().cpu().numpy()
+    tf_emb.embedding.embeddings.assign(weight)
+
+
+def copy_transformer_embedding(torch_te, tf_te) -> None:
+    """Copy a PyTorch ``TransformerEmbedding``'s token-embedding table into
+    an already-built TensorFlow one. Positional encoding needs no syncing —
+    it's a fixed, parameter-free function of position (Day 3's parity test
+    already covers it directly)."""
+    copy_token_embedding(torch_te.token_embedding, tf_te.token_embedding)
+
+
+def copy_transformer(torch_model, tf_model) -> None:
+    """Copy every weight of a PyTorch ``Transformer`` (Day 12) into an
+    already-built TensorFlow one with the same architecture: both
+    embeddings (or just one, if ``share_embeddings``), the encoder stack,
+    the decoder stack, and the output projection."""
+    copy_transformer_embedding(torch_model.src_embed, tf_model.src_embed)
+    if torch_model.tgt_embed is not torch_model.src_embed:
+        copy_transformer_embedding(torch_model.tgt_embed, tf_model.tgt_embed)
+    copy_encoder_stack(torch_model.encoder, tf_model.encoder)
+    copy_decoder_stack(torch_model.decoder, tf_model.decoder)
+    copy_linear_to_dense(torch_model.output_projection, tf_model.output_projection)

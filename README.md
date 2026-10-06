@@ -34,16 +34,17 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
-├── tests/                         # framework-agnostic tests
-│   ├── weight_sync.py               # copy weights from a torch module into its tf twin
-│   ├── test_mha_parity.py           # weight-matched MultiHeadAttention parity (Day 6)
-│   ├── test_ffn_residual_parity.py      # weight-matched FFN/LayerNorm parity (Day 8)
-│   ├── test_encoder_parity.py       # weight-matched EncoderLayer parity (Day 9)
-│   ├── test_encoder_stack_parity.py     # weight-matched full Encoder parity (Day 10)
-│   ├── test_decoder_parity.py       # weight-matched DecoderLayer parity (Day 11)
-│   └── ...                          # config / embeddings / attention parity
-├── torch_impl/                      # PyTorch implementation
-│   ├── config.py                      # TransformerConfig (identical to tf_impl/config.py)
+├── tests/                             # framework-agnostic tests
+│   ├── weight_sync.py                   # copy weights from a torch module into its tf twin
+│   ├── test_mha_parity.py               # weight-matched MultiHeadAttention parity (Day 6)
+│   ├── test_ffn_residual_parity.py          # weight-matched FFN/LayerNorm parity (Day 8)
+│   ├── test_encoder_parity.py           # weight-matched EncoderLayer parity (Day 9)
+│   ├── test_encoder_stack_parity.py         # weight-matched full Encoder parity (Day 10)
+│   ├── test_decoder_parity.py           # weight-matched DecoderLayer parity (Day 11)
+│   ├── test_transformer_parity.py       # weight-matched FULL MODEL parity (Day 12)
+│   └── ...                              # config / embeddings / attention parity
+├── torch_impl/                          # PyTorch implementation
+│   ├── config.py                          # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/
 │   │   ├── masking.py               # padding / look-ahead / decoder masks
 │   │   ├── embeddings.py            # TokenEmbedding + sinusoidal PositionalEncoding
@@ -53,12 +54,14 @@ Transformer-From-Scratch/
 │   │   ├── residual.py              # residual + LayerNorm wrapper (pre/post-norm)
 │   │   ├── encoder.py               # EncoderLayer: self-attn + FFN sublayers
 │   │   ├── encoder_stack.py         # Encoder: N EncoderLayers + final norm
-│   │   └── decoder.py               # DecoderLayer: masked self-attn + cross-attn + FFN
-│   ├── data/                       # tokenizer, dataset (later)
+│   │   ├── decoder.py               # DecoderLayer: masked self-attn + cross-attn + FFN
+│   │   ├── decoder_stack.py         # Decoder: N DecoderLayers + final norm
+│   │   └── transformer.py           # Transformer: full encoder-decoder model
+│   ├── data/                           # tokenizer, dataset (later)
 │   └── tests/
-├── tf_impl/                          # TensorFlow implementation, mirrors torch_impl/
-├── notebooks/                          # attention visualization, framework comparison
-└── assets/diagrams/                     # architecture diagrams, attention heatmaps
+├── tf_impl/                              # TensorFlow implementation, mirrors torch_impl/
+├── notebooks/                              # attention visualization, framework comparison
+└── assets/diagrams/                         # architecture diagrams, attention heatmaps
 ```
 
 ## Status / Progress
@@ -74,7 +77,8 @@ Transformer-From-Scratch/
 - [x] Day 9 — Encoder layer
 - [x] Day 10 — Encoder stack
 - [x] Day 11 — Decoder layer
-- [ ] Day 12–13 — Decoder stack, full assembly & overfit test
+- [x] Day 12 — Decoder stack + full Transformer model assembly
+- [ ] Day 13 — Overfit test (tiny-data sanity check)
 - [ ] Day 14–18 — Data pipeline & training setup
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
@@ -122,6 +126,8 @@ LayerNorm's epsilon is pinned to `1e-6` explicitly on both sides — PyTorch's `
 `test_encoder_stack.py` (Day 10) checks that property *survives stacking* N layers deep, and adds two more stack-specific checks: the N layers must have genuinely independent weights (not six references to one set — that would silently collapse the stack's capacity to a single layer), and a deeper stack must actually produce a different output than a shallow one on the same input.
 
 `test_decoder.py` (Day 11) checks three analogous invariants for the decoder layer: the causal mask blocks future target positions (perturbing position 4 must not change the output at position 1), the cross-attention memory mask blocks padded *source* positions, and — the easy-to-get-wrong direction — changing *non-padded* encoder memory actually does change the decoder's output, proving cross-attention isn't accidentally a no-op.
+
+**Day 12 is the full model.** `test_transformer.py` checks the assembled model end-to-end: output logit shapes, `create_masks()` matches the raw masking function, `encode()`+`decode()`+output projection called manually matches calling the model directly, `from_config()` builds the right shapes, and `share_embeddings=True` genuinely reuses one module/layer (checked with `is`, not just equal values) while rejecting mismatched vocab sizes. One regression test exists specifically because of a bug this build caught itself: the PyTorch model's Xavier-init pass touches every >1-D parameter, which would silently re-randomize the token embedding's zeroed pad row (Day 3) the moment the full model is assembled — `_init_parameters()` now explicitly re-zeros it afterward, and a test locks that in. `test_transformer_parity.py` is the capstone: every weight across both embeddings, every encoder/decoder layer, and the output projection is synced, and the two frameworks must then produce identical logits — with no masks, with real padding+causal masks, and with `share_embeddings=True`.
 
 ## Conventions shared by both implementations
 
