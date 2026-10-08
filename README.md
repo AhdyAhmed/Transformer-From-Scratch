@@ -34,11 +34,16 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
-├── data/                                # shared, framework-agnostic (see design.md, Day 14)
+├── data/                                # shared, framework-agnostic (see design.md, Days 14-15)
 │   ├── bpe_tokenizer.py                   # from-scratch BPE tokenizer
-│   └── build_vocab.py                     # CLI: train + save one shared vocab file
+│   ├── build_vocab.py                     # CLI: train + save one shared vocab file
+│   ├── parallel_data.py                   # read pairs, encode, pad, teacher-force, seeded batching
+│   ├── download_multi30k.py               # fetch the real dataset (git-ignored once downloaded)
+│   └── sample/                            # tiny hand-written EN/DE corpus to run everything now
 ├── tests/                             # framework-agnostic tests
-│   ├── test_bpe_tokenizer.py            # Day 14 — pure stdlib, actually runs here
+│   ├── test_bpe_tokenizer.py            # Day 14 — pure stdlib
+│   ├── test_parallel_data.py            # Day 15 — pure stdlib
+│   ├── test_data_loader_parity.py       # Day 15 — both loaders yield identical batches
 │   ├── weight_sync.py                   # copy weights from a torch module into its tf twin
 │   ├── test_mha_parity.py               # weight-matched MultiHeadAttention parity (Day 6)
 │   ├── test_ffn_residual_parity.py          # weight-matched FFN/LayerNorm parity (Day 8)
@@ -50,7 +55,7 @@ Transformer-From-Scratch/
 ├── torch_impl/                          # PyTorch implementation
 │   ├── config.py                          # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/                              # masking, embeddings, attention, encoder, decoder, transformer
-│   ├── data/                               # (Day 15) Dataset/DataLoader wrapping data/bpe_tokenizer.py
+│   ├── data/dataset.py                     # TorchBatchLoader: shared batches -> torch.long tensors
 │   └── tests/
 │       └── test_overfit.py                   # Day 13: trains on a tiny copy task, slow-marked
 ├── tf_impl/                              # TensorFlow implementation, mirrors torch_impl/
@@ -74,7 +79,8 @@ Transformer-From-Scratch/
 - [x] Day 12 — Decoder stack + full Transformer model assembly
 - [x] Day 13 — Overfit test (tiny-data sanity check)
 - [x] Day 14 — Shared BPE tokenizer & vocabulary
-- [ ] Day 15–18 — Dataset/batching, LR schedule, label smoothing, training loops
+- [x] Day 15 — Dataset, padding & batching (shared pipeline + per-framework loaders)
+- [ ] Day 16–18 — LR schedule, label smoothing, training loops
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
@@ -110,6 +116,9 @@ make test-torch-fast   # == python -m pytest tests torch_impl -m "not slow"
 # TensorFlow env
 make test-tf            # everything, including the Day 13 overfit test
 make test-tf-fast       # == python -m pytest tests tf_impl -m "not slow"
+
+# No framework needed (tokenizer + data pipeline)
+make test-data
 ```
 
 `tests/test_config_parity.py`, `tests/test_embeddings_parity.py`, `tests/test_attention_parity.py`, `tests/test_mha_parity.py`, `tests/test_ffn_residual_parity.py` and `tests/test_encoder_parity.py` only run if *both* frameworks are importable in the active environment; otherwise pytest reports them as skipped, which is expected.
@@ -129,6 +138,23 @@ LayerNorm's epsilon is pinned to `1e-6` explicitly on both sides — PyTorch's `
 **Day 13 is the first test that actually trains anything.** `test_overfit.py` (in each framework's own `tests/`, not the shared `tests/`, since it needs a real optimizer) builds a tiny Transformer and trains it with Adam for ~600 full-batch steps on 12 fixed sequences from a trivial copy task (no tokenizer or dataset needed yet — that's Day 14-15). It asserts the loss starts near `ln(vocab_size)` (confirming nothing is already broken at initialization), drops by at least 5x, and the model reaches >90% token accuracy on the memorized sequences. This is the first test that would actually catch a subtly-broken gradient anywhere in the 12-day chain of composed modules — everything before it checked shapes, masks, and cross-framework numerics, but never "can this thing learn anything at all". It's marked `slow` and run by `make test-torch`/`make test-tf`; use the `-fast` targets to skip it during quick iteration.
 
 **Day 14's tokenizer tests are the first ones with zero framework dependency.** `data/bpe_tokenizer.py` and `tests/test_bpe_tokenizer.py` are pure stdlib (same as `config.py`) — `python -m pytest tests/test_bpe_tokenizer.py` runs with no torch or tensorflow installed at all, in either virtualenv or a bare Python install. It checks the BPE algorithm against a hand-computable case (`'aaab'` must merge `('a','a')` first — more mergeable pairs than any other adjacent pair), training determinism (train twice on the same corpus, get byte-identical vocab and merges — what lets both frameworks' Day-15 data loaders train independently and still agree), encode/decode roundtripping, and that the tokenizer's special-token ids line up exactly with `config.py`'s `PAD_IDX`/`BOS_IDX`/`EOS_IDX`/`UNK_IDX`.
+
+**Day 15 keeps the data pipeline shared too.** `tests/test_parallel_data.py` is also pure stdlib. It checks that misaligned parallel files are rejected (including a U+2028 character that `str.splitlines()` would silently split on), that every sentence is wrapped in BOS/EOS and truncation never loses the EOS, the teacher-forcing shift (decoder input = target minus its last position, labels = target minus BOS, exactly one EOS label per sentence and only padding after it), and that batch order is a pure function of `(seed, epoch)`. `torch_impl/tests/test_dataset.py` and `tf_impl/tests/test_dataset.py` then check the tensors match the shared batches value-for-value, that batch shapes line up with Day 2's masks (padded source positions blocked, no position sees a later one), and that a real batch flows through the full model to a finite, ignore-pad loss. `tests/test_data_loader_parity.py` asserts the two loaders yield identical batches across epochs.
+
+### Data quick start
+
+```bash
+# 1. Try it now on the bundled 24-pair sample (joint EN+DE vocab)
+python -m data.build_vocab --files data/sample/train.en data/sample/train.de \
+    --vocab-size 300 --out data/sample/tokenizer.json
+
+# 2. Or fetch the real Multi30k and build a bigger vocab (download URL unverified, see script docstring)
+python -m data.download_multi30k
+python -m data.build_vocab --files data/multi30k/train.en data/multi30k/train.de \
+    --vocab-size 8000 --out data/multi30k/tokenizer.json
+```
+
+The vocab is **joint** (English and German together), so both sides share ids and `share_embeddings=True` is available; set `src_vocab_size`/`tgt_vocab_size` in the config to `tokenizer.vocab_size`.
 
 ## Conventions shared by both implementations
 

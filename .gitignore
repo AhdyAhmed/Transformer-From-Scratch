@@ -16,6 +16,7 @@ env/
 # Data & checkpoints (keep the repo light — document how to fetch data instead)
 data/raw/
 data/processed/
+data/multi30k/
 checkpoints/
 *.pt
 *.pth

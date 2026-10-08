@@ -1,4 +1,4 @@
-.PHONY: test-torch test-tf test-torch-fast test-tf-fast
+.PHONY: test-torch test-tf test-torch-fast test-tf-fast test-data
 
 # Run inside the matching virtualenv (see README "Setup").
 test-torch:
@@ -13,3 +13,7 @@ test-torch-fast:
 
 test-tf-fast:
 	python -m pytest tests tf_impl -m "not slow"
+
+# Framework-free tests (tokenizer + data pipeline): need neither torch nor tensorflow.
+test-data:
+	python -m pytest tests/test_bpe_tokenizer.py tests/test_parallel_data.py
