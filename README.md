@@ -34,7 +34,11 @@ Transformer-From-Scratch/
 ├── requirements-torch.txt
 ├── requirements-tf.txt
 ├── pytest.ini / Makefile
+├── data/                                # shared, framework-agnostic (see design.md, Day 14)
+│   ├── bpe_tokenizer.py                   # from-scratch BPE tokenizer
+│   └── build_vocab.py                     # CLI: train + save one shared vocab file
 ├── tests/                             # framework-agnostic tests
+│   ├── test_bpe_tokenizer.py            # Day 14 — pure stdlib, actually runs here
 │   ├── weight_sync.py                   # copy weights from a torch module into its tf twin
 │   ├── test_mha_parity.py               # weight-matched MultiHeadAttention parity (Day 6)
 │   ├── test_ffn_residual_parity.py          # weight-matched FFN/LayerNorm parity (Day 8)
@@ -45,21 +49,10 @@ Transformer-From-Scratch/
 │   └── ...                              # config / embeddings / attention parity
 ├── torch_impl/                          # PyTorch implementation
 │   ├── config.py                          # TransformerConfig (identical to tf_impl/config.py)
-│   ├── model/
-│   │   ├── masking.py               # padding / look-ahead / decoder masks
-│   │   ├── embeddings.py            # TokenEmbedding + sinusoidal PositionalEncoding
-│   │   ├── attention.py             # scaled dot-product attention
-│   │   ├── multi_head_attention.py  # Q/K/V projections + head split/merge
-│   │   ├── feed_forward.py          # position-wise FFN
-│   │   ├── residual.py              # residual + LayerNorm wrapper (pre/post-norm)
-│   │   ├── encoder.py               # EncoderLayer: self-attn + FFN sublayers
-│   │   ├── encoder_stack.py         # Encoder: N EncoderLayers + final norm
-│   │   ├── decoder.py               # DecoderLayer: masked self-attn + cross-attn + FFN
-│   │   ├── decoder_stack.py         # Decoder: N DecoderLayers + final norm
-│   │   └── transformer.py           # Transformer: full encoder-decoder model
-│   ├── data/                           # tokenizer, dataset (later)
+│   ├── model/                              # masking, embeddings, attention, encoder, decoder, transformer
+│   ├── data/                               # (Day 15) Dataset/DataLoader wrapping data/bpe_tokenizer.py
 │   └── tests/
-│       └── test_overfit.py              # Day 13: trains on a tiny copy task, slow-marked
+│       └── test_overfit.py                   # Day 13: trains on a tiny copy task, slow-marked
 ├── tf_impl/                              # TensorFlow implementation, mirrors torch_impl/
 ├── notebooks/                              # attention visualization, framework comparison
 └── assets/diagrams/                         # architecture diagrams, attention heatmaps
@@ -80,7 +73,8 @@ Transformer-From-Scratch/
 - [x] Day 11 — Decoder layer
 - [x] Day 12 — Decoder stack + full Transformer model assembly
 - [x] Day 13 — Overfit test (tiny-data sanity check)
-- [ ] Day 14–18 — Data pipeline & training setup
+- [x] Day 14 — Shared BPE tokenizer & vocabulary
+- [ ] Day 15–18 — Dataset/batching, LR schedule, label smoothing, training loops
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
@@ -133,6 +127,8 @@ LayerNorm's epsilon is pinned to `1e-6` explicitly on both sides — PyTorch's `
 **Day 12 is the full model (forward pass only — no training loop exists yet).** `test_transformer.py` checks the assembled model end-to-end: output logit shapes, `create_masks()` matches the raw masking function, `encode()`+`decode()`+output projection called manually matches calling the model directly, `from_config()` builds the right shapes, and `share_embeddings=True` genuinely reuses one module/layer (checked with `is`, not just equal values) while rejecting mismatched vocab sizes. One regression test exists specifically because of a bug this build caught itself: the PyTorch model's Xavier-init pass touches every >1-D parameter, which would silently re-randomize the token embedding's zeroed pad row (Day 3) the moment the full model is assembled — `_init_parameters()` now explicitly re-zeros it afterward, and a test locks that in. `test_transformer_parity.py` is the capstone: every weight across both embeddings, every encoder/decoder layer, and the output projection is synced, and the two frameworks must then produce identical logits — with no masks, with real padding+causal masks, and with `share_embeddings=True`.
 
 **Day 13 is the first test that actually trains anything.** `test_overfit.py` (in each framework's own `tests/`, not the shared `tests/`, since it needs a real optimizer) builds a tiny Transformer and trains it with Adam for ~600 full-batch steps on 12 fixed sequences from a trivial copy task (no tokenizer or dataset needed yet — that's Day 14-15). It asserts the loss starts near `ln(vocab_size)` (confirming nothing is already broken at initialization), drops by at least 5x, and the model reaches >90% token accuracy on the memorized sequences. This is the first test that would actually catch a subtly-broken gradient anywhere in the 12-day chain of composed modules — everything before it checked shapes, masks, and cross-framework numerics, but never "can this thing learn anything at all". It's marked `slow` and run by `make test-torch`/`make test-tf`; use the `-fast` targets to skip it during quick iteration.
+
+**Day 14's tokenizer tests are the first ones with zero framework dependency.** `data/bpe_tokenizer.py` and `tests/test_bpe_tokenizer.py` are pure stdlib (same as `config.py`) — `python -m pytest tests/test_bpe_tokenizer.py` runs with no torch or tensorflow installed at all, in either virtualenv or a bare Python install. It checks the BPE algorithm against a hand-computable case (`'aaab'` must merge `('a','a')` first — more mergeable pairs than any other adjacent pair), training determinism (train twice on the same corpus, get byte-identical vocab and merges — what lets both frameworks' Day-15 data loaders train independently and still agree), encode/decode roundtripping, and that the tokenizer's special-token ids line up exactly with `config.py`'s `PAD_IDX`/`BOS_IDX`/`EOS_IDX`/`UNK_IDX`.
 
 ## Conventions shared by both implementations
 
