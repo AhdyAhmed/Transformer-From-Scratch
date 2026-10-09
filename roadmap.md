@@ -80,8 +80,10 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - Verify batch shapes match masking utilities from Day 2.
 
 **Day 16 — Learning rate schedule + label smoothing**
-- Implement paper's warmup + inverse-sqrt decay schedule — both frameworks.
-- Implement label smoothing loss — both frameworks.
+- [x] Implement paper's warmup + inverse-sqrt decay schedule — both frameworks.
+- [x] Implement label smoothing loss with padding ignored and token-normalized mean — both frameworks.
+- [x] Add tests for formula, warmup peak/decay, padding behavior, reductions, and gradients.
+- [x] Document usage and framework step-index conventions.
 
 **Day 17 — Training loop (PyTorch)**
 - Manual training loop with logging (loss, LR, tokens/sec).

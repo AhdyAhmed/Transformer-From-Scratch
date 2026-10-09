@@ -13,8 +13,6 @@ every ``DecoderLayer`` needs for cross-attention. Mirrors
 
 from __future__ import annotations
 
-import copy
-
 import torch
 import torch.nn as nn
 
@@ -24,9 +22,9 @@ from torch_impl.model.decoder import DecoderLayer
 class Decoder(nn.Module):
     """A stack of ``num_layers`` independent ``DecoderLayer``s + final LayerNorm.
 
-    Each layer gets its own freshly-initialized weights (``copy.deepcopy``),
-    for the same reason as the encoder stack (Day 10): sharing one layer's
-    weights across all positions would collapse the stack's depth.
+    Each layer is constructed independently so it receives a fresh random
+    initialization; copying one initialized layer would produce identical initial
+    values even when the parameters do not share storage.
     """
 
     def __init__(
@@ -39,8 +37,10 @@ class Decoder(nn.Module):
         norm_first: bool = False,
     ) -> None:
         super().__init__()
-        layer = DecoderLayer(d_model, num_heads, d_ff, dropout, norm_first)
-        self.layers = nn.ModuleList([copy.deepcopy(layer) for _ in range(num_layers)])
+        self.layers = nn.ModuleList([
+            DecoderLayer(d_model, num_heads, d_ff, dropout, norm_first)
+            for _ in range(num_layers)
+        ])
         self.final_norm = nn.LayerNorm(d_model, eps=1e-6)
 
     def forward(

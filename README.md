@@ -56,9 +56,10 @@ Transformer-From-Scratch/
 │   ├── config.py                          # TransformerConfig (identical to tf_impl/config.py)
 │   ├── model/                              # masking, embeddings, attention, encoder, decoder, transformer
 │   ├── data/dataset.py                     # TorchBatchLoader: shared batches -> torch.long tensors
-│   └── tests/
-│       └── test_overfit.py                   # Day 13: trains on a tiny copy task, slow-marked
+│   ├── training/                            # NoamSchedule + padding-aware LabelSmoothingLoss (Day 16)
+│   └── tests/                               # component, parity, dataset, and training utility tests
 ├── tf_impl/                              # TensorFlow implementation, mirrors torch_impl/
+│   └── training/                            # Keras NoamSchedule + padding-aware label smoothing
 ├── notebooks/                              # attention visualization, framework comparison
 └── assets/diagrams/                         # architecture diagrams, attention heatmaps
 ```
@@ -80,12 +81,46 @@ Transformer-From-Scratch/
 - [x] Day 13 — Overfit test (tiny-data sanity check)
 - [x] Day 14 — Shared BPE tokenizer & vocabulary
 - [x] Day 15 — Dataset, padding & batching (shared pipeline + per-framework loaders)
-- [ ] Day 16–18 — LR schedule, label smoothing, training loops
+- [x] Day 16 — Noam LR schedule + padding-aware label smoothing (PyTorch & TensorFlow)
+- [ ] Day 17 — PyTorch training loop and checkpointing
+- [ ] Day 18 — TensorFlow training loop and checkpointing
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
 
 Full detail on each phase lives in [`roadmap.md`](roadmap.md).
+
+
+### Day 16 — learning-rate schedule and label smoothing
+
+Both frameworks now include the original Transformer warmup/inverse-square-root learning-rate schedule and label-smoothed token loss. The schedule follows
+
+\[\mathrm{lr}(s)=d_{\mathrm{model}}^{-1/2}\min(s^{-1/2},s\cdot\mathrm{warmup}^{-3/2})\]
+
+with a one-based public step in PyTorch; the Keras schedule translates its zero-based optimizer iteration to the same effective step. The loss ignores target positions equal to `pad_idx` and normalizes `mean` reduction by the number of non-padding target tokens, not by padded sequence length. It supports `none`, `sum`, and `mean` reductions, and an all-padding batch safely returns a differentiable zero.
+
+```python
+# PyTorch
+from torch_impl.training.lr_schedule import NoamSchedule
+from torch_impl.training.losses import LabelSmoothingLoss
+
+schedule = NoamSchedule(d_model=config.d_model, warmup_steps=config.warmup_steps)
+loss_fn = LabelSmoothingLoss(config.label_smoothing, pad_idx=config.pad_idx)
+# Each optimizer update: schedule.apply(optimizer, global_step)
+loss = loss_fn(logits, batch.tgt_out)
+```
+
+```python
+# TensorFlow / Keras
+from tf_impl.training.lr_schedule import NoamSchedule
+from tf_impl.training.losses import LabelSmoothingLoss
+
+optimizer = tf.keras.optimizers.Adam(learning_rate=NoamSchedule(config.d_model, config.warmup_steps))
+loss_fn = LabelSmoothingLoss(config.label_smoothing, pad_idx=config.pad_idx)
+loss = loss_fn(batch.tgt_out, logits)  # Keras convention: targets first
+```
+
+Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. The PyTorch tests were run in this environment; TensorFlow is not installed here, so run `make test-tf-fast` in the TensorFlow virtualenv to verify its suite. The full training loops remain Day 17 and Day 18.
 
 ## Setup
 

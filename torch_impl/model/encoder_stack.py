@@ -11,8 +11,6 @@ Mirrors ``tf_impl/model/encoder_stack.py``.
 
 from __future__ import annotations
 
-import copy
-
 import torch
 import torch.nn as nn
 
@@ -22,9 +20,10 @@ from torch_impl.model.encoder import EncoderLayer
 class Encoder(nn.Module):
     """A stack of ``num_layers`` independent ``EncoderLayer``s.
 
-    Each layer gets its own freshly-initialized weights (``copy.deepcopy``,
-    not a shared reference) — six layers sharing one set of weights would
-    collapse the stack's capacity to a single layer applied six times.
+    Each layer is constructed independently so it receives a fresh random
+    initialization. Copying one initialized layer would create separate storage
+    but identical initial values, which is undesirable for independently learned
+    layers.
 
     Final LayerNorm: in post-norm mode (the paper's default) every
     ``EncoderLayer`` already ends with a LayerNorm, so this final one is
@@ -45,8 +44,10 @@ class Encoder(nn.Module):
         norm_first: bool = False,
     ) -> None:
         super().__init__()
-        layer = EncoderLayer(d_model, num_heads, d_ff, dropout, norm_first)
-        self.layers = nn.ModuleList([copy.deepcopy(layer) for _ in range(num_layers)])
+        self.layers = nn.ModuleList([
+            EncoderLayer(d_model, num_heads, d_ff, dropout, norm_first)
+            for _ in range(num_layers)
+        ])
         self.final_norm = nn.LayerNorm(d_model, eps=1e-6)
 
     def forward(self, x: torch.Tensor, mask: torch.Tensor | None = None) -> torch.Tensor:
