@@ -82,7 +82,7 @@ Transformer-From-Scratch/
 - [x] Day 14 — Shared BPE tokenizer & vocabulary
 - [x] Day 15 — Dataset, padding & batching (shared pipeline + per-framework loaders)
 - [x] Day 16 — Noam LR schedule + padding-aware label smoothing (PyTorch & TensorFlow)
-- [ ] Day 17 — PyTorch training loop and checkpointing
+- [x] Day 17 — PyTorch training loop and checkpointing
 - [ ] Day 18 — TensorFlow training loop and checkpointing
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
@@ -121,6 +121,28 @@ loss = loss_fn(batch.tgt_out, logits)  # Keras convention: targets first
 ```
 
 Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. The PyTorch tests were run in this environment; TensorFlow is not installed here, so run `make test-tf-fast` in the TensorFlow virtualenv to verify its suite. The full training loops remain Day 17 and Day 18.
+
+### Day 17 — PyTorch training loop and checkpointing
+
+The PyTorch training entry point now connects the shared parallel-data pipeline, Transformer, Noam schedule, and padding-aware label-smoothed loss. It supports teacher-forced training, gradient clipping, validation loss, token-throughput and learning-rate logging, reproducible epoch shuffling, atomic `latest.pt`/`best.pt` checkpoints, and resuming model/optimizer/RNG state. Tokenizer training uses training text only.
+
+Run from the repository root after installing `requirements-torch.txt`:
+
+```bash
+# Quick end-to-end smoke run on the bundled sample corpus
+python -m torch_impl.training.train --epochs 1 --batch-size 4 --vocab-size 64 --max-len 16 --warmup-steps 4
+
+# Resume from the latest checkpoint
+python -m torch_impl.training.train --resume checkpoints/torch/latest.pt
+
+# Use your own parallel files
+python -m torch_impl.training.train --train-src data/train.en --train-tgt data/train.de \
+  --val-src data/val.en --val-tgt data/val.de --epochs 20 --batch-size 64
+```
+
+If `--tokenizer` does not point to an existing tokenizer, it is trained and saved there from the training source and target files. If `--config` is supplied, its source and target vocabulary sizes must match the tokenizer. Checkpoints and `history.jsonl` are written to `checkpoints/torch/` by default; checkpoint files are ignored by Git. For repeatable small CPU smoke tests, pass `--num-threads 1`.
+
+Validation in this environment: `python -m pytest torch_impl/tests/test_train_loop.py torch_impl/tests/test_training_utils.py tests/test_parallel_data.py tests/test_bpe_tokenizer.py -q` passed (46 tests), and a one-epoch end-to-end CPU run completed successfully.
 
 ## Setup
 

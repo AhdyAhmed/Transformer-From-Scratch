@@ -85,9 +85,11 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Add tests for formula, warmup peak/decay, padding behavior, reductions, and gradients.
 - [x] Document usage and framework step-index conventions.
 
-**Day 17 — Training loop (PyTorch)**
-- Manual training loop with logging (loss, LR, tokens/sec).
-- Checkpointing.
+**Day 17 — Training loop (PyTorch) — completed**
+- [x] Manual teacher-forced training loop with train/validation loss, learning-rate and tokens/sec logging.
+- [x] Gradient clipping, deterministic epoch shuffling, and non-finite loss guard.
+- [x] Atomic latest/best checkpoints including model, optimizer, epoch/step, config, and RNG state.
+- [x] Resume training from a checkpoint and regression tests for updates/checkpoint restoration.
 
 **Day 18 — Training loop (TensorFlow)**
 - Manual `tf.GradientTape` training loop mirroring PyTorch's structure.

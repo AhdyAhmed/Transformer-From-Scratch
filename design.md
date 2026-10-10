@@ -205,3 +205,11 @@ Both frameworks should train on identical data splits, tokenization, and hyperpa
 - **Scope boundary.** This day deliberately stops short of an end-to-end training loop. Day 17 wires the schedule/loss into a manual PyTorch loop; Day 18 mirrors it with `tf.GradientTape`, checkpointing, and validation.
 
 - **Initialization regression fixed while validating Day 16.** The previous PyTorch encoder/decoder stack deep-copied one initialized layer, which created distinct parameter storage but identical starting values. The stack now constructs every layer independently, matching the TensorFlow implementation and the existing independence tests.
+
+## Day 17: PyTorch training loop and checkpointing
+
+- `torch_impl/training/train.py` is the executable training entry point. It wires the shared `ParallelDataset`/seeded `BatchIterator` through `TorchBatchLoader`, constructs the full Transformer from `TransformerConfig`, builds masks for each teacher-forced batch, and computes Day 16's padding-aware label-smoothed loss.
+- Each update zeroes gradients, runs forward/backward, clips gradients when configured, applies the one-based Noam learning rate, and updates Adam. The loop reports epoch train/validation token-average loss, LR, elapsed time, and tokens/second. Non-finite training loss raises immediately instead of corrupting model weights.
+- `checkpoints/torch/latest.pt` is written every epoch and `best.pt` whenever validation loss improves. Saves use a temporary file plus atomic replace to avoid leaving a half-written checkpoint. Payloads include model and optimizer states, config, epoch, global step, best validation loss, tokenizer path, and Python/NumPy/PyTorch RNG states. `--resume` restores those states and continues at the next epoch.
+- The default data paths use the bundled sample corpus, allowing a small smoke run without downloading Multi30k. A tokenizer is created only if the selected path does not already exist, and is fit on training text only. For a supplied config, vocabulary sizes must match the loaded tokenizer.
+- Regression tests verify that a training epoch changes model weights and emits finite metrics, and that model/optimizer/progress checkpoint state round-trips. This completes Day 17 for PyTorch; Day 18 remains the TensorFlow training-loop counterpart.
