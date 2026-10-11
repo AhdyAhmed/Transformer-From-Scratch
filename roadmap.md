@@ -91,9 +91,11 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Atomic latest/best checkpoints including model, optimizer, epoch/step, config, and RNG state.
 - [x] Resume training from a checkpoint and regression tests for updates/checkpoint restoration.
 
-**Day 18 — Training loop (TensorFlow)**
-- Manual `tf.GradientTape` training loop mirroring PyTorch's structure.
-- Checkpointing.
+**Day 18 — Training loop (TensorFlow) — implemented**
+- [x] Manual `tf.GradientTape` teacher-forced training loop mirroring PyTorch's epoch metrics and token-weighted loss.
+- [x] Validation loss, Noam learning-rate logging, token throughput, deterministic epoch shuffling, gradient clipping, and non-finite loss/gradient guards.
+- [x] TensorFlow checkpoint managers for latest/best checkpoints, optimizer/model/epoch state restoration, and JSONL metric history.
+- [x] CLI for sample/custom parallel data, config overrides, and checkpoint resume; regression tests for updates and validation behavior.
 
 ---
 

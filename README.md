@@ -83,7 +83,7 @@ Transformer-From-Scratch/
 - [x] Day 15 — Dataset, padding & batching (shared pipeline + per-framework loaders)
 - [x] Day 16 — Noam LR schedule + padding-aware label smoothing (PyTorch & TensorFlow)
 - [x] Day 17 — PyTorch training loop and checkpointing
-- [ ] Day 18 — TensorFlow training loop and checkpointing
+- [x] Day 18 — TensorFlow training loop and checkpointing
 - [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
@@ -120,7 +120,7 @@ loss_fn = LabelSmoothingLoss(config.label_smoothing, pad_idx=config.pad_idx)
 loss = loss_fn(batch.tgt_out, logits)  # Keras convention: targets first
 ```
 
-Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. The PyTorch tests were run in this environment; TensorFlow is not installed here, so run `make test-tf-fast` in the TensorFlow virtualenv to verify its suite. The full training loops remain Day 17 and Day 18.
+Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. The PyTorch tests were run in this environment; TensorFlow is not installed here, so run `make test-tf-fast` in the TensorFlow virtualenv to verify its suite. The Day 17 PyTorch and Day 18 TensorFlow training loops are implemented; full-scale framework comparison runs are scheduled for Days 19–23.
 
 ### Day 17 — PyTorch training loop and checkpointing
 
@@ -143,6 +143,29 @@ python -m torch_impl.training.train --train-src data/train.en --train-tgt data/t
 If `--tokenizer` does not point to an existing tokenizer, it is trained and saved there from the training source and target files. If `--config` is supplied, its source and target vocabulary sizes must match the tokenizer. Checkpoints and `history.jsonl` are written to `checkpoints/torch/` by default; checkpoint files are ignored by Git. For repeatable small CPU smoke tests, pass `--num-threads 1`.
 
 Validation in this environment: `python -m pytest torch_impl/tests/test_train_loop.py torch_impl/tests/test_training_utils.py tests/test_parallel_data.py tests/test_bpe_tokenizer.py -q` passed (46 tests), and a one-epoch end-to-end CPU run completed successfully.
+
+### Day 18 — TensorFlow training loop and checkpointing
+
+The TensorFlow entry point mirrors Day 17 using `tf.GradientTape`, the shared English–German data pipeline and batching order, Keras Adam with the same Noam schedule, and padding-aware label smoothing. It logs train/validation token loss, learning rate, token throughput, and elapsed time. It clips gradients, fails fast on non-finite loss/gradients, and saves TensorFlow `latest` and `best` checkpoint-manager directories alongside `config.json` and append-only `history.jsonl`. Resume restores model, optimizer slots, epoch, and best validation loss.
+
+Run inside the TensorFlow virtual environment from the repository root:
+
+```bash
+# One-epoch smoke run using the bundled sample corpus
+python -m tf_impl.training.train --epochs 1 --batch-size 4 --vocab-size 64 --max-len 16 --warmup-steps 4
+
+# Resume from the latest checkpoint-manager directory
+python -m tf_impl.training.train --resume checkpoints/tf/latest
+
+# Use your own parallel files
+python -m tf_impl.training.train --train-src data/train.en --train-tgt data/train.de \
+  --val-src data/val.en --val-tgt data/val.de --epochs 20 --batch-size 64
+
+# Day 18 regression tests
+python -m pytest tf_impl/tests/test_train_loop.py tf_impl/tests/test_training_utils.py -q
+```
+
+Checkpoints and logs are written to `checkpoints/tf/` by default and are excluded from Git. The TensorFlow training tests are included, but could not be executed in the current environment because TensorFlow is not installed; run them in the TensorFlow environment before relying on a full training run.
 
 ## Setup
 
