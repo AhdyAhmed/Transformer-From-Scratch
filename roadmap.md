@@ -101,9 +101,15 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 
 ## Phase 5: Full Training Runs (Days 19–23)
 
-**Day 19–20 — PyTorch training run**
-- Train on full (or reasonably-sized subset of) Multi30k.
-- Track loss curves, save checkpoints, log sample translations.
+**Day 19 — PyTorch subset training run — completed**
+- [x] Train on a deterministic 2,000-pair Multi30k subset with CUDA.
+- [x] Track train/validation loss, save latest/best checkpoints, and render an SVG loss curve.
+- [x] Log deterministic validation translations after every epoch.
+- [x] Resume from the epoch-3 checkpoint and complete epoch 4 with optimizer/RNG state restored.
+
+**Day 20 — Extended PyTorch training run**
+- Scale the same reproducible command to the full corpus or a longer run.
+- Improve translation quality before formal Day-23 evaluation.
 
 **Day 21–22 — TensorFlow training run**
 - Same dataset, same hyperparameters, same number of steps/epochs as PyTorch run.

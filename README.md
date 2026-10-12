@@ -85,7 +85,8 @@ Transformer-From-Scratch/
 - [x] Day 16 — Noam LR schedule + padding-aware label smoothing (PyTorch & TensorFlow)
 - [x] Day 17 — PyTorch training loop and checkpointing
 - [x] Day 18 — TensorFlow training loop and checkpointing
-- [ ] Day 19–23 — Full training runs (PyTorch & TensorFlow)
+- [x] Day 19 — Reproducible PyTorch CUDA subset run with metrics, checkpoints & samples
+- [ ] Day 20–23 — Extended runs, TensorFlow comparison & evaluation
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
 
@@ -167,6 +168,32 @@ python -m pytest tf_impl/tests/test_train_loop.py tf_impl/tests/test_training_ut
 ```
 
 Checkpoints and logs are written to `checkpoints/tf/` by default and are excluded from Git. The TensorFlow training tests, end-to-end sample-corpus run, checkpoint save, and checkpoint resume path have all been validated with TensorFlow 2.21 / Keras 3.13.
+
+### Day 19 — PyTorch CUDA training run
+
+Day 19 adds deterministic `--max-train-pairs` / `--max-val-pairs` controls,
+greedy validation translations after every epoch, `translations.jsonl`, and
+an automatically refreshed SVG loss curve. A real run completed on CUDA using
+2,000 Multi30k training pairs, 200 validation pairs, a joint 512-token BPE
+vocabulary, and the checked-in `configs/day19-torch.json` configuration.
+Checkpoint resume was then verified by restoring epoch 3 and completing epoch 4.
+
+```bash
+python -m torch_impl.training.train \
+  --config configs/day19-torch.json \
+  --train-src data/multi30k/train.en --train-tgt data/multi30k/train.de \
+  --val-src data/multi30k/val.en --val-tgt data/multi30k/val.de \
+  --max-train-pairs 2000 --max-val-pairs 200 --vocab-size 512 \
+  --tokenizer checkpoints/day19/tokenizer.json \
+  --checkpoint-dir checkpoints/day19/torch --sample-translations 3
+```
+
+Training loss decreased from 5.6325 to 4.8897 and validation loss from
+5.3585 to 4.9280 over 128 optimizer steps. The compact reproducibility
+artifacts are in [`results/day19/`](results/day19/); model checkpoints remain
+git-ignored because of their size.
+
+![Day 19 train and validation loss](results/day19/loss_curve.svg)
 
 ## Setup
 

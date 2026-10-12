@@ -19,7 +19,7 @@ import numpy as np
 import torch
 
 from data.bpe_tokenizer import BPETokenizer
-from data.parallel_data import ParallelDataset
+from data.parallel_data import ParallelDataset, read_parallel_corpus
 from torch_impl.config import TransformerConfig
 from torch_impl.data.dataset import TorchBatchLoader
 from torch_impl.model.transformer import Transformer
@@ -37,17 +37,14 @@ def seed_everything(seed: int) -> None:
         torch.cuda.manual_seed_all(seed)
 
 
-def _read_corpus(path: Path) -> list[str]:
-    return path.read_text(encoding="utf-8").splitlines()
-
-
-def load_or_train_tokenizer(path: Path, train_src: Path, train_tgt: Path,
-                            val_src: Path, val_tgt: Path, vocab_size: int) -> BPETokenizer:
+def load_or_train_tokenizer(
+    path: Path, train_pairs: list[tuple[str, str]], vocab_size: int
+) -> BPETokenizer:
     if path.exists():
         tokenizer = BPETokenizer.load(path)
         print(f"Loaded tokenizer: {path} ({tokenizer.vocab_size} tokens)")
         return tokenizer
-    corpus = _read_corpus(train_src) + _read_corpus(train_tgt)
+    corpus = [text for pair in train_pairs for text in pair]
     # Fit the tokenizer on training text only to avoid validation-data leakage.
     tokenizer = BPETokenizer()
     tokenizer.train(corpus, vocab_size=vocab_size)
@@ -55,6 +52,97 @@ def load_or_train_tokenizer(path: Path, train_src: Path, train_tgt: Path,
     tokenizer.save(path)
     print(f"Trained tokenizer: {path} ({tokenizer.vocab_size} tokens from {len(corpus)} lines)")
     return tokenizer
+
+
+@torch.inference_mode()
+def greedy_decode(
+    model: Transformer,
+    src_ids: list[int],
+    bos_idx: int,
+    eos_idx: int,
+    max_len: int,
+    device: torch.device,
+) -> list[int]:
+    """Greedily decode one already-tokenized source sequence."""
+    if max_len < 2:
+        raise ValueError(f"max_len must be at least 2, got {max_len}")
+    was_training = model.training
+    model.eval()
+    try:
+        src = torch.tensor([src_ids], dtype=torch.long, device=device)
+        src_mask = (src != model.pad_idx).unsqueeze(1).unsqueeze(2)
+        memory = model.encode(src, src_mask)
+        generated = torch.tensor([[bos_idx]], dtype=torch.long, device=device)
+        for _ in range(max_len - 1):
+            _, tgt_mask, memory_mask = model.create_masks(src, generated)
+            decoded = model.decode(generated, memory, tgt_mask, memory_mask)
+            next_token = model.output_projection(decoded[:, -1]).argmax(dim=-1, keepdim=True)
+            generated = torch.cat((generated, next_token), dim=1)
+            if int(next_token.item()) == eos_idx:
+                break
+        return generated[0].tolist()
+    finally:
+        model.train(was_training)
+
+
+def translation_samples(
+    model: Transformer,
+    pairs: list[tuple[str, str]],
+    tokenizer: BPETokenizer,
+    config: TransformerConfig,
+    device: torch.device,
+    count: int,
+) -> list[dict[str, str]]:
+    """Translate the first deterministic validation examples for progress logs."""
+    if count < 0:
+        raise ValueError(f"sample translation count must be non-negative, got {count}")
+    dataset = ParallelDataset(pairs[:count], tokenizer, config.max_seq_len)
+    records = []
+    for (source, reference), (src_ids, _) in zip(pairs[:count], dataset.examples):
+        predicted_ids = greedy_decode(
+            model,
+            src_ids,
+            config.bos_idx,
+            config.eos_idx,
+            config.max_seq_len,
+            device,
+        )
+        records.append({
+            "source": source,
+            "reference": reference,
+            "prediction": tokenizer.decode(predicted_ids),
+        })
+    return records
+
+
+def save_loss_curve(history_path: Path, output_path: Path) -> None:
+    """Render train/validation loss history as a portable SVG."""
+    rows = [json.loads(line) for line in history_path.read_text(encoding="utf-8").splitlines()]
+    if not rows:
+        return
+    import matplotlib
+
+    matplotlib.use("Agg")
+    from matplotlib import pyplot as plt
+
+    epochs = [row["epoch"] for row in rows]
+    figure, axis = plt.subplots(figsize=(7, 4))
+    axis.plot(epochs, [row["train_loss"] for row in rows], marker="o", label="train")
+    axis.plot(epochs, [row["val_loss"] for row in rows], marker="o", label="validation")
+    axis.set(xlabel="Epoch", ylabel="Token loss", title="Training loss")
+    axis.grid(alpha=0.25)
+    axis.legend()
+    figure.tight_layout()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(output_path, format="svg")
+    plt.close(figure)
+    # Matplotlib emits trailing spaces in SVG path data. Normalize the text
+    # so generated reports pass Git's whitespace checks and produce clean diffs.
+    svg = output_path.read_text(encoding="utf-8")
+    output_path.write_text(
+        "\n".join(line.rstrip() for line in svg.splitlines()) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _atomic_torch_save(payload: dict[str, Any], path: Path) -> None:
@@ -161,6 +249,18 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-len", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--num-threads", type=int, default=None, help="Optional intra-op CPU thread limit")
+    parser.add_argument(
+        "--max-train-pairs", type=int, default=None,
+        help="Use the first N aligned training pairs (deterministic subset)",
+    )
+    parser.add_argument(
+        "--max-val-pairs", type=int, default=None,
+        help="Use the first N aligned validation pairs (deterministic subset)",
+    )
+    parser.add_argument(
+        "--sample-translations", type=int, default=3,
+        help="Validation translations to print and append to translations.jsonl each epoch",
+    )
     return parser
 
 
@@ -168,6 +268,12 @@ def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
     if args.epochs is not None and args.epochs < 1:
         raise SystemExit("--epochs must be at least 1")
+    for name in ("max_train_pairs", "max_val_pairs"):
+        value = getattr(args, name)
+        if value is not None and value < 1:
+            raise SystemExit(f"--{name.replace('_', '-')} must be positive")
+    if args.sample_translations < 0:
+        raise SystemExit("--sample-translations must be non-negative")
     for p in (args.train_src, args.train_tgt, args.val_src, args.val_tgt):
         if not p.is_file():
             raise SystemExit(f"Dataset file not found: {p}")
@@ -182,8 +288,16 @@ def main(argv: list[str] | None = None) -> None:
             raise SystemExit("--num-threads must be positive")
         torch.set_num_threads(args.num_threads)
 
-    tokenizer = load_or_train_tokenizer(args.tokenizer, args.train_src, args.train_tgt,
-                                        args.val_src, args.val_tgt, args.vocab_size)
+    train_pairs = read_parallel_corpus(args.train_src, args.train_tgt)
+    val_pairs = read_parallel_corpus(args.val_src, args.val_tgt)
+    if args.max_train_pairs is not None:
+        train_pairs = train_pairs[:args.max_train_pairs]
+    if args.max_val_pairs is not None:
+        val_pairs = val_pairs[:args.max_val_pairs]
+    if not train_pairs or not val_pairs:
+        raise SystemExit("Training and validation datasets must each contain at least one non-empty pair")
+
+    tokenizer = load_or_train_tokenizer(args.tokenizer, train_pairs, args.vocab_size)
     if args.config:
         config = TransformerConfig.load(args.config)
         if config.src_vocab_size != tokenizer.vocab_size or config.tgt_vocab_size != tokenizer.vocab_size:
@@ -207,10 +321,8 @@ def main(argv: list[str] | None = None) -> None:
         raise SystemExit("max_seq_len must be at least 3")
     seed_everything(config.seed)
 
-    train_data = ParallelDataset.from_files(args.train_src, args.train_tgt, tokenizer, config.max_seq_len)
-    val_data = ParallelDataset.from_files(args.val_src, args.val_tgt, tokenizer, config.max_seq_len)
-    if not len(train_data) or not len(val_data):
-        raise SystemExit("Training and validation datasets must each contain at least one non-empty pair")
+    train_data = ParallelDataset(train_pairs, tokenizer, config.max_seq_len)
+    val_data = ParallelDataset(val_pairs, tokenizer, config.max_seq_len)
     train_loader = TorchBatchLoader(train_data, config.batch_size, shuffle=True, seed=config.seed, device=device)
     val_loader = TorchBatchLoader(val_data, config.batch_size, shuffle=False, seed=config.seed, device=device)
 
@@ -230,6 +342,11 @@ def main(argv: list[str] | None = None) -> None:
         print(f"Resumed {args.resume} at epoch {start_epoch}, step {global_step}")
 
     args.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    history_path = args.checkpoint_dir / "history.jsonl"
+    translations_path = args.checkpoint_dir / "translations.jsonl"
+    if not args.resume:
+        history_path.unlink(missing_ok=True)
+        translations_path.unlink(missing_ok=True)
     config.save(args.checkpoint_dir / "config.json")
     print(f"Device: {device} | parameters: {sum(p.numel() for p in model.parameters()):,} | "
           f"train pairs: {len(train_data)} | validation pairs: {len(val_data)} | "
@@ -254,11 +371,24 @@ def main(argv: list[str] | None = None) -> None:
             best_val_loss = val_loss
             save_checkpoint(args.checkpoint_dir / "best.pt", model, optimizer, config,
                             epoch_number, global_step, best_val_loss, args.tokenizer)
-        with (args.checkpoint_dir / "history.jsonl").open("a", encoding="utf-8") as handle:
+        with history_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps({"epoch": epoch_number, "global_step": global_step,
                                      "train_loss": train_loss, "val_loss": val_loss,
                                      "learning_rate": current_lr, "train_tokens_per_sec": train_tps,
                                      "val_tokens_per_sec": val_tps}, ensure_ascii=False) + "\n")
+        samples = translation_samples(
+            model, val_pairs, tokenizer, config, device, args.sample_translations
+        )
+        with translations_path.open("a", encoding="utf-8") as handle:
+            for sample in samples:
+                record = {"epoch": epoch_number, **sample}
+                handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+                print(
+                    f"sample | src: {sample['source']} | ref: {sample['reference']} | "
+                    f"pred: {sample['prediction']}",
+                    flush=True,
+                )
+        save_loss_curve(history_path, args.checkpoint_dir / "loss_curve.svg")
     print(f"Training complete. Best validation loss: {best_val_loss:.4f}")
     print(f"Checkpoints and logs: {args.checkpoint_dir.resolve()}")
 

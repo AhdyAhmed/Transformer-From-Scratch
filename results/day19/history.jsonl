@@ -1,0 +1,4 @@
+{"epoch": 1, "global_step": 32, "train_loss": 5.632459260286714, "val_loss": 5.358467254305672, "learning_rate": 0.01131370849898476, "train_tokens_per_sec": 11896.272719572471, "val_tokens_per_sec": 32795.37467463904}
+{"epoch": 2, "global_step": 64, "train_loss": 5.256433112852566, "val_loss": 5.137504600576702, "learning_rate": 0.015625, "train_tokens_per_sec": 13330.918940201, "val_tokens_per_sec": 34556.68234394216}
+{"epoch": 3, "global_step": 96, "train_loss": 4.975134909533842, "val_loss": 4.969501753991143, "learning_rate": 0.01275775907699572, "train_tokens_per_sec": 13267.30138583714, "val_tokens_per_sec": 33902.07266542025}
+{"epoch": 4, "global_step": 128, "train_loss": 4.88970865526687, "val_loss": 4.927960739820242, "learning_rate": 0.011048543456039806, "train_tokens_per_sec": 11396.815985728012, "val_tokens_per_sec": 34438.48238218483}

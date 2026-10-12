@@ -1,4 +1,6 @@
-"""Day 17 tests for the PyTorch training loop and checkpointing."""
+"""PyTorch training-loop, checkpoint, and Day-19 reporting tests."""
+import json
+
 import torch
 
 from data.bpe_tokenizer import BPETokenizer
@@ -8,11 +10,25 @@ from torch_impl.data.dataset import TorchBatchLoader
 from torch_impl.model.transformer import Transformer
 from torch_impl.training.losses import LabelSmoothingLoss
 from torch_impl.training.lr_schedule import NoamSchedule
-from torch_impl.training.train import build_parser, load_checkpoint, run_epoch, save_checkpoint
+from torch_impl.training.train import (
+    build_parser,
+    greedy_decode,
+    load_checkpoint,
+    run_epoch,
+    save_checkpoint,
+    save_loss_curve,
+)
 
 
 def test_training_defaults_to_cuda():
     assert build_parser().parse_args([]).device == "cuda"
+
+
+def test_day19_subset_and_sample_defaults():
+    args = build_parser().parse_args([])
+    assert args.max_train_pairs is None
+    assert args.max_val_pairs is None
+    assert args.sample_translations == 3
 
 
 def _fixture(tmp_path):
@@ -64,3 +80,49 @@ def test_checkpoint_roundtrip_restores_model_optimizer_and_progress(tmp_path):
     for key, value in restored.state_dict().items():
         assert torch.equal(value, expected[key])
     assert restored_optimizer.state_dict()["state"]
+
+
+def test_greedy_decode_stops_at_eos_and_restores_training_mode():
+    config = TransformerConfig(
+        d_model=16,
+        num_heads=4,
+        num_layers=1,
+        d_ff=32,
+        max_seq_len=8,
+        dropout=0.0,
+        src_vocab_size=12,
+        tgt_vocab_size=12,
+    )
+    model = Transformer.from_config(config)
+    model.train()
+    with torch.no_grad():
+        model.output_projection.weight.zero_()
+        model.output_projection.bias.zero_()
+        model.output_projection.bias[config.eos_idx] = 1.0
+
+    decoded = greedy_decode(
+        model,
+        [config.bos_idx, 4, config.eos_idx],
+        config.bos_idx,
+        config.eos_idx,
+        config.max_seq_len,
+        torch.device("cpu"),
+    )
+
+    assert decoded == [config.bos_idx, config.eos_idx]
+    assert model.training
+
+
+def test_save_loss_curve_writes_svg(tmp_path):
+    history = tmp_path / "history.jsonl"
+    rows = [
+        {"epoch": 1, "train_loss": 4.0, "val_loss": 4.2},
+        {"epoch": 2, "train_loss": 3.0, "val_loss": 3.4},
+    ]
+    history.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
+    output = tmp_path / "loss.svg"
+
+    save_loss_curve(history, output)
+
+    assert output.is_file()
+    assert "<svg" in output.read_text(encoding="utf-8")
