@@ -11,6 +11,7 @@ import json
 import math
 import os
 import random
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,41 @@ from tf_impl.training.losses import LabelSmoothingLoss
 from tf_impl.training.lr_schedule import NoamSchedule
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def configure_device(device: str) -> str:
+    """Select the TensorFlow training device before model construction.
+
+    GPU is the default and is intentionally strict: a missing GPU raises
+    instead of silently turning a requested training run into a much slower
+    CPU job. ``auto`` retains TensorFlow's normal fallback behavior, while
+    ``cpu`` explicitly hides any visible GPUs.
+    """
+    if device not in {"gpu", "cpu", "auto"}:
+        raise ValueError(f"unsupported device {device!r}; choose gpu, cpu, or auto")
+
+    physical_gpus = tf.config.list_physical_devices("GPU")
+    if device == "cpu":
+        tf.config.set_visible_devices([], "GPU")
+        return "CPU"
+    if device == "gpu" and not physical_gpus:
+        hint = " Install the GPU-enabled TensorFlow environment for this platform."
+        if sys.platform == "win32":
+            hint = (
+                " TensorFlow 2.11+ does not support CUDA on native Windows. "
+                "Use a supported Linux/WSL2 GPU host and install "
+                "requirements-tf-gpu.txt, or pass --device cpu explicitly."
+            )
+        raise SystemExit("TensorFlow GPU requested, but no GPU device is available." + hint)
+
+    for gpu in physical_gpus:
+        try:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        except RuntimeError as exc:
+            raise RuntimeError(
+                "TensorFlow GPU configuration must happen before model or tensor creation"
+            ) from exc
+    return "GPU" if physical_gpus else "CPU"
 
 
 def seed_everything(seed: int) -> None:
@@ -155,6 +191,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--warmup-steps", type=int, default=None)
     parser.add_argument("--checkpoint-dir", type=Path, default=ROOT / "checkpoints" / "tf")
     parser.add_argument("--resume", type=Path, help="Resume from a checkpoint prefix or manager directory")
+    parser.add_argument(
+        "--device",
+        choices=("gpu", "cpu", "auto"),
+        default="gpu",
+        help="Defaults to GPU and fails instead of silently falling back; use cpu or auto explicitly",
+    )
     parser.add_argument("--max-len", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
     return parser
@@ -167,6 +209,7 @@ def main(argv: list[str] | None = None) -> None:
     for path in (args.train_src, args.train_tgt, args.val_src, args.val_tgt):
         if not path.is_file():
             raise SystemExit(f"Dataset file not found: {path}")
+    selected_device = configure_device(args.device)
 
     tokenizer = load_or_train_tokenizer(
         args.tokenizer, args.train_src, args.train_tgt, args.val_src, args.val_tgt, args.vocab_size
@@ -251,7 +294,8 @@ def main(argv: list[str] | None = None) -> None:
 
     config.save(args.checkpoint_dir / "config.json")
     print(
-        f"Device: {', '.join(d.name for d in tf.config.list_logical_devices()) or 'CPU'} | "
+        f"Device: {selected_device} "
+        f"({', '.join(d.name for d in tf.config.list_logical_devices())}) | "
         f"parameters: {model.count_params():,} | train pairs: {len(train_data)} | "
         f"validation pairs: {len(val_data)} | batch size: {config.batch_size} | "
         f"epochs: {config.num_epochs}"

@@ -1,5 +1,6 @@
 """Day 18 tests for the TensorFlow training loop and checkpoint-compatible state."""
 import numpy as np
+import pytest
 import tensorflow as tf
 
 from data.bpe_tokenizer import BPETokenizer
@@ -9,7 +10,17 @@ from tf_impl.data.dataset import TFBatchLoader
 from tf_impl.model.transformer import Transformer
 from tf_impl.training.losses import LabelSmoothingLoss
 from tf_impl.training.lr_schedule import NoamSchedule
-from tf_impl.training.train import run_epoch
+from tf_impl.training.train import build_parser, configure_device, run_epoch
+
+
+def test_training_defaults_to_gpu():
+    assert build_parser().parse_args([]).device == "gpu"
+
+
+def test_requested_gpu_never_silently_falls_back(monkeypatch):
+    monkeypatch.setattr(tf.config, "list_physical_devices", lambda kind: [])
+    with pytest.raises(SystemExit, match="no GPU device"):
+        configure_device("gpu")
 
 
 def _fixture():

@@ -152,7 +152,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--warmup-steps", type=int, default=None)
     parser.add_argument("--checkpoint-dir", type=Path, default=ROOT / "checkpoints" / "torch")
     parser.add_argument("--resume", type=Path, help="Resume from a latest/best checkpoint")
-    parser.add_argument("--device", default="auto", help="auto, cpu, cuda, or another torch device")
+    parser.add_argument(
+        "--device",
+        default="cuda",
+        help="Training device. Defaults to CUDA and fails if no CUDA GPU is available; "
+             "use 'cpu' or 'auto' explicitly to allow CPU execution",
+    )
     parser.add_argument("--max-len", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--num-threads", type=int, default=None, help="Optional intra-op CPU thread limit")

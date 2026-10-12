@@ -8,7 +8,11 @@ from torch_impl.data.dataset import TorchBatchLoader
 from torch_impl.model.transformer import Transformer
 from torch_impl.training.losses import LabelSmoothingLoss
 from torch_impl.training.lr_schedule import NoamSchedule
-from torch_impl.training.train import load_checkpoint, run_epoch, save_checkpoint
+from torch_impl.training.train import build_parser, load_checkpoint, run_epoch, save_checkpoint
+
+
+def test_training_defaults_to_cuda():
+    assert build_parser().parse_args([]).device == "cuda"
 
 
 def _fixture(tmp_path):

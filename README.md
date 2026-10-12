@@ -33,6 +33,7 @@ Transformer-From-Scratch/
 ├── roadmap.md             # day-by-day build plan
 ├── requirements-torch.txt
 ├── requirements-tf.txt
+├── requirements-tf-gpu.txt          # TensorFlow + CUDA extras for Linux/WSL2
 ├── pytest.ini / Makefile
 ├── data/                                # shared, framework-agnostic (see design.md, Days 14-15)
 │   ├── bpe_tokenizer.py                   # from-scratch BPE tokenizer
@@ -142,7 +143,7 @@ python -m torch_impl.training.train --train-src data/train.en --train-tgt data/t
 
 If `--tokenizer` does not point to an existing tokenizer, it is trained and saved there from the training source and target files. If `--config` is supplied, its source and target vocabulary sizes must match the tokenizer. Checkpoints and `history.jsonl` are written to `checkpoints/torch/` by default; checkpoint files are ignored by Git. For repeatable small CPU smoke tests, pass `--num-threads 1`.
 
-Validation in this environment: `python -m pytest torch_impl/tests/test_train_loop.py torch_impl/tests/test_training_utils.py tests/test_parallel_data.py tests/test_bpe_tokenizer.py -q` passed (46 tests), and a one-epoch end-to-end CPU run completed successfully.
+Validation in this environment: `python -m pytest torch_impl/tests/test_train_loop.py torch_impl/tests/test_training_utils.py tests/test_parallel_data.py tests/test_bpe_tokenizer.py -q` passed, and end-to-end training plus checkpoint resume completed successfully on CUDA. GPU is the default; pass `--device cpu` only when CPU execution is intentional.
 
 ### Day 18 — TensorFlow training loop and checkpointing
 
@@ -182,8 +183,26 @@ pip install -r requirements-torch.txt
 python -m venv .venv-tf
 # Linux/macOS: source .venv-tf/bin/activate
 # Windows PowerShell: .venv-tf\Scripts\Activate.ps1
-pip install -r requirements-tf.txt
+
+# GPU training on a supported Linux/WSL2 NVIDIA system
+pip install -r requirements-tf-gpu.txt
+
+# CPU-only development/tests
+# pip install -r requirements-tf.txt
 ```
+
+## GPU execution
+
+Training is GPU-first in both implementations:
+
+- PyTorch defaults to `--device cuda` and exits if CUDA is unavailable. Use
+  `--device cpu` or `--device auto` only when fallback behavior is intentional.
+- TensorFlow defaults to `--device gpu`, enables memory growth on every visible
+  GPU, and exits if no TensorFlow GPU device is available. Use `--device cpu`
+  or `--device auto` explicitly for non-GPU runs.
+- TensorFlow 2.11 and later do not support CUDA on native Windows. Use a
+  supported Linux or WSL2 NVIDIA environment with `requirements-tf-gpu.txt`.
+  PyTorch CUDA continues to work natively on Windows.
 
 ## Running the tests
 

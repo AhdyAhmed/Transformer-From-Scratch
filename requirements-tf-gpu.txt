@@ -1,0 +1,4 @@
+# GPU-enabled TensorFlow is supported on Linux, including supported WSL2 GPUs.
+# Install this file instead of requirements-tf.txt for TensorFlow GPU training.
+-r requirements-tf.txt
+tensorflow[and-cuda]>=2.16.0
