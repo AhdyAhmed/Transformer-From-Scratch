@@ -36,6 +36,7 @@ class EncoderLayer(tf.keras.layers.Layer):
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
+        self.supports_masking = True
         self.self_attn = MultiHeadAttention(d_model, num_heads, dropout)
         self.feed_forward = PositionwiseFeedForward(d_model, d_ff, dropout)
 
@@ -56,9 +57,13 @@ class EncoderLayer(tf.keras.layers.Layer):
             (batch, seq_len, d_model)
         """
         x = self.self_attn_block(
-            x, lambda t: self.self_attn(t, t, t, mask=mask, training=training), training=training
+            x,
+            sublayer=lambda t: self.self_attn(t, t, t, mask=mask, training=training),
+            training=training,
         )
         x = self.feed_forward_block(
-            x, lambda t: self.feed_forward(t, training=training), training=training
+            x,
+            sublayer=lambda t: self.feed_forward(t, training=training),
+            training=training,
         )
         return x

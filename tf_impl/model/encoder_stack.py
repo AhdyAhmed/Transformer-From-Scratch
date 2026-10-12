@@ -45,6 +45,7 @@ class Encoder(tf.keras.layers.Layer):
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
+        self.supports_masking = True
         self.enc_layers = [
             EncoderLayer(d_model, num_heads, d_ff, dropout, norm_first) for _ in range(num_layers)
         ]

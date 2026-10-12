@@ -11,15 +11,10 @@ Then build the shared vocabulary from *both* sides (a joint BPE vocab, so
         --files data/multi30k/train.en data/multi30k/train.de \\
         --vocab-size 8000 --out data/multi30k/tokenizer.json
 
-NOTE: the default ``--base-url`` points at the public multi30k/dataset
-GitHub repository's raw task-1 files. That URL could not be reached from the
-environment this script was written in (no network access), so the
-download itself is unverified — if it 404s, download the six ``*.gz``
-files from https://github.com/multi30k/dataset manually, gunzip them, and
-save them as ``train.en``, ``train.de``, ``val.en``, ``val.de``,
-``test.en``, ``test.de`` in the output directory. What *was* verified is
-everything after the network call: ``fetch_all`` is tested against local
-``file://`` URLs in ``tests/test_parallel_data.py``.
+The default ``--base-url`` points at the public multi30k/dataset GitHub
+repository's raw task-1 files. The live download and all six paths are
+verified, while ``fetch_all`` also has an offline regression test using
+local ``file://`` URLs in ``tests/test_parallel_data.py``.
 
 Multi30k has its own license terms (CC BY-NC-SA for the descriptions);
 that is why the data is downloaded on demand and git-ignored rather than

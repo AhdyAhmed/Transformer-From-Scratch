@@ -34,7 +34,7 @@ def test_layers_have_independent_weights():
     enc(tf.zeros((1, 1, D_MODEL)), training=False)  # build
     w0 = enc.enc_layers[0].self_attn.w_q.kernel
     w1 = enc.enc_layers[1].self_attn.w_q.kernel
-    assert w0.ref() != w1.ref()  # distinct variable objects
+    assert w0 is not w1  # distinct variable objects
     assert not np.allclose(w0.numpy(), w1.numpy())  # and not coincidentally equal (random init)
 
 

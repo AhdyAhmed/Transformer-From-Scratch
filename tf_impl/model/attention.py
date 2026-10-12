@@ -51,7 +51,20 @@ def scaled_dot_product_attention(
 
     weights_for_output = attn_weights
     if dropout is not None:
-        weights_for_output = dropout(attn_weights, training=training)
+        # Keras 3 accepts ``Dropout(rate=1.0)`` at construction time but
+        # raises when the layer is called.  Supporting that boundary is
+        # useful for deterministic tests and matches PyTorch's p=1 behavior.
+        if getattr(dropout, "rate", None) == 1.0:
+            if training is True:
+                weights_for_output = tf.zeros_like(attn_weights)
+            elif training is not None and not isinstance(training, bool):
+                weights_for_output = tf.cond(
+                    tf.cast(training, tf.bool),
+                    lambda: tf.zeros_like(attn_weights),
+                    lambda: attn_weights,
+                )
+        else:
+            weights_for_output = dropout(attn_weights, training=training)
 
     output = tf.matmul(weights_for_output, value)
     return output, attn_weights

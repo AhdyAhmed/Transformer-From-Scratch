@@ -80,14 +80,24 @@ def test_overfits_tiny_copy_task():
     optimizer = tf.keras.optimizers.Adam(learning_rate=LR)
     loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
-    losses = []
-    for _ in range(MAX_STEPS):
+    # Build variables before tracing so the compiled step only captures
+    # numerical work.  Running hundreds of full-model steps eagerly makes
+    # this regression test prohibitively slow on CPU-only CI machines.
+    model(src, decoder_input, tgt_mask=tgt_mask, training=False)
+    optimizer.build(model.trainable_variables)
+
+    @tf.function
+    def train_step():
         with tf.GradientTape() as tape:
             logits = model(src, decoder_input, tgt_mask=tgt_mask, training=True)
             loss = loss_fn(labels, logits)
         grads = tape.gradient(loss, model.trainable_variables)
         optimizer.apply_gradients(zip(grads, model.trainable_variables))
-        losses.append(float(loss.numpy()))
+        return loss
+
+    losses = []
+    for _ in range(MAX_STEPS):
+        losses.append(float(train_step().numpy()))
 
     initial_loss, final_loss = losses[0], losses[-1]
 

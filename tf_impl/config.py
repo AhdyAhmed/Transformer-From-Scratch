@@ -77,6 +77,20 @@ class TransformerConfig:
         for name in ("d_model", "num_heads", "num_layers", "d_ff", "max_seq_len"):
             if getattr(self, name) <= 0:
                 raise ValueError(f"{name} must be positive, got {getattr(self, name)}")
+        for name in ("src_vocab_size", "tgt_vocab_size", "warmup_steps", "batch_size", "num_epochs"):
+            if getattr(self, name) <= 0:
+                raise ValueError(f"{name} must be positive, got {getattr(self, name)}")
+        if not 0.0 <= self.adam_beta1 < 1.0 or not 0.0 <= self.adam_beta2 < 1.0:
+            raise ValueError("Adam beta values must be in [0, 1)")
+        if self.adam_eps <= 0:
+            raise ValueError(f"adam_eps must be positive, got {self.adam_eps}")
+        if self.grad_clip < 0:
+            raise ValueError(f"grad_clip must be non-negative, got {self.grad_clip}")
+        special_ids = (self.pad_idx, self.bos_idx, self.eos_idx, self.unk_idx)
+        if len(set(special_ids)) != len(special_ids) or any(idx < 0 for idx in special_ids):
+            raise ValueError("special token ids must be distinct non-negative integers")
+        if max(special_ids) >= min(self.src_vocab_size, self.tgt_vocab_size):
+            raise ValueError("special token ids must fit inside both vocabularies")
         if self.share_embeddings and self.src_vocab_size != self.tgt_vocab_size:
             raise ValueError("share_embeddings requires src_vocab_size == tgt_vocab_size")
 

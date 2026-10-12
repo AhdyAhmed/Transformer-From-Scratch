@@ -31,6 +31,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
 
     def __init__(self, d_model: int, num_heads: int, dropout: float = 0.1, **kwargs) -> None:
         super().__init__(**kwargs)
+        self.supports_masking = True
         if d_model % num_heads != 0:
             raise ValueError(
                 f"d_model ({d_model}) must be divisible by num_heads ({num_heads})"

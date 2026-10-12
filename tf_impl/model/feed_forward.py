@@ -24,6 +24,7 @@ class PositionwiseFeedForward(tf.keras.layers.Layer):
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
+        self.supports_masking = True
         if activation not in ("relu", "gelu"):
             raise ValueError(f"activation must be 'relu' or 'gelu', got {activation!r}")
 

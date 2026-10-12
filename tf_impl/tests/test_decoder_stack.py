@@ -25,7 +25,7 @@ def test_layers_have_independent_weights():
     dec(dummy, dummy, training=False)  # build
     w0 = dec.dec_layers[0].self_attn.w_q.kernel
     w1 = dec.dec_layers[1].self_attn.w_q.kernel
-    assert w0.ref() != w1.ref()
+    assert w0 is not w1
     assert not np.allclose(w0.numpy(), w1.numpy())
 
 

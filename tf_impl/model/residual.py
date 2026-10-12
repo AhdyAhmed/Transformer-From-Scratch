@@ -36,12 +36,18 @@ class ResidualConnection(tf.keras.layers.Layer):
         self.self_attn_block = ResidualConnection(d_model, dropout, norm_first)
         ...
         x = self.self_attn_block(
-            x, lambda t: self.self_attn(t, t, t, mask=mask, training=training), training=training
+            x,
+            sublayer=lambda t: self.self_attn(t, t, t, mask=mask, training=training),
+            training=training,
         )
+
+    Keras 3 only permits tensors as positional ``Layer.__call__`` arguments,
+    so ``sublayer`` must be passed by keyword.
     """
 
     def __init__(self, d_model: int, dropout: float = 0.1, norm_first: bool = False, **kwargs) -> None:
         super().__init__(**kwargs)
+        self.supports_masking = True
         self.norm = tf.keras.layers.LayerNormalization(epsilon=1e-6)
         self.dropout = tf.keras.layers.Dropout(dropout)
         self.norm_first = norm_first
@@ -49,6 +55,7 @@ class ResidualConnection(tf.keras.layers.Layer):
     def call(
         self,
         x: tf.Tensor,
+        *,
         sublayer: Callable[[tf.Tensor], tf.Tensor],
         training: bool | None = None,
     ) -> tf.Tensor:

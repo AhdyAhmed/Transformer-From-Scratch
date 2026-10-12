@@ -72,15 +72,19 @@ class DecoderLayer(tf.keras.layers.Layer):
         """
         x = self.self_attn_block(
             x,
-            lambda t: self.self_attn(t, t, t, mask=tgt_mask, training=training),
+            sublayer=lambda t: self.self_attn(t, t, t, mask=tgt_mask, training=training),
             training=training,
         )
         x = self.cross_attn_block(
             x,
-            lambda t: self.cross_attn(t, memory, memory, mask=memory_mask, training=training),
+            sublayer=lambda t: self.cross_attn(
+                t, memory, memory, mask=memory_mask, training=training
+            ),
             training=training,
         )
         x = self.feed_forward_block(
-            x, lambda t: self.feed_forward(t, training=training), training=training
+            x,
+            sublayer=lambda t: self.feed_forward(t, training=training),
+            training=training,
         )
         return x

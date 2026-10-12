@@ -66,7 +66,7 @@ def test_residual_output_shape_both_modes():
     identity = lambda t: t
     for norm_first in (True, False):
         block = ResidualConnection(D_MODEL, dropout=0.0, norm_first=norm_first)
-        out = block(x, identity, training=False)
+        out = block(x, sublayer=identity, training=False)
         assert out.shape == x.shape
 
 
@@ -74,7 +74,7 @@ def test_post_norm_matches_manual_formula():
     block = ResidualConnection(D_MODEL, dropout=0.0, norm_first=False)
     x = tf.random.normal((2, 4, D_MODEL))
     sublayer = lambda t: t * 2 + 1
-    out = block(x, sublayer, training=False).numpy()
+    out = block(x, sublayer=sublayer, training=False).numpy()
     expected = block.norm(x + sublayer(x)).numpy()
     np.testing.assert_allclose(out, expected, atol=1e-5)
 
@@ -83,7 +83,7 @@ def test_pre_norm_matches_manual_formula():
     block = ResidualConnection(D_MODEL, dropout=0.0, norm_first=True)
     x = tf.random.normal((2, 4, D_MODEL))
     sublayer = lambda t: t * 2 + 1
-    out = block(x, sublayer, training=False).numpy()
+    out = block(x, sublayer=sublayer, training=False).numpy()
     expected = (x + sublayer(block.norm(x))).numpy()
     np.testing.assert_allclose(out, expected, atol=1e-5)
 
@@ -94,19 +94,19 @@ def test_pre_and_post_norm_differ():
 
     post = ResidualConnection(D_MODEL, dropout=0.0, norm_first=False)
     pre = ResidualConnection(D_MODEL, dropout=0.0, norm_first=True)
-    post(x, sublayer, training=False)  # build norm weights
-    pre(x, sublayer, training=False)
+    post(x, sublayer=sublayer, training=False)  # build norm weights
+    pre(x, sublayer=sublayer, training=False)
     pre.norm.set_weights(post.norm.get_weights())  # same LayerNorm weights, different ordering
 
-    out_post = post(x, sublayer, training=False).numpy()
-    out_pre = pre(x, sublayer, training=False).numpy()
+    out_post = post(x, sublayer=sublayer, training=False).numpy()
+    out_pre = pre(x, sublayer=sublayer, training=False).numpy()
     assert not np.allclose(out_post, out_pre, atol=1e-4)
 
 
 def test_residual_with_identity_sublayer_only_normalizes():
     block = ResidualConnection(D_MODEL, dropout=0.0, norm_first=False)
     x = tf.random.normal((2, 3, D_MODEL))
-    out = block(x, lambda t: tf.zeros_like(t), training=False).numpy()
+    out = block(x, sublayer=lambda t: tf.zeros_like(t), training=False).numpy()
     expected = block.norm(x).numpy()
     np.testing.assert_allclose(out, expected, atol=1e-5)
 
@@ -116,7 +116,7 @@ def test_output_is_normalized_in_post_norm_mode():
     (LayerNorm's defining property), regardless of the sublayer's output scale."""
     block = ResidualConnection(D_MODEL, dropout=0.0, norm_first=False)
     x = tf.random.normal((1, 1, D_MODEL)) * 100  # large scale on purpose
-    out = block(x, lambda t: t, training=False).numpy()
+    out = block(x, sublayer=lambda t: t, training=False).numpy()
     mean = out.mean(axis=-1)
     std = out.std(axis=-1)
     assert abs(mean.item()) < 1e-4

@@ -46,7 +46,7 @@ def test_residual_connection_matches_across_frameworks(norm_first):
     torch_res = TorchResidual(D_MODEL, dropout=0.0, norm_first=norm_first).eval()
 
     tf_res = TFResidual(D_MODEL, dropout=0.0, norm_first=norm_first)
-    tf_res(tf.zeros((1, 1, D_MODEL)), lambda t: t, training=False)  # build
+    tf_res(tf.zeros((1, 1, D_MODEL)), sublayer=lambda t: t, training=False)  # build
 
     copy_residual_connection(torch_res, tf_res)
 
@@ -61,6 +61,6 @@ def test_residual_connection_matches_across_frameworks(norm_first):
 
     with torch.no_grad():
         torch_out = torch_res(x_torch, torch_sublayer).numpy()
-    tf_out = tf_res(x_tf, tf_sublayer, training=False).numpy()
+    tf_out = tf_res(x_tf, sublayer=tf_sublayer, training=False).numpy()
 
     np.testing.assert_allclose(torch_out, tf_out, atol=1e-4)

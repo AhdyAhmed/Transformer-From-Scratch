@@ -120,7 +120,7 @@ loss_fn = LabelSmoothingLoss(config.label_smoothing, pad_idx=config.pad_idx)
 loss = loss_fn(batch.tgt_out, logits)  # Keras convention: targets first
 ```
 
-Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. The PyTorch tests were run in this environment; TensorFlow is not installed here, so run `make test-tf-fast` in the TensorFlow virtualenv to verify its suite. The Day 17 PyTorch and Day 18 TensorFlow training loops are implemented; full-scale framework comparison runs are scheduled for Days 19–23.
+Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. Both framework suites and their cross-framework parity tests are exercised by the full test command. The Day 17 PyTorch and Day 18 TensorFlow training loops are implemented; full-scale framework comparison runs are scheduled for Days 19–23.
 
 ### Day 17 — PyTorch training loop and checkpointing
 
@@ -165,21 +165,23 @@ python -m tf_impl.training.train --train-src data/train.en --train-tgt data/trai
 python -m pytest tf_impl/tests/test_train_loop.py tf_impl/tests/test_training_utils.py -q
 ```
 
-Checkpoints and logs are written to `checkpoints/tf/` by default and are excluded from Git. The TensorFlow training tests are included, but could not be executed in the current environment because TensorFlow is not installed; run them in the TensorFlow environment before relying on a full training run.
+Checkpoints and logs are written to `checkpoints/tf/` by default and are excluded from Git. The TensorFlow training tests, end-to-end sample-corpus run, checkpoint save, and checkpoint resume path have all been validated with TensorFlow 2.21 / Keras 3.13.
 
 ## Setup
 
 **PyTorch environment**
 ```bash
 python -m venv .venv-torch
-source .venv-torch/bin/activate
+# Linux/macOS: source .venv-torch/bin/activate
+# Windows PowerShell: .venv-torch\Scripts\Activate.ps1
 pip install -r requirements-torch.txt
 ```
 
 **TensorFlow environment**
 ```bash
 python -m venv .venv-tf
-source .venv-tf/bin/activate
+# Linux/macOS: source .venv-tf/bin/activate
+# Windows PowerShell: .venv-tf\Scripts\Activate.ps1
 pip install -r requirements-tf.txt
 ```
 
@@ -213,7 +215,7 @@ LayerNorm's epsilon is pinned to `1e-6` explicitly on both sides — PyTorch's `
 
 `test_decoder.py` (Day 11) checks three analogous invariants for the decoder layer: the causal mask blocks future target positions (perturbing position 4 must not change the output at position 1), the cross-attention memory mask blocks padded *source* positions, and — the easy-to-get-wrong direction — changing *non-padded* encoder memory actually does change the decoder's output, proving cross-attention isn't accidentally a no-op.
 
-**Day 12 is the full model (forward pass only — no training loop exists yet).** `test_transformer.py` checks the assembled model end-to-end: output logit shapes, `create_masks()` matches the raw masking function, `encode()`+`decode()`+output projection called manually matches calling the model directly, `from_config()` builds the right shapes, and `share_embeddings=True` genuinely reuses one module/layer (checked with `is`, not just equal values) while rejecting mismatched vocab sizes. One regression test exists specifically because of a bug this build caught itself: the PyTorch model's Xavier-init pass touches every >1-D parameter, which would silently re-randomize the token embedding's zeroed pad row (Day 3) the moment the full model is assembled — `_init_parameters()` now explicitly re-zeros it afterward, and a test locks that in. `test_transformer_parity.py` is the capstone: every weight across both embeddings, every encoder/decoder layer, and the output projection is synced, and the two frameworks must then produce identical logits — with no masks, with real padding+causal masks, and with `share_embeddings=True`.
+**Day 12 covers the full model forward path.** `test_transformer.py` checks the assembled model end-to-end: output logit shapes, `create_masks()` matches the raw masking function, `encode()`+`decode()`+output projection called manually matches calling the model directly, `from_config()` builds the right shapes, and `share_embeddings=True` genuinely reuses one module/layer (checked with `is`, not just equal values) while rejecting mismatched vocab sizes. One regression test exists specifically because of a bug this build caught itself: the PyTorch model's Xavier-init pass touches every >1-D parameter, which would silently re-randomize the token embedding's zeroed pad row (Day 3) the moment the full model is assembled — `_init_parameters()` now explicitly re-zeros it afterward, and a test locks that in. `test_transformer_parity.py` is the capstone: every weight across both embeddings, every encoder/decoder layer, and the output projection is synced, and the two frameworks must then produce identical logits — with no masks, with real padding+causal masks, and with `share_embeddings=True`. End-to-end training and checkpoint behavior is covered by the Day 17–18 suites.
 
 **Day 13 is the first test that actually trains anything.** `test_overfit.py` (in each framework's own `tests/`, not the shared `tests/`, since it needs a real optimizer) builds a tiny Transformer and trains it with Adam for ~600 full-batch steps on 12 fixed sequences from a trivial copy task (no tokenizer or dataset needed yet — that's Day 14-15). It asserts the loss starts near `ln(vocab_size)` (confirming nothing is already broken at initialization), drops by at least 5x, and the model reaches >90% token accuracy on the memorized sequences. This is the first test that would actually catch a subtly-broken gradient anywhere in the 12-day chain of composed modules — everything before it checked shapes, masks, and cross-framework numerics, but never "can this thing learn anything at all". It's marked `slow` and run by `make test-torch`/`make test-tf`; use the `-fast` targets to skip it during quick iteration.
 
@@ -228,7 +230,7 @@ LayerNorm's epsilon is pinned to `1e-6` explicitly on both sides — PyTorch's `
 python -m data.build_vocab --files data/sample/train.en data/sample/train.de \
     --vocab-size 300 --out data/sample/tokenizer.json
 
-# 2. Or fetch the real Multi30k and build a bigger vocab (download URL unverified, see script docstring)
+# 2. Or fetch the real Multi30k and build a bigger vocab
 python -m data.download_multi30k
 python -m data.build_vocab --files data/multi30k/train.en data/multi30k/train.de \
     --vocab-size 8000 --out data/multi30k/tokenizer.json
