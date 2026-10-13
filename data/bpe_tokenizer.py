@@ -70,6 +70,11 @@ class BPETokenizer:
         self.merges: list[tuple[str, str]] = []  # learned merge rules, in learned order
         self.vocab: dict[str, int] = {}  # symbol -> id
         self.inverse_vocab: dict[int, str] = {}  # id -> symbol
+        self._merge_ranks: dict[tuple[str, str], int] = {}
+        # Parallel corpora repeat common words thousands of times. Cache their
+        # final ids so a large vocabulary does not replay every BPE merge for
+        # every occurrence while datasets are constructed.
+        self._word_id_cache: dict[str, tuple[int, ...]] = {}
 
     # ------------------------------------------------------------------ #
     # Training
@@ -84,6 +89,7 @@ class BPETokenizer:
         This determinism is what lets both frameworks train independently
         (Day 15) and still end up with byte-identical vocabularies.
         """
+        self._word_id_cache.clear()
         if vocab_size < len(SPECIAL_TOKENS):
             raise ValueError(
                 f"vocab_size ({vocab_size}) must be at least {len(SPECIAL_TOKENS)} "
@@ -114,6 +120,7 @@ class BPETokenizer:
         all_symbols = SPECIAL_TOKENS + base_symbols + merged_symbols
         self.vocab = {sym: idx for idx, sym in enumerate(all_symbols)}
         self.inverse_vocab = {idx: sym for sym, idx in self.vocab.items()}
+        self._merge_ranks = {pair: rank for rank, pair in enumerate(self.merges)}
 
     @staticmethod
     def _count_pairs(words: dict[tuple[str, ...], int]) -> Counter[tuple[str, str]]:
@@ -151,8 +158,19 @@ class BPETokenizer:
         return len(self.vocab)
 
     def _apply_merges(self, symbols: list[str]) -> list[str]:
-        for pair in self.merges:
-            if len(symbols) < 2:
+        # Applying every learned merge to every word is O(vocabulary size)
+        # even when almost none of those pairs occur. Pick only the earliest
+        # ranked pair currently present, exactly matching the learned-order
+        # algorithm while making encoding proportional to the word length.
+        while len(symbols) >= 2:
+            ranked_pairs = (
+                (self._merge_ranks[pair], pair)
+                for pair in zip(symbols, symbols[1:])
+                if pair in self._merge_ranks
+            )
+            try:
+                _, pair = min(ranked_pairs)
+            except ValueError:
                 break
             merged = "".join(pair)
             new_symbols = []
@@ -173,8 +191,12 @@ class BPETokenizer:
         ids: list[int] = []
         unk_id = self.vocab[UNK_TOKEN]
         for word in _pretokenize(text):
-            symbols = self._apply_merges(_word_to_symbols(word))
-            ids.extend(self.vocab.get(sym, unk_id) for sym in symbols)
+            word_ids = self._word_id_cache.get(word)
+            if word_ids is None:
+                symbols = self._apply_merges(_word_to_symbols(word))
+                word_ids = tuple(self.vocab.get(sym, unk_id) for sym in symbols)
+                self._word_id_cache[word] = word_ids
+            ids.extend(word_ids)
         if add_special_tokens:
             ids = [self.vocab[BOS_TOKEN], *ids, self.vocab[EOS_TOKEN]]
         return ids
@@ -198,7 +220,9 @@ class BPETokenizer:
     # ------------------------------------------------------------------ #
     def save(self, path: str | Path) -> None:
         data = {"vocab": self.vocab, "merges": self.merges}
-        Path(path).write_text(json.dumps(data, ensure_ascii=False, indent=2))
+        output_path = Path(path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(data, ensure_ascii=False, indent=2))
 
     @classmethod
     def load(cls, path: str | Path) -> "BPETokenizer":
@@ -207,4 +231,5 @@ class BPETokenizer:
         tok.vocab = {k: int(v) for k, v in data["vocab"].items()}
         tok.inverse_vocab = {v: k for k, v in tok.vocab.items()}
         tok.merges = [tuple(pair) for pair in data["merges"]]
+        tok._merge_ranks = {pair: rank for rank, pair in enumerate(tok.merges)}
         return tok

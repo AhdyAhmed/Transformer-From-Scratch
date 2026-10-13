@@ -143,6 +143,42 @@ def test_encode_batch_matches_individual_encode_calls():
     assert batch == individual
 
 
+def test_encode_caches_repeated_words_without_changing_ids():
+    tok = BPETokenizer()
+    tok.train(TOY_CORPUS, vocab_size=120)
+
+    first = tok.encode("a dog a dog")
+    cache_size = len(tok._word_id_cache)
+    second = tok.encode("a dog a dog")
+
+    assert second == first
+    assert len(tok._word_id_cache) == cache_size == 2
+
+
+def test_ranked_merge_application_matches_learned_order_reference():
+    tok = BPETokenizer()
+    tok.train(TOY_CORPUS, vocab_size=120)
+
+    for word in {word for text in TOY_CORPUS for word in text.split()}:
+        symbols = list(word)
+        symbols[-1] += END_OF_WORD
+        expected = symbols
+        for pair in tok.merges:
+            merged = "".join(pair)
+            result = []
+            index = 0
+            while index < len(expected):
+                if index + 1 < len(expected) and tuple(expected[index:index + 2]) == pair:
+                    result.append(merged)
+                    index += 2
+                else:
+                    result.append(expected[index])
+                    index += 1
+            expected = result
+
+        assert tok._apply_merges(symbols) == expected
+
+
 def test_end_of_word_marker_never_leaks_into_decoded_text():
     tok = BPETokenizer()
     tok.train(TOY_CORPUS, vocab_size=120)
@@ -168,3 +204,14 @@ def test_save_load_roundtrip_preserves_behavior(tmp_path):
     text = "a man in a red shirt"
     assert loaded.encode(text) == tok.encode(text)
     assert loaded.decode(tok.encode(text)) == tok.decode(tok.encode(text))
+
+
+def test_save_creates_missing_parent_directories(tmp_path):
+    tok = BPETokenizer()
+    tok.train(TOY_CORPUS, vocab_size=100)
+
+    path = tmp_path / "nested" / "tokenizer.json"
+    tok.save(path)
+
+    assert path.is_file()
+    assert BPETokenizer.load(path).vocab == tok.vocab

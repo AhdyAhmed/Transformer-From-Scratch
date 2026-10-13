@@ -86,7 +86,7 @@ Transformer-From-Scratch/
 - [x] Day 17 — PyTorch training loop and checkpointing
 - [x] Day 18 — TensorFlow training loop and checkpointing
 - [x] Day 19 — Reproducible PyTorch CUDA subset run with metrics, checkpoints & samples
-- [x] Day 20 — Extended 40-epoch PyTorch CUDA run with resume verification
+- [x] Day 20 — Extended full-corpus PyTorch CUDA run (30 epochs / 13,620 steps)
 - [ ] Day 21–23 — TensorFlow comparison & evaluation
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
@@ -198,32 +198,37 @@ git-ignored because of their size.
 
 ### Day 20 — Extended PyTorch CUDA training run
 
-Day 20 resumed the exact Day 19 model, optimizer, scheduler, and RNG state at
-epoch 4 and continued the same deterministic 2,000/200-pair Multi30k subset to
-40 epochs (1,280 optimizer steps). The run stayed on CUDA throughout and
-retained append-only metrics, qualitative samples, atomic latest/best
-checkpoints, and the regenerated loss curve.
+The initial Day 20 run extended the Day 19 subset checkpoint to 40 epochs.
+The enhanced run then removed that quality ceiling: it uses all 29,000
+Multi30k training pairs and all 1,014 validation pairs, a 2,048-token joint BPE
+vocabulary, and a 1.92M-parameter pre-norm Transformer (`d_model=128`, three
+encoder/decoder layers). It completed 30 CUDA epochs and 13,620 optimizer
+steps, with only three training pairs truncated at the 64-token limit.
+
+The shared from-scratch BPE tokenizer now caches repeated word encodings and
+applies only merge pairs present in each word. The ranked implementation was
+verified against the original learned-order algorithm on all 25,792 distinct
+words in the bilingual training corpus. Tokenizer saves also create missing
+parent directories.
 
 ```bash
 python -m torch_impl.training.train \
-  --config configs/day20-torch.json \
+  --config configs/day20-full-torch.json \
   --train-src data/multi30k/train.en --train-tgt data/multi30k/train.de \
   --val-src data/multi30k/val.en --val-tgt data/multi30k/val.de \
-  --max-train-pairs 2000 --max-val-pairs 200 \
-  --tokenizer checkpoints/day19/tokenizer.json \
-  --checkpoint-dir checkpoints/day19/torch --sample-translations 3 \
-  --resume checkpoints/day19/torch/latest.pt
+  --vocab-size 2048 --tokenizer checkpoints/day20-full/tokenizer.json \
+  --checkpoint-dir checkpoints/day20-full/torch --sample-translations 3
 ```
 
-From the Day 19 handoff to Day 20 completion, training loss decreased from
-4.8897 to 3.5473 and the best validation loss improved from 4.9280 to 3.7800
-(epoch 39). The lightweight reproducibility artifacts are in
-[`results/day20/`](results/day20/). The samples show modest source-dependent
-variation but remain weak because this deliberately compact run uses only
-2,000 pairs and a 512-token vocabulary; formal BLEU evaluation remains a Day
-23 task rather than being overstated here.
+Training loss decreased from 5.5842 to 2.1063 and validation loss from 4.2692
+to 2.3910. The final epoch is also the best checkpoint. Qualitative samples
+now preserve sentence-specific subjects, actions, colors, objects, and
+relationships instead of collapsing to a generic caption. Formal BLEU scoring
+remains a Day 23 task. Reproducibility artifacts and the exact tokenizer are in
+[`results/day20-full/`](results/day20-full/); the earlier subset artifacts are
+retained in [`results/day20/`](results/day20/) for comparison.
 
-![Day 20 train and validation loss](results/day20/loss_curve.svg)
+![Day 20 full-corpus train and validation loss](results/day20-full/loss_curve.svg)
 
 ## Setup
 

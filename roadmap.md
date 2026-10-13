@@ -108,10 +108,11 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Resume from the epoch-3 checkpoint and complete epoch 4 with optimizer/RNG state restored.
 
 **Day 20 — Extended PyTorch training run — completed**
-- [x] Resume the deterministic CUDA run from epoch 4 through epoch 40 (1,280 optimizer steps) on the same 2,000/200-pair subset.
-- [x] Reduce training loss from 4.8897 to 3.5473 and best validation loss from 4.9280 to 3.7800 without non-finite values or runtime failures.
-- [x] Preserve full metric history, per-epoch greedy samples, an updated loss curve, and latest/best checkpoints.
-- [x] Verify checkpoint loading and continuation with model, optimizer, scheduler step, and RNG state restored; reserve formal BLEU scoring for Day 23.
+- [x] Train a 1.92M-parameter pre-norm Transformer on all 29,000/1,014 Multi30k train/validation pairs for 30 CUDA epochs (13,620 steps).
+- [x] Expand the joint vocabulary from 512 to 2,048 tokens and optimize from-scratch BPE encoding without changing learned tokenization behavior.
+- [x] Reduce training loss from 5.5842 to 2.1063 and validation loss from 4.2692 to 2.3910 without non-finite values, memory errors, or runtime failures.
+- [x] Preserve the exact tokenizer, full metric history, 90 greedy samples, loss curve, and atomic latest/best checkpoints; verify epoch/step integrity.
+- [x] Retain formal BLEU scoring for Day 23 while confirming strong source-conditioned qualitative improvement.
 
 **Day 21–22 — TensorFlow training run**
 - Same dataset, same hyperparameters, same number of steps/epochs as PyTorch run.

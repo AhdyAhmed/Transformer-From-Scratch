@@ -1,0 +1,9794 @@
+{
+  "vocab": {
+    "<pad>": 0,
+    "<bos>": 1,
+    "<eos>": 2,
+    "<unk>": 3,
+    "!</w>": 4,
+    "\"</w>": 5,
+    "#</w>": 6,
+    "$</w>": 7,
+    "%</w>": 8,
+    "&</w>": 9,
+    "'</w>": 10,
+    "(</w>": 11,
+    ")</w>": 12,
+    ",</w>": 13,
+    "-</w>": 14,
+    ".</w>": 15,
+    "/</w>": 16,
+    "0": 17,
+    "0</w>": 18,
+    "1": 19,
+    "1</w>": 20,
+    "2": 21,
+    "2</w>": 22,
+    "3": 23,
+    "3</w>": 24,
+    "4": 25,
+    "4</w>": 26,
+    "5": 27,
+    "5</w>": 28,
+    "6": 29,
+    "6</w>": 30,
+    "7": 31,
+    "7</w>": 32,
+    "8": 33,
+    "8</w>": 34,
+    "9": 35,
+    "9</w>": 36,
+    ":</w>": 37,
+    ";</w>": 38,
+    "=</w>": 39,
+    "?</w>": 40,
+    "@</w>": 41,
+    "_": 42,
+    "`</w>": 43,
+    "a": 44,
+    "a</w>": 45,
+    "b": 46,
+    "b</w>": 47,
+    "c": 48,
+    "c</w>": 49,
+    "d": 50,
+    "d</w>": 51,
+    "e": 52,
+    "e</w>": 53,
+    "f": 54,
+    "f</w>": 55,
+    "g": 56,
+    "g</w>": 57,
+    "h": 58,
+    "h</w>": 59,
+    "i": 60,
+    "i</w>": 61,
+    "j": 62,
+    "j</w>": 63,
+    "k": 64,
+    "k</w>": 65,
+    "l": 66,
+    "l</w>": 67,
+    "m": 68,
+    "m</w>": 69,
+    "n": 70,
+    "n</w>": 71,
+    "o": 72,
+    "o</w>": 73,
+    "p": 74,
+    "p</w>": 75,
+    "q": 76,
+    "q</w>": 77,
+    "r": 78,
+    "r</w>": 79,
+    "s": 80,
+    "s</w>": 81,
+    "t": 82,
+    "t</w>": 83,
+    "u": 84,
+    "u</w>": 85,
+    "v": 86,
+    "v</w>": 87,
+    "w": 88,
+    "w</w>": 89,
+    "x": 90,
+    "x</w>": 91,
+    "y": 92,
+    "y</w>": 93,
+    "z": 94,
+    "z</w>": 95,
+    "ß": 96,
+    "ß</w>": 97,
+    "à</w>": 98,
+    "ä": 99,
+    "è": 100,
+    "é": 101,
+    "é</w>": 102,
+    "ñ": 103,
+    "ö": 104,
+    "ü": 105,
+    "ü</w>": 106,
+    "–</w>": 107,
+    "‘</w>": 108,
+    "’</w>": 109,
+    "“</w>": 110,
+    "”</w>": 111,
+    "„</w>": 112,
+    "in": 113,
+    "en</w>": 114,
+    "in</w>": 115,
+    "er</w>": 116,
+    "ein": 117,
+    "an": 118,
+    "ch": 119,
+    "un": 120,
+    "ing</w>": 121,
+    "er": 122,
+    "ar": 123,
+    "st": 124,
+    "it": 125,
+    "au": 126,
+    "an</w>": 127,
+    "ein</w>": 128,
+    "th": 129,
+    "em</w>": 130,
+    "re": 131,
+    "ro": 132,
+    "en": 133,
+    "ra": 134,
+    "sch": 135,
+    "einem</w>": 136,
+    "on</w>": 137,
+    "el": 138,
+    "al": 139,
+    "und</w>": 140,
+    "man</w>": 141,
+    "we": 142,
+    "mi": 143,
+    "la": 144,
+    "the</w>": 145,
+    "and</w>": 146,
+    "eine</w>": 147,
+    "is</w>": 148,
+    "es</w>": 149,
+    "le</w>": 150,
+    "ge": 151,
+    "auf</w>": 152,
+    "si": 153,
+    "mit</w>": 154,
+    "or": 155,
+    "man": 156,
+    "be": 157,
+    "on": 158,
+    "der</w>": 159,
+    "ch</w>": 160,
+    "ir": 161,
+    "mann</w>": 162,
+    "einer</w>": 163,
+    "at": 164,
+    "sp": 165,
+    "of</w>": 166,
+    "le": 167,
+    "ck": 168,
+    "sh": 169,
+    "bo": 170,
+    "ri": 171,
+    "wit": 172,
+    "with</w>": 173,
+    "bl": 174,
+    "ge</w>": 175,
+    "di": 176,
+    "wo": 177,
+    "at</w>": 178,
+    "ol": 179,
+    "ss": 180,
+    "eh": 181,
+    "et</w>": 182,
+    "lo": 183,
+    "sit": 184,
+    "do": 185,
+    "ding</w>": 186,
+    "wh": 187,
+    "ck</w>": 188,
+    "op": 189,
+    "ten</w>": 190,
+    "to</w>": 191,
+    "tw": 192,
+    "il": 193,
+    "ur": 194,
+    "iel": 195,
+    "ba": 196,
+    "ne": 197,
+    "hr": 198,
+    "ung</w>": 199,
+    "fra": 200,
+    "einen</w>": 201,
+    "mä": 202,
+    "li": 203,
+    "frau</w>": 204,
+    "all</w>": 205,
+    "ut": 206,
+    "men</w>": 207,
+    "de</w>": 208,
+    "pe": 209,
+    "king</w>": 210,
+    "die</w>": 211,
+    "woman</w>": 212,
+    "are</w>": 213,
+    "pla": 214,
+    "zwe": 215,
+    "or</w>": 216,
+    "im</w>": 217,
+    "two</w>": 218,
+    "zwei</w>": 219,
+    "den</w>": 220,
+    "gen</w>": 221,
+    "ers": 222,
+    "ei": 223,
+    "am": 224,
+    "gro": 225,
+    "ru": 226,
+    "ed</w>": 227,
+    "spiel": 228,
+    "chen</w>": 229,
+    "jun": 230,
+    "gt</w>": 231,
+    "as</w>": 232,
+    "shir": 233,
+    "and": 234,
+    "wa": 235,
+    "peop": 236,
+    "people</w>": 237,
+    "ti": 238,
+    "st</w>": 239,
+    "wal": 240,
+    "ter": 241,
+    "de": 242,
+    "ting</w>": 243,
+    "fa": 244,
+    "shirt</w>": 245,
+    "co": 246,
+    "nn": 247,
+    "men": 248,
+    "steh": 249,
+    "ta": 250,
+    "aring</w>": 251,
+    "ter</w>": 252,
+    "to": 253,
+    "ts</w>": 254,
+    "war": 255,
+    "pers": 256,
+    "kl": 257,
+    "sitz": 258,
+    "play": 259,
+    "auen</w>": 260,
+    "up</w>": 261,
+    "wearing</w>": 262,
+    "ho": 263,
+    "ball</w>": 264,
+    "bla": 265,
+    "sk": 266,
+    "wn</w>": 267,
+    "ver": 268,
+    "se": 269,
+    "pp": 270,
+    "ite</w>": 271,
+    "wei": 272,
+    "dre": 273,
+    "von</w>": 274,
+    "yo": 275,
+    "ft</w>": 276,
+    "um": 277,
+    "kin": 278,
+    "em": 279,
+    "ma": 280,
+    "young</w>": 281,
+    "sich</w>": 282,
+    "dem</w>": 283,
+    "blu": 284,
+    "white</w>": 285,
+    "red</w>": 286,
+    "fro": 287,
+    "fo": 288,
+    "ber": 289,
+    "äl": 290,
+    "ben</w>": 291,
+    "gir": 292,
+    "stre": 293,
+    "cht</w>": 294,
+    "mäd": 295,
+    "se</w>": 296,
+    "ss</w>": 297,
+    "pa": 298,
+    "ßen</w>": 299,
+    "ha": 300,
+    "ar</w>": 301,
+    "mädchen</w>": 302,
+    "hin": 303,
+    "gra": 304,
+    "geh": 305,
+    "lei": 306,
+    "mo": 307,
+    "junge</w>": 308,
+    "one</w>": 309,
+    "whi": 310,
+    "so": 311,
+    "black</w>": 312,
+    "ce</w>": 313,
+    "wat": 314,
+    "äh": 315,
+    "vor</w>": 316,
+    "stra": 317,
+    "his</w>": 318,
+    "hol": 319,
+    "männ": 320,
+    "te</w>": 321,
+    "schwar": 322,
+    "ße</w>": 323,
+    "bu": 324,
+    "gr": 325,
+    "zu": 326,
+    "while</w>": 327,
+    "zu</w>": 328,
+    "bi": 329,
+    "ers</w>": 330,
+    "blue</w>": 331,
+    "po": 332,
+    "eines</w>": 333,
+    "stan": 334,
+    "ther</w>": 335,
+    "tr": 336,
+    "boy</w>": 337,
+    "steht</w>": 338,
+    "te": 339,
+    "by</w>": 340,
+    "par": 341,
+    "lä": 342,
+    "sitting</w>": 343,
+    "girl</w>": 344,
+    "ie": 345,
+    "ppe</w>": 346,
+    "schen</w>": 347,
+    "me": 348,
+    "klei": 349,
+    "fahr": 350,
+    "dog</w>": 351,
+    "ben": 352,
+    "männer</w>": 353,
+    "loo": 354,
+    "chil": 355,
+    "hund</w>": 356,
+    "sitzt</w>": 357,
+    "standing</w>": 358,
+    "ren": 359,
+    "fi": 360,
+    "nt</w>": 361,
+    "playing</w>": 362,
+    "tra": 363,
+    "cro": 364,
+    "rin": 365,
+    "bei</w>": 366,
+    "group</w>": 367,
+    "gel": 368,
+    "ut</w>": 369,
+    "ja": 370,
+    "side</w>": 371,
+    "ds</w>": 372,
+    "ere</w>": 373,
+    "schwarz": 374,
+    "out": 375,
+    "ber</w>": 376,
+    "person</w>": 377,
+    "straße</w>": 378,
+    "all": 379,
+    "gru": 380,
+    "her</w>": 381,
+    "ger</w>": 382,
+    "ul": 383,
+    "häl": 384,
+    "street</w>": 385,
+    "wi": 386,
+    "lan": 387,
+    "gruppe</w>": 388,
+    "na": 389,
+    "hält</w>": 390,
+    "am</w>": 391,
+    "wäh": 392,
+    "down</w>": 393,
+    "hem": 394,
+    "währen": 395,
+    "während</w>": 396,
+    "for": 397,
+    "walking</w>": 398,
+    "um</w>": 399,
+    "ree</w>": 400,
+    "eren</w>": 401,
+    "ug": 402,
+    "ent": 403,
+    "al</w>": 404,
+    "ert</w>": 405,
+    "spielt</w>": 406,
+    "front</w>": 407,
+    "ern</w>": 408,
+    "auf": 409,
+    "än": 410,
+    "ir</w>": 411,
+    "hemd</w>": 412,
+    "rei": 413,
+    "pi": 414,
+    "boar": 415,
+    "das</w>": 416,
+    "jack": 417,
+    "fü": 418,
+    "dr": 419,
+    "nen</w>": 420,
+    "ks</w>": 421,
+    "ke</w>": 422,
+    "holding</w>": 423,
+    "sta": 424,
+    "gh": 425,
+    "other</w>": 426,
+    "hat</w>": 427,
+    "onen</w>": 428,
+    "dur": 429,
+    "über</w>": 430,
+    "fe": 431,
+    "bri": 432,
+    "mm": 433,
+    "itt": 434,
+    "personen</w>": 435,
+    "no": 436,
+    "da": 437,
+    "run": 438,
+    "gs</w>": 439,
+    "hrt</w>": 440,
+    "wor": 441,
+    "ni": 442,
+    "aus</w>": 443,
+    "amer": 444,
+    "sin": 445,
+    "fr": 446,
+    "ell": 447,
+    "kind</w>": 448,
+    "gu": 449,
+    "water</w>": 450,
+    "blauen</w>": 451,
+    "wass": 452,
+    "ist</w>": 453,
+    "drei</w>": 454,
+    "oran": 455,
+    "far": 456,
+    "ying</w>": 457,
+    "vi": 458,
+    "ver</w>": 459,
+    "three</w>": 460,
+    "weißen</w>": 461,
+    "thro": 462,
+    "gre": 463,
+    "je": 464,
+    "ea": 465,
+    "me</w>": 466,
+    "arbe": 467,
+    "fu": 468,
+    "ihr": 469,
+    "sprin": 470,
+    "frauen</w>": 471,
+    "car": 472,
+    "ll": 473,
+    "roten</w>": 474,
+    "women</w>": 475,
+    "uft</w>": 476,
+    "bro": 477,
+    "bra": 478,
+    "neben</w>": 479,
+    "ve</w>": 480,
+    "su": 481,
+    "fel": 482,
+    "stehen</w>": 483,
+    "jum": 484,
+    "looking</w>": 485,
+    "it</w>": 486,
+    "gen": 487,
+    "spielen</w>": 488,
+    "litt": 489,
+    "arbeit": 490,
+    "grü": 491,
+    "schau": 492,
+    "green</w>": 493,
+    "sitzen</w>": 494,
+    "menschen</w>": 495,
+    "fä": 496,
+    "ping</w>": 497,
+    "pf": 498,
+    "sno": 499,
+    "trä": 500,
+    "little</w>": 501,
+    "geht</w>": 502,
+    "asi": 503,
+    "for</w>": 504,
+    "durch</w>": 505,
+    "des</w>": 506,
+    "ff": 507,
+    "äu": 508,
+    "foo": 509,
+    "sho": 510,
+    "lar": 511,
+    "child</w>": 512,
+    "low</w>": 513,
+    "walk</w>": 514,
+    "ball": 515,
+    "et": 516,
+    "ki": 517,
+    "ten": 518,
+    "skat": 519,
+    "ko": 520,
+    "fährt</w>": 521,
+    "outside</w>": 522,
+    "kleid": 523,
+    "ati": 524,
+    "ger": 525,
+    "con": 526,
+    "mu": 527,
+    "lie": 528,
+    "ugh</w>": 529,
+    "mar": 530,
+    "hand</w>": 531,
+    "trägt</w>": 532,
+    "sa": 533,
+    "ct": 534,
+    "large</w>": 535,
+    "ground</w>": 536,
+    "wasser</w>": 537,
+    "sch</w>": 538,
+    "farben": 539,
+    "renn": 540,
+    "ze": 541,
+    "hal": 542,
+    "braun": 543,
+    "kinder</w>": 544,
+    "sm": 545,
+    "hel": 546,
+    "vor": 547,
+    "through</w>": 548,
+    "ih": 549,
+    "ober": 550,
+    "sti": 551,
+    "ans</w>": 552,
+    "geb": 553,
+    "schne": 554,
+    "eil</w>": 555,
+    "sen</w>": 556,
+    "brown</w>": 557,
+    "back": 558,
+    "ne</w>": 559,
+    "yel": 560,
+    "ph": 561,
+    "ele": 562,
+    "gla": 563,
+    "yellow</w>": 564,
+    "ands</w>": 565,
+    "zi": 566,
+    "ys</w>": 567,
+    "amera</w>": 568,
+    "kleines</w>": 569,
+    "her": 570,
+    "dren</w>": 571,
+    "children</w>": 572,
+    "unter</w>": 573,
+    "board</w>": 574,
+    "win": 575,
+    "macht</w>": 576,
+    "rad</w>": 577,
+    "ca": 578,
+    "blon": 579,
+    "der": 580,
+    "sche</w>": 581,
+    "dy</w>": 582,
+    "ute</w>": 583,
+    "ehr": 584,
+    "ly</w>": 585,
+    "cy": 586,
+    "springt</w>": 587,
+    "elt</w>": 588,
+    "cyc": 589,
+    "bli": 590,
+    "ling</w>": 591,
+    "entlan": 592,
+    "schwarzen</w>": 593,
+    "from</w>": 594,
+    "thei": 595,
+    "their</w>": 596,
+    "ong</w>": 597,
+    "bü": 598,
+    "ckt</w>": 599,
+    "dress": 600,
+    "cht": 601,
+    "weiß": 602,
+    "rea": 603,
+    "into</w>": 604,
+    "pin": 605,
+    "park</w>": 606,
+    "ght</w>": 607,
+    "ning</w>": 608,
+    "tri": 609,
+    "ps</w>": 610,
+    "kleiner</w>": 611,
+    "ga": 612,
+    "entlang</w>": 613,
+    "stru": 614,
+    "buil": 615,
+    "teil</w>": 616,
+    "tor": 617,
+    "stand</w>": 618,
+    "xt</w>": 619,
+    "ssen</w>": 620,
+    "clo": 621,
+    "shor": 622,
+    "mehr": 623,
+    "leute</w>": 624,
+    "small</w>": 625,
+    "cken</w>": 626,
+    "ame</w>": 627,
+    "next</w>": 628,
+    "ble</w>": 629,
+    "thing</w>": 630,
+    "skate": 631,
+    "kleidung</w>": 632,
+    "air</w>": 633,
+    "gehen</w>": 634,
+    "vers": 635,
+    "str": 636,
+    "sur": 637,
+    "crow": 638,
+    "boo": 639,
+    "of": 640,
+    "dressed</w>": 641,
+    "out</w>": 642,
+    "sses</w>": 643,
+    "per": 644,
+    "fri": 645,
+    "col": 646,
+    "wir": 647,
+    "some</w>": 648,
+    "qu": 649,
+    "stu": 650,
+    "ine</w>": 651,
+    "frei": 652,
+    "unter": 653,
+    "ur</w>": 654,
+    "spieler</w>": 655,
+    "gebäu": 656,
+    "over</w>": 657,
+    "ving</w>": 658,
+    "läch": 659,
+    "weg</w>": 660,
+    "mal": 661,
+    "hi": 662,
+    "stü": 663,
+    "sc": 664,
+    "dd": 665,
+    "orange</w>": 666,
+    "building</w>": 667,
+    "sing</w>": 668,
+    "pro": 669,
+    "ls</w>": 670,
+    "etw": 671,
+    "tz": 672,
+    "aro": 673,
+    "älter": 674,
+    "den": 675,
+    "form": 676,
+    "bau": 677,
+    "motor": 678,
+    "riding</w>": 679,
+    "etwas</w>": 680,
+    "pu": 681,
+    "running</w>": 682,
+    "mehrere</w>": 683,
+    "wimm": 684,
+    "seinem</w>": 685,
+    "oberteil</w>": 686,
+    "uni": 687,
+    "ure</w>": 688,
+    "lle</w>": 689,
+    "hea": 690,
+    "großen</w>": 691,
+    "gesch": 692,
+    "ran": 693,
+    "near</w>": 694,
+    "seh": 695,
+    "hinter": 696,
+    "ach</w>": 697,
+    "top</w>": 698,
+    "mp": 699,
+    "jacket</w>": 700,
+    "around</w>": 701,
+    "another</w>": 702,
+    "ple</w>": 703,
+    "grünen</w>": 704,
+    "jacke</w>": 705,
+    "fiel": 706,
+    "fen": 707,
+    "side": 708,
+    "flo": 709,
+    "baby</w>": 710,
+    "aus": 711,
+    "dar": 712,
+    "some": 713,
+    "schaut</w>": 714,
+    "kt</w>": 715,
+    "tan": 716,
+    "jungen</w>": 717,
+    "wer": 718,
+    "ching</w>": 719,
+    "brille</w>": 720,
+    "tal": 721,
+    "son": 722,
+    "smi": 723,
+    "ment</w>": 724,
+    "field</w>": 725,
+    "rest": 726,
+    "grund</w>": 727,
+    "cti": 728,
+    "table</w>": 729,
+    "sidewalk</w>": 730,
+    "tre": 731,
+    "rü": 732,
+    "ol</w>": 733,
+    "jeans</w>": 734,
+    "sen": 735,
+    "zei": 736,
+    "wing</w>": 737,
+    "ity</w>": 738,
+    "kop": 739,
+    "glasses</w>": 740,
+    "he</w>": 741,
+    "crowd</w>": 742,
+    "beach</w>": 743,
+    "mit": 744,
+    "blau": 745,
+    "tisch</w>": 746,
+    "ging</w>": 747,
+    "arr": 748,
+    "let": 749,
+    "pink</w>": 750,
+    "ler</w>": 751,
+    "fuß": 752,
+    "vol": 753,
+    "rau": 754,
+    "cks</w>": 755,
+    "be</w>": 756,
+    "band</w>": 757,
+    "ka": 758,
+    "bike</w>": 759,
+    "läuft</w>": 760,
+    "lea": 761,
+    "cing</w>": 762,
+    "fl": 763,
+    "fin": 764,
+    "ey</w>": 765,
+    "stands</w>": 766,
+    "hand": 767,
+    "fla": 768,
+    "way</w>": 769,
+    "om</w>": 770,
+    "hut</w>": 771,
+    "hind</w>": 772,
+    "farbenen</w>": 773,
+    "phone</w>": 774,
+    "kleide": 775,
+    "base": 776,
+    "sits</w>": 777,
+    "shorts</w>": 778,
+    "jumping</w>": 779,
+    "fahrrad</w>": 780,
+    "el</w>": 781,
+    "sind</w>": 782,
+    "hun": 783,
+    "behind</w>": 784,
+    "strand</w>": 785,
+    "für</w>": 786,
+    "cke</w>": 787,
+    "zug</w>": 788,
+    "dan": 789,
+    "hintergrund</w>": 790,
+    "bask": 791,
+    "snow</w>": 792,
+    "ded</w>": 793,
+    "cer</w>": 794,
+    "freien</w>": 795,
+    "eht</w>": 796,
+    "bt</w>": 797,
+    "musi": 798,
+    "eln</w>": 799,
+    "zen</w>": 800,
+    "its</w>": 801,
+    "fen</w>": 802,
+    "ches</w>": 803,
+    "grass</w>": 804,
+    "che</w>": 805,
+    "sto": 806,
+    "luft</w>": 807,
+    "ör": 808,
+    "hair</w>": 809,
+    "menge</w>": 810,
+    "sam": 811,
+    "ges</w>": 812,
+    "näh": 813,
+    "background</w>": 814,
+    "ari": 815,
+    "anderen</w>": 816,
+    "schen": 817,
+    "hän": 818,
+    "jo": 819,
+    "city</w>": 820,
+    "ban": 821,
+    "les</w>": 822,
+    "gebäude</w>": 823,
+    "cycle</w>": 824,
+    "cou": 825,
+    "junger</w>": 826,
+    "che": 827,
+    "go": 828,
+    "gelben</w>": 829,
+    "bil": 830,
+    "gekleide": 831,
+    "asian</w>": 832,
+    "hinter</w>": 833,
+    "girls</w>": 834,
+    "off</w>": 835,
+    "det</w>": 836,
+    "aufen</w>": 837,
+    "form</w>": 838,
+    "tt": 839,
+    "gi": 840,
+    "kü": 841,
+    "zeu": 842,
+    "roll": 843,
+    "bar": 844,
+    "unta": 845,
+    "git": 846,
+    "foot": 847,
+    "pict": 848,
+    "sie</w>": 849,
+    "player</w>": 850,
+    "halten</w>": 851,
+    "hü": 852,
+    "bal": 853,
+    "ad": 854,
+    "pol": 855,
+    "nen": 856,
+    "ster</w>": 857,
+    "snow": 858,
+    "dress</w>": 859,
+    "nach</w>": 860,
+    "mü": 861,
+    "ci": 862,
+    "fahrer</w>": 863,
+    "looks</w>": 864,
+    "wall</w>": 865,
+    "pan": 866,
+    "schwarz</w>": 867,
+    "dogs</w>": 868,
+    "sun": 869,
+    "vier</w>": 870,
+    "stei": 871,
+    "ves</w>": 872,
+    "menschen": 873,
+    "guit": 874,
+    "andere</w>": 875,
+    "ad</w>": 876,
+    "ker</w>": 877,
+    "sh</w>": 878,
+    "old</w>": 879,
+    "per</w>": 880,
+    "woo": 881,
+    "veral</w>": 882,
+    "ce": 883,
+    "ard</w>": 884,
+    "stri": 885,
+    "four</w>": 886,
+    "that</w>": 887,
+    "spor": 888,
+    "several</w>": 889,
+    "schwarzer</w>": 890,
+    "cli": 891,
+    "older</w>": 892,
+    "kleine</w>": 893,
+    "gar": 894,
+    "tem</w>": 895,
+    "gel</w>": 896,
+    "boden</w>": 897,
+    "pul": 898,
+    "dern</w>": 899,
+    "feld</w>": 900,
+    "basket": 901,
+    "swe": 902,
+    "ner</w>": 903,
+    "camera</w>": 904,
+    "lin": 905,
+    "fer</w>": 906,
+    "schie": 907,
+    "nähe</w>": 908,
+    "boys</w>": 909,
+    "ani": 910,
+    "ped</w>": 911,
+    "wird</w>": 912,
+    "restau": 913,
+    "restauran": 914,
+    "über": 915,
+    "ses</w>": 916,
+    "plat": 917,
+    "eit": 918,
+    "beim</w>": 919,
+    "dun": 920,
+    "talking</w>": 921,
+    "skateboard</w>": 922,
+    "sten</w>": 923,
+    "hor": 924,
+    "something</w>": 925,
+    "lady</w>": 926,
+    "kamera</w>": 927,
+    "essen</w>": 928,
+    "blond</w>": 929,
+    "sehen</w>": 930,
+    "sand</w>": 931,
+    "schu": 932,
+    "pre": 933,
+    "kleinen</w>": 934,
+    "soc": 935,
+    "soccer</w>": 936,
+    "food</w>": 937,
+    "ating</w>": 938,
+    "weißer</w>": 939,
+    "ander</w>": 940,
+    "ve": 941,
+    "walks</w>": 942,
+    "stad": 943,
+    "menschenmenge</w>": 944,
+    "guitar</w>": 945,
+    "einander</w>": 946,
+    "cross</w>": 947,
+    "bei": 948,
+    "arre</w>": 949,
+    "als</w>": 950,
+    "hunde</w>": 951,
+    "along</w>": 952,
+    "zt</w>": 953,
+    "pool</w>": 954,
+    "hne</w>": 955,
+    "rock</w>": 956,
+    "cher</w>": 957,
+    "working</w>": 958,
+    "schwimm": 959,
+    "play</w>": 960,
+    "paar</w>": 961,
+    "toge": 962,
+    "together</w>": 963,
+    "spie": 964,
+    "fer": 965,
+    "perform": 966,
+    "gras</w>": 967,
+    "vorbei</w>": 968,
+    "sig": 969,
+    "zeug</w>": 970,
+    "hoch</w>": 971,
+    "rad": 972,
+    "gray</w>": 973,
+    "smiling</w>": 974,
+    "ob": 975,
+    "bre": 976,
+    "schla": 977,
+    "kers</w>": 978,
+    "restaurant</w>": 979,
+    "schnee</w>": 980,
+    "kes</w>": 981,
+    "rennt</w>": 982,
+    "bank</w>": 983,
+    "liegt</w>": 984,
+    "irt</w>": 985,
+    "gitarre</w>": 986,
+    "tel</w>": 987,
+    "orange": 988,
+    "strei": 989,
+    "sonnen": 990,
+    "chtet</w>": 991,
+    "picture</w>": 992,
+    "game</w>": 993,
+    "bah": 994,
+    "zusam": 995,
+    "road</w>": 996,
+    "has</w>": 997,
+    "wand</w>": 998,
+    "hen</w>": 999,
+    "sieht</w>": 1000,
+    "ihre</w>": 1001,
+    "football</w>": 1002,
+    "eini": 1003,
+    "scha": 1004,
+    "ft": 1005,
+    "ste": 1006,
+    "rying</w>": 1007,
+    "wagen</w>": 1008,
+    "ation</w>": 1009,
+    "suit</w>": 1010,
+    "ors</w>": 1011,
+    "car</w>": 1012,
+    "versu": 1013,
+    "plays</w>": 1014,
+    "pe</w>": 1015,
+    "ty</w>": 1016,
+    "pfer": 1017,
+    "kleid</w>": 1018,
+    "fahren</w>": 1019,
+    "ent</w>": 1020,
+    "can</w>": 1021,
+    "mounta": 1022,
+    "schauen</w>": 1023,
+    "ken</w>": 1024,
+    "ddle</w>": 1025,
+    "ßen": 1026,
+    "holds</w>": 1027,
+    "rennen</w>": 1028,
+    "ihren</w>": 1029,
+    "schlä": 1030,
+    "head</w>": 1031,
+    "shing</w>": 1032,
+    "face</w>": 1033,
+    "asiati": 1034,
+    "arbeiter</w>": 1035,
+    "sst</w>": 1036,
+    "posi": 1037,
+    "du": 1038,
+    "ction</w>": 1039,
+    "pants</w>": 1040,
+    "clim": 1041,
+    "sle": 1042,
+    "ale</w>": 1043,
+    "viel": 1044,
+    "bench</w>": 1045,
+    "är": 1046,
+    "tes</w>": 1047,
+    "ats</w>": 1048,
+    "him</w>": 1049,
+    "ander": 1050,
+    "abo": 1051,
+    "ab": 1052,
+    "sit</w>": 1053,
+    "pur": 1054,
+    "braunen</w>": 1055,
+    "brauner</w>": 1056,
+    "outdo": 1057,
+    "gri": 1058,
+    "room</w>": 1059,
+    "pain": 1060,
+    "mat": 1061,
+    "letter": 1062,
+    "kun": 1063,
+    "anzug</w>": 1064,
+    "steig</w>": 1065,
+    "stage</w>": 1066,
+    "tele": 1067,
+    "ade</w>": 1068,
+    "verk": 1069,
+    "nis</w>": 1070,
+    "kro": 1071,
+    "ins</w>": 1072,
+    "geschä": 1073,
+    "ste</w>": 1074,
+    "hil": 1075,
+    "carrying</w>": 1076,
+    "älterer</w>": 1077,
+    "couple</w>": 1078,
+    "sein</w>": 1079,
+    "he": 1080,
+    "außen</w>": 1081,
+    "instru": 1082,
+    "poli": 1083,
+    "kletter": 1084,
+    "bet": 1085,
+    "mau": 1086,
+    "ful</w>": 1087,
+    "fem": 1088,
+    "bühne</w>": 1089,
+    "tro": 1090,
+    "spiel</w>": 1091,
+    "mer</w>": 1092,
+    "gegen": 1093,
+    "back</w>": 1094,
+    "zusammen</w>": 1095,
+    "ex": 1096,
+    "draußen</w>": 1097,
+    "befin": 1098,
+    "bede": 1099,
+    "spa": 1100,
+    "them</w>": 1101,
+    "ihr</w>": 1102,
+    "baseball</w>": 1103,
+    "sweat": 1104,
+    "bun": 1105,
+    "bicycle</w>": 1106,
+    "tting</w>": 1107,
+    "straßen": 1108,
+    "scher</w>": 1109,
+    "ms</w>": 1110,
+    "kur": 1111,
+    "wach": 1112,
+    "tree</w>": 1113,
+    "drin": 1114,
+    "tur": 1115,
+    "stadt</w>": 1116,
+    "schü": 1117,
+    "hose</w>": 1118,
+    "hl</w>": 1119,
+    "day</w>": 1120,
+    "wel": 1121,
+    "stor": 1122,
+    "male</w>": 1123,
+    "kopf</w>": 1124,
+    "herum</w>": 1125,
+    "foto</w>": 1126,
+    "race</w>": 1127,
+    "rä": 1128,
+    "bür": 1129,
+    "cha": 1130,
+    "basketball</w>": 1131,
+    "ons</w>": 1132,
+    "iti": 1133,
+    "seine</w>": 1134,
+    "long</w>": 1135,
+    "lau": 1136,
+    "ll</w>": 1137,
+    "blickt</w>": 1138,
+    "blo": 1139,
+    "ballspieler</w>": 1140,
+    "taking</w>": 1141,
+    "comp": 1142,
+    "ameri": 1143,
+    "gehweg</w>": 1144,
+    "platz</w>": 1145,
+    "middle</w>": 1146,
+    "each</w>": 1147,
+    "uniform</w>": 1148,
+    "schir": 1149,
+    "mikro": 1150,
+    "ke": 1151,
+    "com": 1152,
+    "wachsen": 1153,
+    "togra": 1154,
+    "ski": 1155,
+    "arbeitet</w>": 1156,
+    "laufen</w>": 1157,
+    "boat</w>": 1158,
+    "ze</w>": 1159,
+    "doing</w>": 1160,
+    "chten</w>": 1161,
+    "bereit": 1162,
+    "seinen</w>": 1163,
+    "dabei</w>": 1164,
+    "cre": 1165,
+    "are": 1166,
+    "pho": 1167,
+    "hell": 1168,
+    "micro": 1169,
+    "lu": 1170,
+    "dirt</w>": 1171,
+    "watching</w>": 1172,
+    "helm</w>": 1173,
+    "across</w>": 1174,
+    "weiß</w>": 1175,
+    "tag</w>": 1176,
+    "slee": 1177,
+    "guy</w>": 1178,
+    "there</w>": 1179,
+    "tze</w>": 1180,
+    "dark</w>": 1181,
+    "bus</w>": 1182,
+    "area</w>": 1183,
+    "team</w>": 1184,
+    "sbe": 1185,
+    "hinunter</w>": 1186,
+    "skateboar": 1187,
+    "fe</w>": 1188,
+    "tragen</w>": 1189,
+    "blau</w>": 1190,
+    "versucht</w>": 1191,
+    "wie</w>": 1192,
+    "tennis</w>": 1193,
+    "hl": 1194,
+    "gesi": 1195,
+    "ang</w>": 1196,
+    "cover": 1197,
+    "ssen": 1198,
+    "jumps</w>": 1199,
+    "boot</w>": 1200,
+    "stat": 1201,
+    "led</w>": 1202,
+    "hands</w>": 1203,
+    "coat</w>": 1204,
+    "bedeck": 1205,
+    "ette</w>": 1206,
+    "uth</w>": 1207,
+    "iting</w>": 1208,
+    "ire</w>": 1209,
+    "fon</w>": 1210,
+    "climb": 1211,
+    "zeigt</w>": 1212,
+    "female</w>": 1213,
+    "ften</w>": 1214,
+    "kids</w>": 1215,
+    "ende</w>": 1216,
+    "spe": 1217,
+    "sand": 1218,
+    "rot</w>": 1219,
+    "fre": 1220,
+    "eing</w>": 1221,
+    "arbeiten</w>": 1222,
+    "stell": 1223,
+    "performing</w>": 1224,
+    "pat": 1225,
+    "dri": 1226,
+    "schil": 1227,
+    "dame</w>": 1228,
+    "who</w>": 1229,
+    "große</w>": 1230,
+    "gestrei": 1231,
+    "ws</w>": 1232,
+    "shirts</w>": 1233,
+    "reit": 1234,
+    "cking</w>": 1235,
+    "sse</w>": 1236,
+    "machen</w>": 1237,
+    "eating</w>": 1238,
+    "under</w>": 1239,
+    "lächelt</w>": 1240,
+    "lichen</w>": 1241,
+    "haar": 1242,
+    "using</w>": 1243,
+    "tru": 1244,
+    "cat": 1245,
+    "bahn</w>": 1246,
+    "being</w>": 1247,
+    "striped</w>": 1248,
+    "sa</w>": 1249,
+    "richt</w>": 1250,
+    "sign</w>": 1251,
+    "orangefarbenen</w>": 1252,
+    "mark": 1253,
+    "leu": 1254,
+    "fami": 1255,
+    "ue</w>": 1256,
+    "ihrem</w>": 1257,
+    "cor": 1258,
+    "bürger": 1259,
+    "mann": 1260,
+    "dge</w>": 1261,
+    "triko": 1262,
+    "sha": 1263,
+    "iert</w>": 1264,
+    "watch</w>": 1265,
+    "horse</w>": 1266,
+    "ältere</w>": 1267,
+    "sts</w>": 1268,
+    "radfahrer</w>": 1269,
+    "auto</w>": 1270,
+    "store</w>": 1271,
+    "schn": 1272,
+    "many</w>": 1273,
+    "fit</w>": 1274,
+    "bild</w>": 1275,
+    "sli": 1276,
+    "ihm</w>": 1277,
+    "adul": 1278,
+    "ssi": 1279,
+    "purple</w>": 1280,
+    "mouth</w>": 1281,
+    "ired</w>": 1282,
+    "stuhl</w>": 1283,
+    "kar": 1284,
+    "junges</w>": 1285,
+    "constru": 1286,
+    "bow": 1287,
+    "arm</w>": 1288,
+    "irs</w>": 1289,
+    "erwachsen": 1290,
+    "mmt</w>": 1291,
+    "towar": 1292,
+    "this</w>": 1293,
+    "look</w>": 1294,
+    "ku": 1295,
+    "hosen</w>": 1296,
+    "haired</w>": 1297,
+    "bürgersteig</w>": 1298,
+    "outfit</w>": 1299,
+    "liest</w>": 1300,
+    "kel": 1301,
+    "groß": 1302,
+    "enden</w>": 1303,
+    "spricht</w>": 1304,
+    "swimm": 1305,
+    "feu": 1306,
+    "fan": 1307,
+    "chair</w>": 1308,
+    "put": 1309,
+    "line</w>": 1310,
+    "enjo": 1311,
+    "ena": 1312,
+    "anderer</w>": 1313,
+    "windo": 1314,
+    "runs</w>": 1315,
+    "hock": 1316,
+    "führt</w>": 1317,
+    "att": 1318,
+    "rosa</w>": 1319,
+    "posing</w>": 1320,
+    "wasser": 1321,
+    "reading</w>": 1322,
+    "il</w>": 1323,
+    "graff": 1324,
+    "dra": 1325,
+    "bele": 1326,
+    "unterhalten</w>": 1327,
+    "us</w>": 1328,
+    "players</w>": 1329,
+    "sunglasses</w>": 1330,
+    "ssing</w>": 1331,
+    "res</w>": 1332,
+    "mantel</w>": 1333,
+    "construction</w>": 1334,
+    "tu": 1335,
+    "spr": 1336,
+    "th</w>": 1337,
+    "ted</w>": 1338,
+    "mon": 1339,
+    "kan": 1340,
+    "indi": 1341,
+    "betra": 1342,
+    "work</w>": 1343,
+    "haaren</w>": 1344,
+    "ces</w>": 1345,
+    "weißem</w>": 1346,
+    "sel": 1347,
+    "kunst": 1348,
+    "graffit": 1349,
+    "gol": 1350,
+    "din": 1351,
+    "cow": 1352,
+    "clothing</w>": 1353,
+    "amm": 1354,
+    "pferd</w>": 1355,
+    "oce": 1356,
+    "microphone</w>": 1357,
+    "ars</w>": 1358,
+    "ath": 1359,
+    "oba": 1360,
+    "gh</w>": 1361,
+    "bar</w>": 1362,
+    "toy</w>": 1363,
+    "scht</w>": 1364,
+    "mountain</w>": 1365,
+    "light</w>": 1366,
+    "gelän": 1367,
+    "ocean</w>": 1368,
+    "covered</w>": 1369,
+    "workers</w>": 1370,
+    "teena": 1371,
+    "viele</w>": 1372,
+    "kam": 1373,
+    "during</w>": 1374,
+    "comput": 1375,
+    "afri": 1376,
+    "ßt</w>": 1377,
+    "ct</w>": 1378,
+    "wä": 1379,
+    "use</w>": 1380,
+    "sonnenbrille</w>": 1381,
+    "kon": 1382,
+    "kla": 1383,
+    "grauen</w>": 1384,
+    "emp": 1385,
+    "zum</w>": 1386,
+    "zeit": 1387,
+    "watches</w>": 1388,
+    "tet</w>": 1389,
+    "over": 1390,
+    "op</w>": 1391,
+    "flu": 1392,
+    "fall": 1393,
+    "end</w>": 1394,
+    "surf": 1395,
+    "stum": 1396,
+    "met</w>": 1397,
+    "kit": 1398,
+    "holz": 1399,
+    "die": 1400,
+    "dancing</w>": 1401,
+    "dru": 1402,
+    "climbing</w>": 1403,
+    "trick</w>": 1404,
+    "ley": 1405,
+    "kör": 1406,
+    "blauem</w>": 1407,
+    "aga": 1408,
+    "schnee": 1409,
+    "past</w>": 1410,
+    "num": 1411,
+    "inst</w>": 1412,
+    "gekleidete</w>": 1413,
+    "erten</w>": 1414,
+    "beoba": 1415,
+    "art</w>": 1416,
+    "seiner</w>": 1417,
+    "outdoor</w>": 1418,
+    "haari": 1419,
+    "elder": 1420,
+    "elderly</w>": 1421,
+    "brau": 1422,
+    "zuschau": 1423,
+    "park": 1424,
+    "mütze</w>": 1425,
+    "eri": 1426,
+    "schirm</w>": 1427,
+    "helmet</w>": 1428,
+    "color": 1429,
+    "baum</w>": 1430,
+    "trin": 1431,
+    "tos</w>": 1432,
+    "set</w>": 1433,
+    "gesicht</w>": 1434,
+    "fol": 1435,
+    "against</w>": 1436,
+    "sol": 1437,
+    "raum</w>": 1438,
+    "geschäft</w>": 1439,
+    "ful": 1440,
+    "coo": 1441,
+    "train</w>": 1442,
+    "schild</w>": 1443,
+    "frisbe": 1444,
+    "cu": 1445,
+    "cla": 1446,
+    "ate</w>": 1447,
+    "window</w>": 1448,
+    "wie": 1449,
+    "umbre": 1450,
+    "singt</w>": 1451,
+    "scho": 1452,
+    "plan": 1453,
+    "ju": 1454,
+    "ey": 1455,
+    "weiße</w>": 1456,
+    "tal</w>": 1457,
+    "stück</w>": 1458,
+    "snowboar": 1459,
+    "klettert</w>": 1460,
+    "ice</w>": 1461,
+    "rides</w>": 1462,
+    "ored</w>": 1463,
+    "lean": 1464,
+    "kopf": 1465,
+    "kostü": 1466,
+    "ihnen</w>": 1467,
+    "graffiti</w>": 1468,
+    "ets</w>": 1469,
+    "dunkel": 1470,
+    "volley": 1471,
+    "uti": 1472,
+    "klein": 1473,
+    "fußball</w>": 1474,
+    "cell": 1475,
+    "they</w>": 1476,
+    "publi": 1477,
+    "kor": 1478,
+    "about</w>": 1479,
+    "motorrad</w>": 1480,
+    "flow": 1481,
+    "five</w>": 1482,
+    "colored</w>": 1483,
+    "wooden</w>": 1484,
+    "vie": 1485,
+    "oth": 1486,
+    "gath": 1487,
+    "fün": 1488,
+    "ven": 1489,
+    "trees</w>": 1490,
+    "ty": 1491,
+    "schut": 1492,
+    "posiert</w>": 1493,
+    "markt</w>": 1494,
+    "hoch": 1495,
+    "bag</w>": 1496,
+    "waiting</w>": 1497,
+    "versamm": 1498,
+    "tenni": 1499,
+    "spla": 1500,
+    "ser": 1501,
+    "pullo": 1502,
+    "min": 1503,
+    "lit": 1504,
+    "having</w>": 1505,
+    "felsen</w>": 1506,
+    "darauf</w>": 1507,
+    "bus": 1508,
+    "truck</w>": 1509,
+    "fünf</w>": 1510,
+    "tü": 1511,
+    "pfen</w>": 1512,
+    "obje": 1513,
+    "kani": 1514,
+    "fli": 1515,
+    "denen</w>": 1516,
+    "ab</w>": 1517,
+    "öff": 1518,
+    "very</w>": 1519,
+    "stein": 1520,
+    "sport": 1521,
+    "high</w>": 1522,
+    "einige</w>": 1523,
+    "bles</w>": 1524,
+    "ung": 1525,
+    "swimming</w>": 1526,
+    "blauer</w>": 1527,
+    "befindet</w>": 1528,
+    "hör": 1529,
+    "getting</w>": 1530,
+    "eln": 1531,
+    "cour": 1532,
+    "wirft</w>": 1533,
+    "costum": 1534,
+    "floor</w>": 1535,
+    "trying</w>": 1536,
+    "schrei": 1537,
+    "ns</w>": 1538,
+    "frisbee</w>": 1539,
+    "pullover</w>": 1540,
+    "net</w>": 1541,
+    "mikrofon</w>": 1542,
+    "gather": 1543,
+    "ffe": 1544,
+    "leaning</w>": 1545,
+    "fil": 1546,
+    "colorful</w>": 1547,
+    "book</w>": 1548,
+    "bereitet</w>": 1549,
+    "fenster</w>": 1550,
+    "statue</w>": 1551,
+    "ssy</w>": 1552,
+    "sehr</w>": 1553,
+    "schwarzem</w>": 1554,
+    "han": 1555,
+    "gg": 1556,
+    "cal</w>": 1557,
+    "berei": 1558,
+    "rut": 1559,
+    "nach": 1560,
+    "mmer</w>": 1561,
+    "lich</w>": 1562,
+    "jump</w>": 1563,
+    "gekleideter</w>": 1564,
+    "cycli": 1565,
+    "busy</w>": 1566,
+    "singing</w>": 1567,
+    "schuhen</w>": 1568,
+    "leit": 1569,
+    "hill</w>": 1570,
+    "fore": 1571,
+    "fence</w>": 1572,
+    "elle</w>": 1573,
+    "track</w>": 1574,
+    "tasche</w>": 1575,
+    "id</w>": 1576,
+    "becken</w>": 1577,
+    "alter</w>": 1578,
+    "tennis": 1579,
+    "schaft</w>": 1580,
+    "sack</w>": 1581,
+    "market</w>": 1582,
+    "mut": 1583,
+    "itt</w>": 1584,
+    "deo</w>": 1585,
+    "cloth": 1586,
+    "cart</w>": 1587,
+    "trikot</w>": 1588,
+    "leh": 1589,
+    "erin</w>": 1590,
+    "cket</w>": 1591,
+    "chin": 1592,
+    "can": 1593,
+    "wiese</w>": 1594,
+    "rotem</w>": 1595,
+    "rosa": 1596,
+    "offi": 1597,
+    "meer</w>": 1598,
+    "grün": 1599,
+    "ders</w>": 1600,
+    "teil": 1601,
+    "springen</w>": 1602,
+    "schwarze</w>": 1603,
+    "schauk": 1604,
+    "sä": 1605,
+    "oder</w>": 1606,
+    "ged</w>": 1607,
+    "wald</w>": 1608,
+    "tern</w>": 1609,
+    "sil": 1610,
+    "sk</w>": 1611,
+    "roter</w>": 1612,
+    "met": 1613,
+    "langen</w>": 1614,
+    "körper</w>": 1615,
+    "kindern</w>": 1616,
+    "compe": 1617,
+    "mitten</w>": 1618,
+    "lächeln": 1619,
+    "liche</w>": 1620,
+    "instrumen": 1621,
+    "hügel</w>": 1622,
+    "ens</w>": 1623,
+    "brü": 1624,
+    "roun": 1625,
+    "ride</w>": 1626,
+    "pie": 1627,
+    "isst</w>": 1628,
+    "big</w>": 1629,
+    "whe": 1630,
+    "shop": 1631,
+    "roller</w>": 1632,
+    "männern</w>": 1633,
+    "laying</w>": 1634,
+    "inside</w>": 1635,
+    "fon": 1636,
+    "volleyball</w>": 1637,
+    "hats</w>": 1638,
+    "gestreiften</w>": 1639,
+    "body</w>": 1640,
+    "bluse</w>": 1641,
+    "wartet</w>": 1642,
+    "tan</w>": 1643,
+    "schnei": 1644,
+    "cap</w>": 1645,
+    "stock</w>": 1646,
+    "gang</w>": 1647,
+    "bright</w>": 1648,
+    "ym": 1649,
+    "hu": 1650,
+    "sub": 1651,
+    "shop</w>": 1652,
+    "others</w>": 1653,
+    "kitchen</w>": 1654,
+    "plasti": 1655,
+    "path</w>": 1656,
+    "mmen</w>": 1657,
+    "grassy</w>": 1658,
+    "cellphone</w>": 1659,
+    "buch</w>": 1660,
+    "tt</w>": 1661,
+    "spielzeug</w>": 1662,
+    "someone</w>": 1663,
+    "parade</w>": 1664,
+    "ny</w>": 1665,
+    "land": 1666,
+    "voller</w>": 1667,
+    "treppe</w>": 1668,
+    "schutz": 1669,
+    "ruck": 1670,
+    "prep": 1671,
+    "making</w>": 1672,
+    "brick</w>": 1673,
+    "aun</w>": 1674,
+    "ufer</w>": 1675,
+    "takes</w>": 1676,
+    "posieren</w>": 1677,
+    "night</w>": 1678,
+    "malt</w>": 1679,
+    "kä": 1680,
+    "haar</w>": 1681,
+    "clothes</w>": 1682,
+    "backpa": 1683,
+    "brun": 1684,
+    "ange": 1685,
+    "ap": 1686,
+    "werden</w>": 1687,
+    "under": 1688,
+    "tion</w>": 1689,
+    "surroun": 1690,
+    "seite</w>": 1691,
+    "motorcycle</w>": 1692,
+    "licher</w>": 1693,
+    "festi": 1694,
+    "umbrell": 1695,
+    "umbrella</w>": 1696,
+    "tanzen</w>": 1697,
+    "schi": 1698,
+    "open</w>": 1699,
+    "kne": 1700,
+    "cra": 1701,
+    "auft</w>": 1702,
+    "überqu": 1703,
+    "wischen</w>": 1704,
+    "towards</w>": 1705,
+    "ters</w>": 1706,
+    "tank</w>": 1707,
+    "full</w>": 1708,
+    "fotogra": 1709,
+    "beleb": 1710,
+    "uniform": 1711,
+    "sweatshirt</w>": 1712,
+    "schul": 1713,
+    "oberkörper</w>": 1714,
+    "oben</w>": 1715,
+    "kö": 1716,
+    "hockey</w>": 1717,
+    "fußball": 1718,
+    "enjoying</w>": 1719,
+    "eink": 1720,
+    "computer</w>": 1721,
+    "zieht</w>": 1722,
+    "team": 1723,
+    "surfer</w>": 1724,
+    "see</w>": 1725,
+    "pier</w>": 1726,
+    "pra": 1727,
+    "chtung</w>": 1728,
+    "stone</w>": 1729,
+    "swing</w>": 1730,
+    "metal</w>": 1731,
+    "hä": 1732,
+    "ep</w>": 1733,
+    "dunkl": 1734,
+    "dance</w>": 1735,
+    "äumen</w>": 1736,
+    "umge": 1737,
+    "river</w>": 1738,
+    "paper</w>": 1739,
+    "kni": 1740,
+    "ht</w>": 1741,
+    "garette</w>": 1742,
+    "reitet</w>": 1743,
+    "ready</w>": 1744,
+    "piece</w>": 1745,
+    "masch": 1746,
+    "führ": 1747,
+    "ff</w>": 1748,
+    "ated</w>": 1749,
+    "alten</w>": 1750,
+    "zer</w>": 1751,
+    "spazi": 1752,
+    "shes</w>": 1753,
+    "ort</w>": 1754,
+    "hof</w>": 1755,
+    "bikin": 1756,
+    "betrachtet</w>": 1757,
+    "age</w>": 1758,
+    "sser</w>": 1759,
+    "she</w>": 1760,
+    "smo": 1761,
+    "party</w>": 1762,
+    "mauer</w>": 1763,
+    "ie</w>": 1764,
+    "brea": 1765,
+    "zwischen</w>": 1766,
+    "warten</w>": 1767,
+    "tou": 1768,
+    "ster": 1769,
+    "photogra": 1770,
+    "lie</w>": 1771,
+    "leuten</w>": 1772,
+    "handy</w>": 1773,
+    "genie": 1774,
+    "ene</w>": 1775,
+    "blonde</w>": 1776,
+    "bade": 1777,
+    "bel": 1778,
+    "snowboarder</w>": 1779,
+    "ous</w>": 1780,
+    "instrument</w>": 1781,
+    "haus</w>": 1782,
+    "zimmer</w>": 1783,
+    "sweater</w>": 1784,
+    "mel</w>": 1785,
+    "lot</w>": 1786,
+    "grill</w>": 1787,
+    "ev": 1788,
+    "cam": 1789,
+    "the": 1790,
+    "schläft</w>": 1791,
+    "sell": 1792,
+    "ic": 1793,
+    "ender</w>": 1794,
+    "chs</w>": 1795,
+    "berg</w>": 1796,
+    "alt": 1797,
+    "zaun</w>": 1798,
+    "worker</w>": 1799,
+    "tritt</w>": 1800,
+    "telefon": 1801,
+    "stick</w>": 1802,
+    "stä": 1803,
+    "run</w>": 1804,
+    "rie": 1805,
+    "kleidet</w>": 1806,
+    "feuer": 1807,
+    "bäumen</w>": 1808,
+    "ac": 1809,
+    "xing</w>": 1810,
+    "lake</w>": 1811,
+    "hoo": 1812,
+    "grau": 1813,
+    "gelb": 1814,
+    "tat": 1815,
+    "studen": 1816,
+    "sed</w>": 1817,
+    "painting</w>": 1818,
+    "lehnt</w>": 1819,
+    "american</w>": 1820,
+    "above</w>": 1821,
+    "mitt": 1822,
+    "häuti": 1823,
+    "house</w>": 1824,
+    "haben</w>": 1825,
+    "hard</w>": 1826,
+    "gegen</w>": 1827,
+    "african</w>": 1828,
+    "schö": 1829,
+    "squ": 1830,
+    "jug": 1831,
+    "händen</w>": 1832,
+    "going</w>": 1833,
+    "fangen</w>": 1834,
+    "cowboy</w>": 1835,
+    "adults</w>": 1836,
+    "ved</w>": 1837,
+    "shopping</w>": 1838,
+    "regen": 1839,
+    "music</w>": 1840,
+    "maul</w>": 1841,
+    "head": 1842,
+    "hei": 1843,
+    "fter</w>": 1844,
+    "cheer": 1845,
+    "bedeckten</w>": 1846,
+    "zo": 1847,
+    "vest</w>": 1848,
+    "snowy</w>": 1849,
+    "ones</w>": 1850,
+    "miteinander</w>": 1851,
+    "küche</w>": 1852,
+    "fuß</w>": 1853,
+    "fluss</w>": 1854,
+    "dies</w>": 1855,
+    "diti": 1856,
+    "beobachtet</w>": 1857,
+    "wave</w>": 1858,
+    "todd": 1859,
+    "surrounded</w>": 1860,
+    "subway</w>": 1861,
+    "stelle</w>": 1862,
+    "scar": 1863,
+    "qui": 1864,
+    "poin": 1865,
+    "mmel</w>": 1866,
+    "glei": 1867,
+    "end": 1868,
+    "cur": 1869,
+    "uniforms</w>": 1870,
+    "tanzt</w>": 1871,
+    "ops</w>": 1872,
+    "onto</w>": 1873,
+    "ihrer</w>": 1874,
+    "enen</w>": 1875,
+    "chter</w>": 1876,
+    "app": 1877,
+    "rucksack</w>": 1878,
+    "photo</w>": 1879,
+    "outdoors</w>": 1880,
+    "like</w>": 1881,
+    "len</w>": 1882,
+    "kleinkind</w>": 1883,
+    "kid</w>": 1884,
+    "gewä": 1885,
+    "els</w>": 1886,
+    "crowded</w>": 1887,
+    "ched</w>": 1888,
+    "braun</w>": 1889,
+    "bauarbeiter</w>": 1890,
+    "baseball": 1891,
+    "zie": 1892,
+    "verschie": 1893,
+    "richtung</w>": 1894,
+    "prote": 1895,
+    "pole</w>": 1896,
+    "off": 1897,
+    "lächeln</w>": 1898,
+    "less</w>": 1899,
+    "couch</w>": 1900,
+    "convers": 1901,
+    "tor</w>": 1902,
+    "stellt</w>": 1903,
+    "smiles</w>": 1904,
+    "schiebt</w>": 1905,
+    "schauf": 1906,
+    "kari": 1907,
+    "gear</w>": 1908,
+    "beside</w>": 1909,
+    "backpack</w>": 1910,
+    "br": 1911,
+    "bir": 1912,
+    "welle</w>": 1913,
+    "hn": 1914,
+    "balan": 1915,
+    "vom</w>": 1916,
+    "tischen</w>": 1917,
+    "schein": 1918,
+    "pon": 1919,
+    "maschine</w>": 1920,
+    "laugh": 1921,
+    "lang": 1922,
+    "kre": 1923,
+    "iling</w>": 1924,
+    "bart</w>": 1925,
+    "schwimmbecken</w>": 1926,
+    "new": 1927,
+    "getr": 1928,
+    "drinking</w>": 1929,
+    "befinden</w>": 1930,
+    "bor": 1931,
+    "wett": 1932,
+    "stro": 1933,
+    "sprung</w>": 1934,
+    "rücken</w>": 1935,
+    "pt": 1936,
+    "iten</w>": 1937,
+    "farbener</w>": 1938,
+    "family</w>": 1939,
+    "einkauf": 1940,
+    "bikini</w>": 1941,
+    "yard</w>": 1942,
+    "weste</w>": 1943,
+    "tau": 1944,
+    "station</w>": 1945,
+    "mach": 1946,
+    "go</w>": 1947,
+    "gn": 1948,
+    "gers</w>": 1949,
+    "flowers</w>": 1950,
+    "fire</w>": 1951,
+    "event</w>": 1952,
+    "bridge</w>": 1953,
+    "beau": 1954,
+    "toddler</w>": 1955,
+    "spea": 1956,
+    "skateboarder</w>": 1957,
+    "schw": 1958,
+    "ser</w>": 1959,
+    "kra": 1960,
+    "fläch": 1961,
+    "dition": 1962,
+    "train": 1963,
+    "rope</w>": 1964,
+    "rodeo</w>": 1965,
+    "police</w>": 1966,
+    "lü": 1967,
+    "guys</w>": 1968,
+    "geträn": 1969,
+    "gathered</w>": 1970,
+    "founta": 1971,
+    "fläche</w>": 1972,
+    "einigen</w>": 1973,
+    "beauti": 1974,
+    "bru": 1975,
+    "shoes</w>": 1976,
+    "ori": 1977,
+    "nimmt</w>": 1978,
+    "milit": 1979,
+    "kurzen</w>": 1980,
+    "hanging</w>": 1981,
+    "gent": 1982,
+    "cher": 1983,
+    "beg": 1984,
+    "arms</w>": 1985,
+    "ant</w>": 1986,
+    "show</w>": 1987,
+    "schaukel</w>": 1988,
+    "sches</w>": 1989,
+    "ence</w>": 1990,
+    "catch</w>": 1991,
+    "asiatische</w>": 1992,
+    "ary</w>": 1993,
+    "away</w>": 1994,
+    "ween</w>": 1995,
+    "schri": 1996,
+    "swin": 1997,
+    "preparing</w>": 1998,
+    "ppen</w>": 1999,
+    "har": 2000,
+    "carri": 2001,
+    "brücke</w>": 2002,
+    "beautiful</w>": 2003,
+    "bur": 2004,
+    "zer": 2005,
+    "tradition": 2006,
+    "schneidet</w>": 2007,
+    "marath": 2008,
+    "cut": 2009,
+    "ausge": 2010,
+    "anst": 2011,
+    "zur</w>": 2012,
+    "wehr": 2013,
+    "wand": 2014,
+    "verkauft</w>": 2015,
+    "tables</w>": 2016,
+    "steps</w>": 2017,
+    "sleeping</w>": 2018,
+    "object</w>": 2019,
+    "mal</w>": 2020,
+    "mp</w>": 2021,
+    "inter": 2022,
+    "hlen</w>": 2023,
+    "gebäudes</w>": 2024,
+    "familie</w>": 2025,
+    "emand</w>": 2026,
+    "costume</w>": 2027,
+    "blumen</w>": 2028,
+    "ballo": 2029,
+    "armen</w>": 2030,
+    "wood</w>": 2031,
+    "wil": 2032,
+    "ungen</w>": 2033,
+    "short</w>": 2034,
+    "machine</w>": 2035,
+    "mel": 2036,
+    "großer</w>": 2037,
+    "flag": 2038,
+    "fishing</w>": 2039,
+    "ffee</w>": 2040,
+    "clu": 2041,
+    "auss": 2042,
+    "attemp": 2043,
+    "appe": 2044,
+    "amerikani": 2045,
+    "after</w>": 2046,
+    "versammelt</w>": 2047
+  },
+  "merges": [
+    [
+      "i",
+      "n"
+    ],
+    [
+      "e",
+      "n</w>"
+    ],
+    [
+      "i",
+      "n</w>"
+    ],
+    [
+      "e",
+      "r</w>"
+    ],
+    [
+      "e",
+      "in"
+    ],
+    [
+      "a",
+      "n"
+    ],
+    [
+      "c",
+      "h"
+    ],
+    [
+      "u",
+      "n"
+    ],
+    [
+      "in",
+      "g</w>"
+    ],
+    [
+      "e",
+      "r"
+    ],
+    [
+      "a",
+      "r"
+    ],
+    [
+      "s",
+      "t"
+    ],
+    [
+      "i",
+      "t"
+    ],
+    [
+      "a",
+      "u"
+    ],
+    [
+      "a",
+      "n</w>"
+    ],
+    [
+      "e",
+      "in</w>"
+    ],
+    [
+      "t",
+      "h"
+    ],
+    [
+      "e",
+      "m</w>"
+    ],
+    [
+      "r",
+      "e"
+    ],
+    [
+      "r",
+      "o"
+    ],
+    [
+      "e",
+      "n"
+    ],
+    [
+      "r",
+      "a"
+    ],
+    [
+      "s",
+      "ch"
+    ],
+    [
+      "ein",
+      "em</w>"
+    ],
+    [
+      "o",
+      "n</w>"
+    ],
+    [
+      "e",
+      "l"
+    ],
+    [
+      "a",
+      "l"
+    ],
+    [
+      "un",
+      "d</w>"
+    ],
+    [
+      "m",
+      "an</w>"
+    ],
+    [
+      "w",
+      "e"
+    ],
+    [
+      "m",
+      "i"
+    ],
+    [
+      "l",
+      "a"
+    ],
+    [
+      "th",
+      "e</w>"
+    ],
+    [
+      "an",
+      "d</w>"
+    ],
+    [
+      "ein",
+      "e</w>"
+    ],
+    [
+      "i",
+      "s</w>"
+    ],
+    [
+      "e",
+      "s</w>"
+    ],
+    [
+      "l",
+      "e</w>"
+    ],
+    [
+      "g",
+      "e"
+    ],
+    [
+      "au",
+      "f</w>"
+    ],
+    [
+      "s",
+      "i"
+    ],
+    [
+      "mi",
+      "t</w>"
+    ],
+    [
+      "o",
+      "r"
+    ],
+    [
+      "m",
+      "an"
+    ],
+    [
+      "b",
+      "e"
+    ],
+    [
+      "o",
+      "n"
+    ],
+    [
+      "d",
+      "er</w>"
+    ],
+    [
+      "c",
+      "h</w>"
+    ],
+    [
+      "i",
+      "r"
+    ],
+    [
+      "man",
+      "n</w>"
+    ],
+    [
+      "ein",
+      "er</w>"
+    ],
+    [
+      "a",
+      "t"
+    ],
+    [
+      "s",
+      "p"
+    ],
+    [
+      "o",
+      "f</w>"
+    ],
+    [
+      "l",
+      "e"
+    ],
+    [
+      "c",
+      "k"
+    ],
+    [
+      "s",
+      "h"
+    ],
+    [
+      "b",
+      "o"
+    ],
+    [
+      "r",
+      "i"
+    ],
+    [
+      "w",
+      "it"
+    ],
+    [
+      "wit",
+      "h</w>"
+    ],
+    [
+      "b",
+      "l"
+    ],
+    [
+      "g",
+      "e</w>"
+    ],
+    [
+      "d",
+      "i"
+    ],
+    [
+      "w",
+      "o"
+    ],
+    [
+      "a",
+      "t</w>"
+    ],
+    [
+      "o",
+      "l"
+    ],
+    [
+      "s",
+      "s"
+    ],
+    [
+      "e",
+      "h"
+    ],
+    [
+      "e",
+      "t</w>"
+    ],
+    [
+      "l",
+      "o"
+    ],
+    [
+      "s",
+      "it"
+    ],
+    [
+      "d",
+      "o"
+    ],
+    [
+      "d",
+      "ing</w>"
+    ],
+    [
+      "w",
+      "h"
+    ],
+    [
+      "c",
+      "k</w>"
+    ],
+    [
+      "o",
+      "p"
+    ],
+    [
+      "t",
+      "en</w>"
+    ],
+    [
+      "t",
+      "o</w>"
+    ],
+    [
+      "t",
+      "w"
+    ],
+    [
+      "i",
+      "l"
+    ],
+    [
+      "u",
+      "r"
+    ],
+    [
+      "i",
+      "el"
+    ],
+    [
+      "b",
+      "a"
+    ],
+    [
+      "n",
+      "e"
+    ],
+    [
+      "h",
+      "r"
+    ],
+    [
+      "un",
+      "g</w>"
+    ],
+    [
+      "f",
+      "ra"
+    ],
+    [
+      "ein",
+      "en</w>"
+    ],
+    [
+      "m",
+      "ä"
+    ],
+    [
+      "l",
+      "i"
+    ],
+    [
+      "fra",
+      "u</w>"
+    ],
+    [
+      "al",
+      "l</w>"
+    ],
+    [
+      "u",
+      "t"
+    ],
+    [
+      "m",
+      "en</w>"
+    ],
+    [
+      "d",
+      "e</w>"
+    ],
+    [
+      "p",
+      "e"
+    ],
+    [
+      "k",
+      "ing</w>"
+    ],
+    [
+      "di",
+      "e</w>"
+    ],
+    [
+      "wo",
+      "man</w>"
+    ],
+    [
+      "ar",
+      "e</w>"
+    ],
+    [
+      "p",
+      "la"
+    ],
+    [
+      "z",
+      "we"
+    ],
+    [
+      "o",
+      "r</w>"
+    ],
+    [
+      "i",
+      "m</w>"
+    ],
+    [
+      "tw",
+      "o</w>"
+    ],
+    [
+      "zwe",
+      "i</w>"
+    ],
+    [
+      "d",
+      "en</w>"
+    ],
+    [
+      "g",
+      "en</w>"
+    ],
+    [
+      "er",
+      "s"
+    ],
+    [
+      "e",
+      "i"
+    ],
+    [
+      "a",
+      "m"
+    ],
+    [
+      "g",
+      "ro"
+    ],
+    [
+      "r",
+      "u"
+    ],
+    [
+      "e",
+      "d</w>"
+    ],
+    [
+      "sp",
+      "iel"
+    ],
+    [
+      "ch",
+      "en</w>"
+    ],
+    [
+      "j",
+      "un"
+    ],
+    [
+      "g",
+      "t</w>"
+    ],
+    [
+      "a",
+      "s</w>"
+    ],
+    [
+      "sh",
+      "ir"
+    ],
+    [
+      "an",
+      "d"
+    ],
+    [
+      "w",
+      "a"
+    ],
+    [
+      "pe",
+      "op"
+    ],
+    [
+      "peop",
+      "le</w>"
+    ],
+    [
+      "t",
+      "i"
+    ],
+    [
+      "s",
+      "t</w>"
+    ],
+    [
+      "w",
+      "al"
+    ],
+    [
+      "t",
+      "er"
+    ],
+    [
+      "d",
+      "e"
+    ],
+    [
+      "t",
+      "ing</w>"
+    ],
+    [
+      "f",
+      "a"
+    ],
+    [
+      "shir",
+      "t</w>"
+    ],
+    [
+      "c",
+      "o"
+    ],
+    [
+      "n",
+      "n"
+    ],
+    [
+      "m",
+      "en"
+    ],
+    [
+      "st",
+      "eh"
+    ],
+    [
+      "t",
+      "a"
+    ],
+    [
+      "ar",
+      "ing</w>"
+    ],
+    [
+      "t",
+      "er</w>"
+    ],
+    [
+      "t",
+      "o"
+    ],
+    [
+      "t",
+      "s</w>"
+    ],
+    [
+      "w",
+      "ar"
+    ],
+    [
+      "p",
+      "ers"
+    ],
+    [
+      "k",
+      "l"
+    ],
+    [
+      "sit",
+      "z"
+    ],
+    [
+      "pla",
+      "y"
+    ],
+    [
+      "au",
+      "en</w>"
+    ],
+    [
+      "u",
+      "p</w>"
+    ],
+    [
+      "we",
+      "aring</w>"
+    ],
+    [
+      "h",
+      "o"
+    ],
+    [
+      "b",
+      "all</w>"
+    ],
+    [
+      "b",
+      "la"
+    ],
+    [
+      "s",
+      "k"
+    ],
+    [
+      "w",
+      "n</w>"
+    ],
+    [
+      "v",
+      "er"
+    ],
+    [
+      "s",
+      "e"
+    ],
+    [
+      "p",
+      "p"
+    ],
+    [
+      "it",
+      "e</w>"
+    ],
+    [
+      "we",
+      "i"
+    ],
+    [
+      "d",
+      "re"
+    ],
+    [
+      "v",
+      "on</w>"
+    ],
+    [
+      "y",
+      "o"
+    ],
+    [
+      "f",
+      "t</w>"
+    ],
+    [
+      "u",
+      "m"
+    ],
+    [
+      "k",
+      "in"
+    ],
+    [
+      "e",
+      "m"
+    ],
+    [
+      "m",
+      "a"
+    ],
+    [
+      "yo",
+      "ung</w>"
+    ],
+    [
+      "si",
+      "ch</w>"
+    ],
+    [
+      "d",
+      "em</w>"
+    ],
+    [
+      "bl",
+      "u"
+    ],
+    [
+      "wh",
+      "ite</w>"
+    ],
+    [
+      "re",
+      "d</w>"
+    ],
+    [
+      "f",
+      "ro"
+    ],
+    [
+      "f",
+      "o"
+    ],
+    [
+      "b",
+      "er"
+    ],
+    [
+      "ä",
+      "l"
+    ],
+    [
+      "b",
+      "en</w>"
+    ],
+    [
+      "g",
+      "ir"
+    ],
+    [
+      "st",
+      "re"
+    ],
+    [
+      "ch",
+      "t</w>"
+    ],
+    [
+      "mä",
+      "d"
+    ],
+    [
+      "s",
+      "e</w>"
+    ],
+    [
+      "s",
+      "s</w>"
+    ],
+    [
+      "p",
+      "a"
+    ],
+    [
+      "ß",
+      "en</w>"
+    ],
+    [
+      "h",
+      "a"
+    ],
+    [
+      "a",
+      "r</w>"
+    ],
+    [
+      "mäd",
+      "chen</w>"
+    ],
+    [
+      "h",
+      "in"
+    ],
+    [
+      "g",
+      "ra"
+    ],
+    [
+      "ge",
+      "h"
+    ],
+    [
+      "le",
+      "i"
+    ],
+    [
+      "m",
+      "o"
+    ],
+    [
+      "jun",
+      "ge</w>"
+    ],
+    [
+      "on",
+      "e</w>"
+    ],
+    [
+      "wh",
+      "i"
+    ],
+    [
+      "s",
+      "o"
+    ],
+    [
+      "bla",
+      "ck</w>"
+    ],
+    [
+      "c",
+      "e</w>"
+    ],
+    [
+      "w",
+      "at"
+    ],
+    [
+      "ä",
+      "h"
+    ],
+    [
+      "v",
+      "or</w>"
+    ],
+    [
+      "st",
+      "ra"
+    ],
+    [
+      "h",
+      "is</w>"
+    ],
+    [
+      "h",
+      "ol"
+    ],
+    [
+      "mä",
+      "nn"
+    ],
+    [
+      "t",
+      "e</w>"
+    ],
+    [
+      "sch",
+      "war"
+    ],
+    [
+      "ß",
+      "e</w>"
+    ],
+    [
+      "b",
+      "u"
+    ],
+    [
+      "g",
+      "r"
+    ],
+    [
+      "z",
+      "u"
+    ],
+    [
+      "whi",
+      "le</w>"
+    ],
+    [
+      "z",
+      "u</w>"
+    ],
+    [
+      "b",
+      "i"
+    ],
+    [
+      "er",
+      "s</w>"
+    ],
+    [
+      "blu",
+      "e</w>"
+    ],
+    [
+      "p",
+      "o"
+    ],
+    [
+      "ein",
+      "es</w>"
+    ],
+    [
+      "st",
+      "an"
+    ],
+    [
+      "th",
+      "er</w>"
+    ],
+    [
+      "t",
+      "r"
+    ],
+    [
+      "bo",
+      "y</w>"
+    ],
+    [
+      "steh",
+      "t</w>"
+    ],
+    [
+      "t",
+      "e"
+    ],
+    [
+      "b",
+      "y</w>"
+    ],
+    [
+      "p",
+      "ar"
+    ],
+    [
+      "l",
+      "ä"
+    ],
+    [
+      "sit",
+      "ting</w>"
+    ],
+    [
+      "gir",
+      "l</w>"
+    ],
+    [
+      "i",
+      "e"
+    ],
+    [
+      "pp",
+      "e</w>"
+    ],
+    [
+      "sch",
+      "en</w>"
+    ],
+    [
+      "m",
+      "e"
+    ],
+    [
+      "k",
+      "lei"
+    ],
+    [
+      "fa",
+      "hr"
+    ],
+    [
+      "do",
+      "g</w>"
+    ],
+    [
+      "b",
+      "en"
+    ],
+    [
+      "männ",
+      "er</w>"
+    ],
+    [
+      "lo",
+      "o"
+    ],
+    [
+      "ch",
+      "il"
+    ],
+    [
+      "h",
+      "und</w>"
+    ],
+    [
+      "sitz",
+      "t</w>"
+    ],
+    [
+      "stan",
+      "ding</w>"
+    ],
+    [
+      "re",
+      "n"
+    ],
+    [
+      "f",
+      "i"
+    ],
+    [
+      "n",
+      "t</w>"
+    ],
+    [
+      "play",
+      "ing</w>"
+    ],
+    [
+      "t",
+      "ra"
+    ],
+    [
+      "c",
+      "ro"
+    ],
+    [
+      "r",
+      "in"
+    ],
+    [
+      "be",
+      "i</w>"
+    ],
+    [
+      "gro",
+      "up</w>"
+    ],
+    [
+      "g",
+      "el"
+    ],
+    [
+      "u",
+      "t</w>"
+    ],
+    [
+      "j",
+      "a"
+    ],
+    [
+      "si",
+      "de</w>"
+    ],
+    [
+      "d",
+      "s</w>"
+    ],
+    [
+      "er",
+      "e</w>"
+    ],
+    [
+      "schwar",
+      "z"
+    ],
+    [
+      "o",
+      "ut"
+    ],
+    [
+      "b",
+      "er</w>"
+    ],
+    [
+      "pers",
+      "on</w>"
+    ],
+    [
+      "stra",
+      "ße</w>"
+    ],
+    [
+      "al",
+      "l"
+    ],
+    [
+      "g",
+      "ru"
+    ],
+    [
+      "h",
+      "er</w>"
+    ],
+    [
+      "g",
+      "er</w>"
+    ],
+    [
+      "u",
+      "l"
+    ],
+    [
+      "h",
+      "äl"
+    ],
+    [
+      "stre",
+      "et</w>"
+    ],
+    [
+      "w",
+      "i"
+    ],
+    [
+      "l",
+      "an"
+    ],
+    [
+      "gru",
+      "ppe</w>"
+    ],
+    [
+      "n",
+      "a"
+    ],
+    [
+      "häl",
+      "t</w>"
+    ],
+    [
+      "a",
+      "m</w>"
+    ],
+    [
+      "w",
+      "äh"
+    ],
+    [
+      "do",
+      "wn</w>"
+    ],
+    [
+      "h",
+      "em"
+    ],
+    [
+      "wäh",
+      "ren"
+    ],
+    [
+      "währen",
+      "d</w>"
+    ],
+    [
+      "f",
+      "or"
+    ],
+    [
+      "wal",
+      "king</w>"
+    ],
+    [
+      "u",
+      "m</w>"
+    ],
+    [
+      "re",
+      "e</w>"
+    ],
+    [
+      "er",
+      "en</w>"
+    ],
+    [
+      "u",
+      "g"
+    ],
+    [
+      "en",
+      "t"
+    ],
+    [
+      "a",
+      "l</w>"
+    ],
+    [
+      "er",
+      "t</w>"
+    ],
+    [
+      "spiel",
+      "t</w>"
+    ],
+    [
+      "fro",
+      "nt</w>"
+    ],
+    [
+      "er",
+      "n</w>"
+    ],
+    [
+      "au",
+      "f"
+    ],
+    [
+      "ä",
+      "n"
+    ],
+    [
+      "i",
+      "r</w>"
+    ],
+    [
+      "hem",
+      "d</w>"
+    ],
+    [
+      "re",
+      "i"
+    ],
+    [
+      "p",
+      "i"
+    ],
+    [
+      "bo",
+      "ar"
+    ],
+    [
+      "d",
+      "as</w>"
+    ],
+    [
+      "ja",
+      "ck"
+    ],
+    [
+      "f",
+      "ü"
+    ],
+    [
+      "d",
+      "r"
+    ],
+    [
+      "n",
+      "en</w>"
+    ],
+    [
+      "k",
+      "s</w>"
+    ],
+    [
+      "k",
+      "e</w>"
+    ],
+    [
+      "hol",
+      "ding</w>"
+    ],
+    [
+      "st",
+      "a"
+    ],
+    [
+      "g",
+      "h"
+    ],
+    [
+      "o",
+      "ther</w>"
+    ],
+    [
+      "h",
+      "at</w>"
+    ],
+    [
+      "on",
+      "en</w>"
+    ],
+    [
+      "d",
+      "ur"
+    ],
+    [
+      "ü",
+      "ber</w>"
+    ],
+    [
+      "f",
+      "e"
+    ],
+    [
+      "b",
+      "ri"
+    ],
+    [
+      "m",
+      "m"
+    ],
+    [
+      "it",
+      "t"
+    ],
+    [
+      "pers",
+      "onen</w>"
+    ],
+    [
+      "n",
+      "o"
+    ],
+    [
+      "d",
+      "a"
+    ],
+    [
+      "r",
+      "un"
+    ],
+    [
+      "g",
+      "s</w>"
+    ],
+    [
+      "hr",
+      "t</w>"
+    ],
+    [
+      "w",
+      "or"
+    ],
+    [
+      "n",
+      "i"
+    ],
+    [
+      "au",
+      "s</w>"
+    ],
+    [
+      "am",
+      "er"
+    ],
+    [
+      "s",
+      "in"
+    ],
+    [
+      "f",
+      "r"
+    ],
+    [
+      "el",
+      "l"
+    ],
+    [
+      "kin",
+      "d</w>"
+    ],
+    [
+      "g",
+      "u"
+    ],
+    [
+      "wat",
+      "er</w>"
+    ],
+    [
+      "bl",
+      "auen</w>"
+    ],
+    [
+      "wa",
+      "ss"
+    ],
+    [
+      "i",
+      "st</w>"
+    ],
+    [
+      "dre",
+      "i</w>"
+    ],
+    [
+      "or",
+      "an"
+    ],
+    [
+      "f",
+      "ar"
+    ],
+    [
+      "y",
+      "ing</w>"
+    ],
+    [
+      "v",
+      "i"
+    ],
+    [
+      "v",
+      "er</w>"
+    ],
+    [
+      "th",
+      "ree</w>"
+    ],
+    [
+      "wei",
+      "ßen</w>"
+    ],
+    [
+      "th",
+      "ro"
+    ],
+    [
+      "g",
+      "re"
+    ],
+    [
+      "j",
+      "e"
+    ],
+    [
+      "e",
+      "a"
+    ],
+    [
+      "m",
+      "e</w>"
+    ],
+    [
+      "ar",
+      "be"
+    ],
+    [
+      "f",
+      "u"
+    ],
+    [
+      "i",
+      "hr"
+    ],
+    [
+      "sp",
+      "rin"
+    ],
+    [
+      "fr",
+      "auen</w>"
+    ],
+    [
+      "c",
+      "ar"
+    ],
+    [
+      "l",
+      "l"
+    ],
+    [
+      "ro",
+      "ten</w>"
+    ],
+    [
+      "wo",
+      "men</w>"
+    ],
+    [
+      "u",
+      "ft</w>"
+    ],
+    [
+      "b",
+      "ro"
+    ],
+    [
+      "b",
+      "ra"
+    ],
+    [
+      "ne",
+      "ben</w>"
+    ],
+    [
+      "v",
+      "e</w>"
+    ],
+    [
+      "s",
+      "u"
+    ],
+    [
+      "f",
+      "el"
+    ],
+    [
+      "steh",
+      "en</w>"
+    ],
+    [
+      "j",
+      "um"
+    ],
+    [
+      "loo",
+      "king</w>"
+    ],
+    [
+      "i",
+      "t</w>"
+    ],
+    [
+      "g",
+      "en"
+    ],
+    [
+      "spiel",
+      "en</w>"
+    ],
+    [
+      "l",
+      "itt"
+    ],
+    [
+      "arbe",
+      "it"
+    ],
+    [
+      "gr",
+      "ü"
+    ],
+    [
+      "sch",
+      "au"
+    ],
+    [
+      "gre",
+      "en</w>"
+    ],
+    [
+      "sitz",
+      "en</w>"
+    ],
+    [
+      "men",
+      "schen</w>"
+    ],
+    [
+      "f",
+      "ä"
+    ],
+    [
+      "p",
+      "ing</w>"
+    ],
+    [
+      "p",
+      "f"
+    ],
+    [
+      "s",
+      "no"
+    ],
+    [
+      "tr",
+      "ä"
+    ],
+    [
+      "litt",
+      "le</w>"
+    ],
+    [
+      "geh",
+      "t</w>"
+    ],
+    [
+      "a",
+      "si"
+    ],
+    [
+      "f",
+      "or</w>"
+    ],
+    [
+      "dur",
+      "ch</w>"
+    ],
+    [
+      "d",
+      "es</w>"
+    ],
+    [
+      "f",
+      "f"
+    ],
+    [
+      "ä",
+      "u"
+    ],
+    [
+      "fo",
+      "o"
+    ],
+    [
+      "sh",
+      "o"
+    ],
+    [
+      "l",
+      "ar"
+    ],
+    [
+      "chil",
+      "d</w>"
+    ],
+    [
+      "lo",
+      "w</w>"
+    ],
+    [
+      "wal",
+      "k</w>"
+    ],
+    [
+      "b",
+      "all"
+    ],
+    [
+      "e",
+      "t"
+    ],
+    [
+      "k",
+      "i"
+    ],
+    [
+      "t",
+      "en"
+    ],
+    [
+      "sk",
+      "at"
+    ],
+    [
+      "k",
+      "o"
+    ],
+    [
+      "fä",
+      "hrt</w>"
+    ],
+    [
+      "out",
+      "side</w>"
+    ],
+    [
+      "klei",
+      "d"
+    ],
+    [
+      "at",
+      "i"
+    ],
+    [
+      "g",
+      "er"
+    ],
+    [
+      "c",
+      "on"
+    ],
+    [
+      "m",
+      "u"
+    ],
+    [
+      "li",
+      "e"
+    ],
+    [
+      "ug",
+      "h</w>"
+    ],
+    [
+      "m",
+      "ar"
+    ],
+    [
+      "h",
+      "and</w>"
+    ],
+    [
+      "trä",
+      "gt</w>"
+    ],
+    [
+      "s",
+      "a"
+    ],
+    [
+      "c",
+      "t"
+    ],
+    [
+      "lar",
+      "ge</w>"
+    ],
+    [
+      "gro",
+      "und</w>"
+    ],
+    [
+      "wass",
+      "er</w>"
+    ],
+    [
+      "s",
+      "ch</w>"
+    ],
+    [
+      "far",
+      "ben"
+    ],
+    [
+      "re",
+      "nn"
+    ],
+    [
+      "z",
+      "e"
+    ],
+    [
+      "h",
+      "al"
+    ],
+    [
+      "bra",
+      "un"
+    ],
+    [
+      "kin",
+      "der</w>"
+    ],
+    [
+      "s",
+      "m"
+    ],
+    [
+      "h",
+      "el"
+    ],
+    [
+      "v",
+      "or"
+    ],
+    [
+      "thro",
+      "ugh</w>"
+    ],
+    [
+      "i",
+      "h"
+    ],
+    [
+      "o",
+      "ber"
+    ],
+    [
+      "st",
+      "i"
+    ],
+    [
+      "an",
+      "s</w>"
+    ],
+    [
+      "ge",
+      "b"
+    ],
+    [
+      "sch",
+      "ne"
+    ],
+    [
+      "ei",
+      "l</w>"
+    ],
+    [
+      "s",
+      "en</w>"
+    ],
+    [
+      "bro",
+      "wn</w>"
+    ],
+    [
+      "ba",
+      "ck"
+    ],
+    [
+      "n",
+      "e</w>"
+    ],
+    [
+      "y",
+      "el"
+    ],
+    [
+      "p",
+      "h"
+    ],
+    [
+      "el",
+      "e"
+    ],
+    [
+      "g",
+      "la"
+    ],
+    [
+      "yel",
+      "low</w>"
+    ],
+    [
+      "and",
+      "s</w>"
+    ],
+    [
+      "z",
+      "i"
+    ],
+    [
+      "y",
+      "s</w>"
+    ],
+    [
+      "amer",
+      "a</w>"
+    ],
+    [
+      "kl",
+      "eines</w>"
+    ],
+    [
+      "h",
+      "er"
+    ],
+    [
+      "dr",
+      "en</w>"
+    ],
+    [
+      "chil",
+      "dren</w>"
+    ],
+    [
+      "un",
+      "ter</w>"
+    ],
+    [
+      "boar",
+      "d</w>"
+    ],
+    [
+      "w",
+      "in"
+    ],
+    [
+      "ma",
+      "cht</w>"
+    ],
+    [
+      "ra",
+      "d</w>"
+    ],
+    [
+      "c",
+      "a"
+    ],
+    [
+      "bl",
+      "on"
+    ],
+    [
+      "d",
+      "er"
+    ],
+    [
+      "sch",
+      "e</w>"
+    ],
+    [
+      "d",
+      "y</w>"
+    ],
+    [
+      "ut",
+      "e</w>"
+    ],
+    [
+      "eh",
+      "r"
+    ],
+    [
+      "l",
+      "y</w>"
+    ],
+    [
+      "c",
+      "y"
+    ],
+    [
+      "sprin",
+      "gt</w>"
+    ],
+    [
+      "el",
+      "t</w>"
+    ],
+    [
+      "cy",
+      "c"
+    ],
+    [
+      "bl",
+      "i"
+    ],
+    [
+      "l",
+      "ing</w>"
+    ],
+    [
+      "ent",
+      "lan"
+    ],
+    [
+      "schwarz",
+      "en</w>"
+    ],
+    [
+      "fro",
+      "m</w>"
+    ],
+    [
+      "th",
+      "ei"
+    ],
+    [
+      "thei",
+      "r</w>"
+    ],
+    [
+      "on",
+      "g</w>"
+    ],
+    [
+      "b",
+      "ü"
+    ],
+    [
+      "ck",
+      "t</w>"
+    ],
+    [
+      "dre",
+      "ss"
+    ],
+    [
+      "ch",
+      "t"
+    ],
+    [
+      "wei",
+      "ß"
+    ],
+    [
+      "re",
+      "a"
+    ],
+    [
+      "in",
+      "to</w>"
+    ],
+    [
+      "p",
+      "in"
+    ],
+    [
+      "par",
+      "k</w>"
+    ],
+    [
+      "gh",
+      "t</w>"
+    ],
+    [
+      "n",
+      "ing</w>"
+    ],
+    [
+      "t",
+      "ri"
+    ],
+    [
+      "p",
+      "s</w>"
+    ],
+    [
+      "kl",
+      "einer</w>"
+    ],
+    [
+      "g",
+      "a"
+    ],
+    [
+      "entlan",
+      "g</w>"
+    ],
+    [
+      "st",
+      "ru"
+    ],
+    [
+      "bu",
+      "il"
+    ],
+    [
+      "t",
+      "eil</w>"
+    ],
+    [
+      "t",
+      "or"
+    ],
+    [
+      "st",
+      "and</w>"
+    ],
+    [
+      "x",
+      "t</w>"
+    ],
+    [
+      "ss",
+      "en</w>"
+    ],
+    [
+      "c",
+      "lo"
+    ],
+    [
+      "sh",
+      "or"
+    ],
+    [
+      "m",
+      "ehr"
+    ],
+    [
+      "le",
+      "ute</w>"
+    ],
+    [
+      "sm",
+      "all</w>"
+    ],
+    [
+      "ck",
+      "en</w>"
+    ],
+    [
+      "am",
+      "e</w>"
+    ],
+    [
+      "ne",
+      "xt</w>"
+    ],
+    [
+      "b",
+      "le</w>"
+    ],
+    [
+      "th",
+      "ing</w>"
+    ],
+    [
+      "skat",
+      "e"
+    ],
+    [
+      "kleid",
+      "ung</w>"
+    ],
+    [
+      "a",
+      "ir</w>"
+    ],
+    [
+      "geh",
+      "en</w>"
+    ],
+    [
+      "v",
+      "ers"
+    ],
+    [
+      "st",
+      "r"
+    ],
+    [
+      "s",
+      "ur"
+    ],
+    [
+      "cro",
+      "w"
+    ],
+    [
+      "bo",
+      "o"
+    ],
+    [
+      "o",
+      "f"
+    ],
+    [
+      "dress",
+      "ed</w>"
+    ],
+    [
+      "o",
+      "ut</w>"
+    ],
+    [
+      "ss",
+      "es</w>"
+    ],
+    [
+      "p",
+      "er"
+    ],
+    [
+      "f",
+      "ri"
+    ],
+    [
+      "c",
+      "ol"
+    ],
+    [
+      "w",
+      "ir"
+    ],
+    [
+      "so",
+      "me</w>"
+    ],
+    [
+      "q",
+      "u"
+    ],
+    [
+      "st",
+      "u"
+    ],
+    [
+      "in",
+      "e</w>"
+    ],
+    [
+      "f",
+      "rei"
+    ],
+    [
+      "un",
+      "ter"
+    ],
+    [
+      "u",
+      "r</w>"
+    ],
+    [
+      "spiel",
+      "er</w>"
+    ],
+    [
+      "geb",
+      "äu"
+    ],
+    [
+      "o",
+      "ver</w>"
+    ],
+    [
+      "v",
+      "ing</w>"
+    ],
+    [
+      "lä",
+      "ch"
+    ],
+    [
+      "we",
+      "g</w>"
+    ],
+    [
+      "m",
+      "al"
+    ],
+    [
+      "h",
+      "i"
+    ],
+    [
+      "st",
+      "ü"
+    ],
+    [
+      "s",
+      "c"
+    ],
+    [
+      "d",
+      "d"
+    ],
+    [
+      "oran",
+      "ge</w>"
+    ],
+    [
+      "buil",
+      "ding</w>"
+    ],
+    [
+      "s",
+      "ing</w>"
+    ],
+    [
+      "p",
+      "ro"
+    ],
+    [
+      "l",
+      "s</w>"
+    ],
+    [
+      "e",
+      "tw"
+    ],
+    [
+      "t",
+      "z"
+    ],
+    [
+      "ar",
+      "o"
+    ],
+    [
+      "äl",
+      "ter"
+    ],
+    [
+      "d",
+      "en"
+    ],
+    [
+      "for",
+      "m"
+    ],
+    [
+      "b",
+      "au"
+    ],
+    [
+      "mo",
+      "tor"
+    ],
+    [
+      "ri",
+      "ding</w>"
+    ],
+    [
+      "etw",
+      "as</w>"
+    ],
+    [
+      "p",
+      "u"
+    ],
+    [
+      "run",
+      "ning</w>"
+    ],
+    [
+      "mehr",
+      "ere</w>"
+    ],
+    [
+      "wi",
+      "mm"
+    ],
+    [
+      "s",
+      "einem</w>"
+    ],
+    [
+      "ober",
+      "teil</w>"
+    ],
+    [
+      "un",
+      "i"
+    ],
+    [
+      "ur",
+      "e</w>"
+    ],
+    [
+      "l",
+      "le</w>"
+    ],
+    [
+      "h",
+      "ea"
+    ],
+    [
+      "gro",
+      "ßen</w>"
+    ],
+    [
+      "ge",
+      "sch"
+    ],
+    [
+      "r",
+      "an"
+    ],
+    [
+      "ne",
+      "ar</w>"
+    ],
+    [
+      "s",
+      "eh"
+    ],
+    [
+      "hin",
+      "ter"
+    ],
+    [
+      "a",
+      "ch</w>"
+    ],
+    [
+      "to",
+      "p</w>"
+    ],
+    [
+      "m",
+      "p"
+    ],
+    [
+      "jack",
+      "et</w>"
+    ],
+    [
+      "aro",
+      "und</w>"
+    ],
+    [
+      "an",
+      "other</w>"
+    ],
+    [
+      "p",
+      "le</w>"
+    ],
+    [
+      "grü",
+      "nen</w>"
+    ],
+    [
+      "jack",
+      "e</w>"
+    ],
+    [
+      "f",
+      "iel"
+    ],
+    [
+      "f",
+      "en"
+    ],
+    [
+      "si",
+      "de"
+    ],
+    [
+      "f",
+      "lo"
+    ],
+    [
+      "ba",
+      "by</w>"
+    ],
+    [
+      "au",
+      "s"
+    ],
+    [
+      "d",
+      "ar"
+    ],
+    [
+      "so",
+      "me"
+    ],
+    [
+      "schau",
+      "t</w>"
+    ],
+    [
+      "k",
+      "t</w>"
+    ],
+    [
+      "t",
+      "an"
+    ],
+    [
+      "jun",
+      "gen</w>"
+    ],
+    [
+      "w",
+      "er"
+    ],
+    [
+      "ch",
+      "ing</w>"
+    ],
+    [
+      "bri",
+      "lle</w>"
+    ],
+    [
+      "t",
+      "al"
+    ],
+    [
+      "s",
+      "on"
+    ],
+    [
+      "s",
+      "mi"
+    ],
+    [
+      "men",
+      "t</w>"
+    ],
+    [
+      "fiel",
+      "d</w>"
+    ],
+    [
+      "re",
+      "st"
+    ],
+    [
+      "gr",
+      "und</w>"
+    ],
+    [
+      "c",
+      "ti"
+    ],
+    [
+      "ta",
+      "ble</w>"
+    ],
+    [
+      "side",
+      "walk</w>"
+    ],
+    [
+      "t",
+      "re"
+    ],
+    [
+      "r",
+      "ü"
+    ],
+    [
+      "o",
+      "l</w>"
+    ],
+    [
+      "je",
+      "ans</w>"
+    ],
+    [
+      "s",
+      "en"
+    ],
+    [
+      "z",
+      "ei"
+    ],
+    [
+      "w",
+      "ing</w>"
+    ],
+    [
+      "it",
+      "y</w>"
+    ],
+    [
+      "k",
+      "op"
+    ],
+    [
+      "gla",
+      "sses</w>"
+    ],
+    [
+      "h",
+      "e</w>"
+    ],
+    [
+      "crow",
+      "d</w>"
+    ],
+    [
+      "be",
+      "ach</w>"
+    ],
+    [
+      "m",
+      "it"
+    ],
+    [
+      "bl",
+      "au"
+    ],
+    [
+      "ti",
+      "sch</w>"
+    ],
+    [
+      "g",
+      "ing</w>"
+    ],
+    [
+      "ar",
+      "r"
+    ],
+    [
+      "le",
+      "t"
+    ],
+    [
+      "pin",
+      "k</w>"
+    ],
+    [
+      "l",
+      "er</w>"
+    ],
+    [
+      "fu",
+      "ß"
+    ],
+    [
+      "v",
+      "ol"
+    ],
+    [
+      "r",
+      "au"
+    ],
+    [
+      "ck",
+      "s</w>"
+    ],
+    [
+      "b",
+      "e</w>"
+    ],
+    [
+      "b",
+      "and</w>"
+    ],
+    [
+      "k",
+      "a"
+    ],
+    [
+      "bi",
+      "ke</w>"
+    ],
+    [
+      "lä",
+      "uft</w>"
+    ],
+    [
+      "le",
+      "a"
+    ],
+    [
+      "c",
+      "ing</w>"
+    ],
+    [
+      "f",
+      "l"
+    ],
+    [
+      "f",
+      "in"
+    ],
+    [
+      "e",
+      "y</w>"
+    ],
+    [
+      "st",
+      "ands</w>"
+    ],
+    [
+      "h",
+      "and"
+    ],
+    [
+      "f",
+      "la"
+    ],
+    [
+      "wa",
+      "y</w>"
+    ],
+    [
+      "o",
+      "m</w>"
+    ],
+    [
+      "h",
+      "ut</w>"
+    ],
+    [
+      "hin",
+      "d</w>"
+    ],
+    [
+      "farben",
+      "en</w>"
+    ],
+    [
+      "ph",
+      "one</w>"
+    ],
+    [
+      "klei",
+      "de"
+    ],
+    [
+      "ba",
+      "se"
+    ],
+    [
+      "sit",
+      "s</w>"
+    ],
+    [
+      "shor",
+      "ts</w>"
+    ],
+    [
+      "jum",
+      "ping</w>"
+    ],
+    [
+      "fahr",
+      "rad</w>"
+    ],
+    [
+      "e",
+      "l</w>"
+    ],
+    [
+      "sin",
+      "d</w>"
+    ],
+    [
+      "h",
+      "un"
+    ],
+    [
+      "be",
+      "hind</w>"
+    ],
+    [
+      "str",
+      "and</w>"
+    ],
+    [
+      "fü",
+      "r</w>"
+    ],
+    [
+      "ck",
+      "e</w>"
+    ],
+    [
+      "zu",
+      "g</w>"
+    ],
+    [
+      "d",
+      "an"
+    ],
+    [
+      "hinter",
+      "grund</w>"
+    ],
+    [
+      "ba",
+      "sk"
+    ],
+    [
+      "sno",
+      "w</w>"
+    ],
+    [
+      "d",
+      "ed</w>"
+    ],
+    [
+      "c",
+      "er</w>"
+    ],
+    [
+      "frei",
+      "en</w>"
+    ],
+    [
+      "eh",
+      "t</w>"
+    ],
+    [
+      "b",
+      "t</w>"
+    ],
+    [
+      "mu",
+      "si"
+    ],
+    [
+      "el",
+      "n</w>"
+    ],
+    [
+      "z",
+      "en</w>"
+    ],
+    [
+      "it",
+      "s</w>"
+    ],
+    [
+      "f",
+      "en</w>"
+    ],
+    [
+      "ch",
+      "es</w>"
+    ],
+    [
+      "gra",
+      "ss</w>"
+    ],
+    [
+      "ch",
+      "e</w>"
+    ],
+    [
+      "st",
+      "o"
+    ],
+    [
+      "l",
+      "uft</w>"
+    ],
+    [
+      "ö",
+      "r"
+    ],
+    [
+      "ha",
+      "ir</w>"
+    ],
+    [
+      "men",
+      "ge</w>"
+    ],
+    [
+      "s",
+      "am"
+    ],
+    [
+      "g",
+      "es</w>"
+    ],
+    [
+      "n",
+      "äh"
+    ],
+    [
+      "back",
+      "ground</w>"
+    ],
+    [
+      "ar",
+      "i"
+    ],
+    [
+      "and",
+      "eren</w>"
+    ],
+    [
+      "sch",
+      "en"
+    ],
+    [
+      "h",
+      "än"
+    ],
+    [
+      "j",
+      "o"
+    ],
+    [
+      "c",
+      "ity</w>"
+    ],
+    [
+      "b",
+      "an"
+    ],
+    [
+      "l",
+      "es</w>"
+    ],
+    [
+      "gebäu",
+      "de</w>"
+    ],
+    [
+      "cyc",
+      "le</w>"
+    ],
+    [
+      "co",
+      "u"
+    ],
+    [
+      "jun",
+      "ger</w>"
+    ],
+    [
+      "ch",
+      "e"
+    ],
+    [
+      "g",
+      "o"
+    ],
+    [
+      "gel",
+      "ben</w>"
+    ],
+    [
+      "b",
+      "il"
+    ],
+    [
+      "ge",
+      "kleide"
+    ],
+    [
+      "asi",
+      "an</w>"
+    ],
+    [
+      "hin",
+      "ter</w>"
+    ],
+    [
+      "gir",
+      "ls</w>"
+    ],
+    [
+      "of",
+      "f</w>"
+    ],
+    [
+      "d",
+      "et</w>"
+    ],
+    [
+      "auf",
+      "en</w>"
+    ],
+    [
+      "for",
+      "m</w>"
+    ],
+    [
+      "t",
+      "t"
+    ],
+    [
+      "g",
+      "i"
+    ],
+    [
+      "k",
+      "ü"
+    ],
+    [
+      "ze",
+      "u"
+    ],
+    [
+      "ro",
+      "ll"
+    ],
+    [
+      "b",
+      "ar"
+    ],
+    [
+      "un",
+      "ta"
+    ],
+    [
+      "g",
+      "it"
+    ],
+    [
+      "foo",
+      "t"
+    ],
+    [
+      "pi",
+      "ct"
+    ],
+    [
+      "si",
+      "e</w>"
+    ],
+    [
+      "play",
+      "er</w>"
+    ],
+    [
+      "hal",
+      "ten</w>"
+    ],
+    [
+      "h",
+      "ü"
+    ],
+    [
+      "b",
+      "al"
+    ],
+    [
+      "a",
+      "d"
+    ],
+    [
+      "p",
+      "ol"
+    ],
+    [
+      "n",
+      "en"
+    ],
+    [
+      "st",
+      "er</w>"
+    ],
+    [
+      "sno",
+      "w"
+    ],
+    [
+      "dre",
+      "ss</w>"
+    ],
+    [
+      "na",
+      "ch</w>"
+    ],
+    [
+      "m",
+      "ü"
+    ],
+    [
+      "c",
+      "i"
+    ],
+    [
+      "fahr",
+      "er</w>"
+    ],
+    [
+      "loo",
+      "ks</w>"
+    ],
+    [
+      "w",
+      "all</w>"
+    ],
+    [
+      "p",
+      "an"
+    ],
+    [
+      "schwar",
+      "z</w>"
+    ],
+    [
+      "do",
+      "gs</w>"
+    ],
+    [
+      "s",
+      "un"
+    ],
+    [
+      "vi",
+      "er</w>"
+    ],
+    [
+      "st",
+      "ei"
+    ],
+    [
+      "v",
+      "es</w>"
+    ],
+    [
+      "men",
+      "schen"
+    ],
+    [
+      "gu",
+      "it"
+    ],
+    [
+      "and",
+      "ere</w>"
+    ],
+    [
+      "a",
+      "d</w>"
+    ],
+    [
+      "k",
+      "er</w>"
+    ],
+    [
+      "s",
+      "h</w>"
+    ],
+    [
+      "ol",
+      "d</w>"
+    ],
+    [
+      "p",
+      "er</w>"
+    ],
+    [
+      "wo",
+      "o"
+    ],
+    [
+      "ver",
+      "al</w>"
+    ],
+    [
+      "c",
+      "e"
+    ],
+    [
+      "ar",
+      "d</w>"
+    ],
+    [
+      "st",
+      "ri"
+    ],
+    [
+      "fo",
+      "ur</w>"
+    ],
+    [
+      "th",
+      "at</w>"
+    ],
+    [
+      "sp",
+      "or"
+    ],
+    [
+      "se",
+      "veral</w>"
+    ],
+    [
+      "schwarz",
+      "er</w>"
+    ],
+    [
+      "c",
+      "li"
+    ],
+    [
+      "ol",
+      "der</w>"
+    ],
+    [
+      "kl",
+      "eine</w>"
+    ],
+    [
+      "g",
+      "ar"
+    ],
+    [
+      "t",
+      "em</w>"
+    ],
+    [
+      "ge",
+      "l</w>"
+    ],
+    [
+      "bo",
+      "den</w>"
+    ],
+    [
+      "p",
+      "ul"
+    ],
+    [
+      "d",
+      "ern</w>"
+    ],
+    [
+      "fel",
+      "d</w>"
+    ],
+    [
+      "bask",
+      "et"
+    ],
+    [
+      "s",
+      "we"
+    ],
+    [
+      "n",
+      "er</w>"
+    ],
+    [
+      "c",
+      "amera</w>"
+    ],
+    [
+      "l",
+      "in"
+    ],
+    [
+      "f",
+      "er</w>"
+    ],
+    [
+      "sch",
+      "ie"
+    ],
+    [
+      "näh",
+      "e</w>"
+    ],
+    [
+      "bo",
+      "ys</w>"
+    ],
+    [
+      "an",
+      "i"
+    ],
+    [
+      "pe",
+      "d</w>"
+    ],
+    [
+      "wir",
+      "d</w>"
+    ],
+    [
+      "rest",
+      "au"
+    ],
+    [
+      "restau",
+      "ran"
+    ],
+    [
+      "ü",
+      "ber"
+    ],
+    [
+      "s",
+      "es</w>"
+    ],
+    [
+      "pla",
+      "t"
+    ],
+    [
+      "e",
+      "it"
+    ],
+    [
+      "be",
+      "im</w>"
+    ],
+    [
+      "d",
+      "un"
+    ],
+    [
+      "tal",
+      "king</w>"
+    ],
+    [
+      "skate",
+      "board</w>"
+    ],
+    [
+      "st",
+      "en</w>"
+    ],
+    [
+      "h",
+      "or"
+    ],
+    [
+      "some",
+      "thing</w>"
+    ],
+    [
+      "la",
+      "dy</w>"
+    ],
+    [
+      "k",
+      "amera</w>"
+    ],
+    [
+      "e",
+      "ssen</w>"
+    ],
+    [
+      "blon",
+      "d</w>"
+    ],
+    [
+      "seh",
+      "en</w>"
+    ],
+    [
+      "s",
+      "and</w>"
+    ],
+    [
+      "sch",
+      "u"
+    ],
+    [
+      "p",
+      "re"
+    ],
+    [
+      "kl",
+      "einen</w>"
+    ],
+    [
+      "so",
+      "c"
+    ],
+    [
+      "soc",
+      "cer</w>"
+    ],
+    [
+      "foo",
+      "d</w>"
+    ],
+    [
+      "at",
+      "ing</w>"
+    ],
+    [
+      "weiß",
+      "er</w>"
+    ],
+    [
+      "an",
+      "der</w>"
+    ],
+    [
+      "v",
+      "e"
+    ],
+    [
+      "wal",
+      "ks</w>"
+    ],
+    [
+      "sta",
+      "d"
+    ],
+    [
+      "menschen",
+      "menge</w>"
+    ],
+    [
+      "guit",
+      "ar</w>"
+    ],
+    [
+      "ein",
+      "ander</w>"
+    ],
+    [
+      "cro",
+      "ss</w>"
+    ],
+    [
+      "be",
+      "i"
+    ],
+    [
+      "arr",
+      "e</w>"
+    ],
+    [
+      "al",
+      "s</w>"
+    ],
+    [
+      "hun",
+      "de</w>"
+    ],
+    [
+      "al",
+      "ong</w>"
+    ],
+    [
+      "z",
+      "t</w>"
+    ],
+    [
+      "po",
+      "ol</w>"
+    ],
+    [
+      "h",
+      "ne</w>"
+    ],
+    [
+      "ro",
+      "ck</w>"
+    ],
+    [
+      "ch",
+      "er</w>"
+    ],
+    [
+      "wor",
+      "king</w>"
+    ],
+    [
+      "sch",
+      "wimm"
+    ],
+    [
+      "pla",
+      "y</w>"
+    ],
+    [
+      "pa",
+      "ar</w>"
+    ],
+    [
+      "to",
+      "ge"
+    ],
+    [
+      "toge",
+      "ther</w>"
+    ],
+    [
+      "sp",
+      "ie"
+    ],
+    [
+      "f",
+      "er"
+    ],
+    [
+      "per",
+      "form"
+    ],
+    [
+      "gra",
+      "s</w>"
+    ],
+    [
+      "vor",
+      "bei</w>"
+    ],
+    [
+      "si",
+      "g"
+    ],
+    [
+      "zeu",
+      "g</w>"
+    ],
+    [
+      "ho",
+      "ch</w>"
+    ],
+    [
+      "ra",
+      "d"
+    ],
+    [
+      "gra",
+      "y</w>"
+    ],
+    [
+      "smi",
+      "ling</w>"
+    ],
+    [
+      "o",
+      "b"
+    ],
+    [
+      "b",
+      "re"
+    ],
+    [
+      "sch",
+      "la"
+    ],
+    [
+      "k",
+      "ers</w>"
+    ],
+    [
+      "restauran",
+      "t</w>"
+    ],
+    [
+      "schne",
+      "e</w>"
+    ],
+    [
+      "k",
+      "es</w>"
+    ],
+    [
+      "renn",
+      "t</w>"
+    ],
+    [
+      "ban",
+      "k</w>"
+    ],
+    [
+      "lie",
+      "gt</w>"
+    ],
+    [
+      "ir",
+      "t</w>"
+    ],
+    [
+      "git",
+      "arre</w>"
+    ],
+    [
+      "te",
+      "l</w>"
+    ],
+    [
+      "oran",
+      "ge"
+    ],
+    [
+      "stre",
+      "i"
+    ],
+    [
+      "son",
+      "nen"
+    ],
+    [
+      "cht",
+      "et</w>"
+    ],
+    [
+      "pict",
+      "ure</w>"
+    ],
+    [
+      "g",
+      "ame</w>"
+    ],
+    [
+      "ba",
+      "h"
+    ],
+    [
+      "zu",
+      "sam"
+    ],
+    [
+      "ro",
+      "ad</w>"
+    ],
+    [
+      "h",
+      "as</w>"
+    ],
+    [
+      "w",
+      "and</w>"
+    ],
+    [
+      "h",
+      "en</w>"
+    ],
+    [
+      "si",
+      "eht</w>"
+    ],
+    [
+      "ihr",
+      "e</w>"
+    ],
+    [
+      "foot",
+      "ball</w>"
+    ],
+    [
+      "ein",
+      "i"
+    ],
+    [
+      "sch",
+      "a"
+    ],
+    [
+      "f",
+      "t"
+    ],
+    [
+      "st",
+      "e"
+    ],
+    [
+      "r",
+      "ying</w>"
+    ],
+    [
+      "wa",
+      "gen</w>"
+    ],
+    [
+      "ati",
+      "on</w>"
+    ],
+    [
+      "su",
+      "it</w>"
+    ],
+    [
+      "or",
+      "s</w>"
+    ],
+    [
+      "c",
+      "ar</w>"
+    ],
+    [
+      "vers",
+      "u"
+    ],
+    [
+      "play",
+      "s</w>"
+    ],
+    [
+      "p",
+      "e</w>"
+    ],
+    [
+      "t",
+      "y</w>"
+    ],
+    [
+      "pf",
+      "er"
+    ],
+    [
+      "klei",
+      "d</w>"
+    ],
+    [
+      "fahr",
+      "en</w>"
+    ],
+    [
+      "en",
+      "t</w>"
+    ],
+    [
+      "c",
+      "an</w>"
+    ],
+    [
+      "mo",
+      "unta"
+    ],
+    [
+      "sch",
+      "auen</w>"
+    ],
+    [
+      "k",
+      "en</w>"
+    ],
+    [
+      "dd",
+      "le</w>"
+    ],
+    [
+      "ß",
+      "en"
+    ],
+    [
+      "hol",
+      "ds</w>"
+    ],
+    [
+      "renn",
+      "en</w>"
+    ],
+    [
+      "ihr",
+      "en</w>"
+    ],
+    [
+      "sch",
+      "lä"
+    ],
+    [
+      "hea",
+      "d</w>"
+    ],
+    [
+      "sh",
+      "ing</w>"
+    ],
+    [
+      "fa",
+      "ce</w>"
+    ],
+    [
+      "asi",
+      "ati"
+    ],
+    [
+      "arbeit",
+      "er</w>"
+    ],
+    [
+      "ss",
+      "t</w>"
+    ],
+    [
+      "po",
+      "si"
+    ],
+    [
+      "d",
+      "u"
+    ],
+    [
+      "cti",
+      "on</w>"
+    ],
+    [
+      "pan",
+      "ts</w>"
+    ],
+    [
+      "cli",
+      "m"
+    ],
+    [
+      "s",
+      "le"
+    ],
+    [
+      "al",
+      "e</w>"
+    ],
+    [
+      "v",
+      "iel"
+    ],
+    [
+      "ben",
+      "ch</w>"
+    ],
+    [
+      "ä",
+      "r"
+    ],
+    [
+      "t",
+      "es</w>"
+    ],
+    [
+      "at",
+      "s</w>"
+    ],
+    [
+      "h",
+      "im</w>"
+    ],
+    [
+      "and",
+      "er"
+    ],
+    [
+      "a",
+      "bo"
+    ],
+    [
+      "a",
+      "b"
+    ],
+    [
+      "si",
+      "t</w>"
+    ],
+    [
+      "p",
+      "ur"
+    ],
+    [
+      "braun",
+      "en</w>"
+    ],
+    [
+      "braun",
+      "er</w>"
+    ],
+    [
+      "out",
+      "do"
+    ],
+    [
+      "g",
+      "ri"
+    ],
+    [
+      "ro",
+      "om</w>"
+    ],
+    [
+      "pa",
+      "in"
+    ],
+    [
+      "m",
+      "at"
+    ],
+    [
+      "let",
+      "ter"
+    ],
+    [
+      "k",
+      "un"
+    ],
+    [
+      "an",
+      "zug</w>"
+    ],
+    [
+      "stei",
+      "g</w>"
+    ],
+    [
+      "sta",
+      "ge</w>"
+    ],
+    [
+      "t",
+      "ele"
+    ],
+    [
+      "a",
+      "de</w>"
+    ],
+    [
+      "ver",
+      "k"
+    ],
+    [
+      "n",
+      "is</w>"
+    ],
+    [
+      "k",
+      "ro"
+    ],
+    [
+      "in",
+      "s</w>"
+    ],
+    [
+      "gesch",
+      "ä"
+    ],
+    [
+      "st",
+      "e</w>"
+    ],
+    [
+      "h",
+      "il"
+    ],
+    [
+      "car",
+      "rying</w>"
+    ],
+    [
+      "älter",
+      "er</w>"
+    ],
+    [
+      "cou",
+      "ple</w>"
+    ],
+    [
+      "s",
+      "ein</w>"
+    ],
+    [
+      "h",
+      "e"
+    ],
+    [
+      "au",
+      "ßen</w>"
+    ],
+    [
+      "in",
+      "stru"
+    ],
+    [
+      "pol",
+      "i"
+    ],
+    [
+      "k",
+      "letter"
+    ],
+    [
+      "be",
+      "t"
+    ],
+    [
+      "m",
+      "au"
+    ],
+    [
+      "fu",
+      "l</w>"
+    ],
+    [
+      "f",
+      "em"
+    ],
+    [
+      "bü",
+      "hne</w>"
+    ],
+    [
+      "t",
+      "ro"
+    ],
+    [
+      "spie",
+      "l</w>"
+    ],
+    [
+      "m",
+      "er</w>"
+    ],
+    [
+      "ge",
+      "gen"
+    ],
+    [
+      "ba",
+      "ck</w>"
+    ],
+    [
+      "zusam",
+      "men</w>"
+    ],
+    [
+      "e",
+      "x"
+    ],
+    [
+      "dr",
+      "außen</w>"
+    ],
+    [
+      "be",
+      "fin"
+    ],
+    [
+      "be",
+      "de"
+    ],
+    [
+      "sp",
+      "a"
+    ],
+    [
+      "th",
+      "em</w>"
+    ],
+    [
+      "ih",
+      "r</w>"
+    ],
+    [
+      "base",
+      "ball</w>"
+    ],
+    [
+      "swe",
+      "at"
+    ],
+    [
+      "b",
+      "un"
+    ],
+    [
+      "bi",
+      "cycle</w>"
+    ],
+    [
+      "t",
+      "ting</w>"
+    ],
+    [
+      "stra",
+      "ßen"
+    ],
+    [
+      "sch",
+      "er</w>"
+    ],
+    [
+      "m",
+      "s</w>"
+    ],
+    [
+      "k",
+      "ur"
+    ],
+    [
+      "wa",
+      "ch"
+    ],
+    [
+      "t",
+      "ree</w>"
+    ],
+    [
+      "d",
+      "rin"
+    ],
+    [
+      "t",
+      "ur"
+    ],
+    [
+      "stad",
+      "t</w>"
+    ],
+    [
+      "sch",
+      "ü"
+    ],
+    [
+      "ho",
+      "se</w>"
+    ],
+    [
+      "h",
+      "l</w>"
+    ],
+    [
+      "da",
+      "y</w>"
+    ],
+    [
+      "w",
+      "el"
+    ],
+    [
+      "st",
+      "or"
+    ],
+    [
+      "mal",
+      "e</w>"
+    ],
+    [
+      "kop",
+      "f</w>"
+    ],
+    [
+      "her",
+      "um</w>"
+    ],
+    [
+      "fo",
+      "to</w>"
+    ],
+    [
+      "ra",
+      "ce</w>"
+    ],
+    [
+      "r",
+      "ä"
+    ],
+    [
+      "bü",
+      "r"
+    ],
+    [
+      "ch",
+      "a"
+    ],
+    [
+      "basket",
+      "ball</w>"
+    ],
+    [
+      "on",
+      "s</w>"
+    ],
+    [
+      "it",
+      "i"
+    ],
+    [
+      "s",
+      "eine</w>"
+    ],
+    [
+      "l",
+      "ong</w>"
+    ],
+    [
+      "l",
+      "au"
+    ],
+    [
+      "l",
+      "l</w>"
+    ],
+    [
+      "bli",
+      "ckt</w>"
+    ],
+    [
+      "bl",
+      "o"
+    ],
+    [
+      "ball",
+      "spieler</w>"
+    ],
+    [
+      "ta",
+      "king</w>"
+    ],
+    [
+      "co",
+      "mp"
+    ],
+    [
+      "amer",
+      "i"
+    ],
+    [
+      "geh",
+      "weg</w>"
+    ],
+    [
+      "plat",
+      "z</w>"
+    ],
+    [
+      "mi",
+      "ddle</w>"
+    ],
+    [
+      "ea",
+      "ch</w>"
+    ],
+    [
+      "uni",
+      "form</w>"
+    ],
+    [
+      "sch",
+      "ir"
+    ],
+    [
+      "mi",
+      "kro"
+    ],
+    [
+      "k",
+      "e"
+    ],
+    [
+      "co",
+      "m"
+    ],
+    [
+      "wach",
+      "sen"
+    ],
+    [
+      "to",
+      "gra"
+    ],
+    [
+      "sk",
+      "i"
+    ],
+    [
+      "arbeit",
+      "et</w>"
+    ],
+    [
+      "l",
+      "aufen</w>"
+    ],
+    [
+      "bo",
+      "at</w>"
+    ],
+    [
+      "z",
+      "e</w>"
+    ],
+    [
+      "do",
+      "ing</w>"
+    ],
+    [
+      "ch",
+      "ten</w>"
+    ],
+    [
+      "ber",
+      "eit"
+    ],
+    [
+      "s",
+      "einen</w>"
+    ],
+    [
+      "da",
+      "bei</w>"
+    ],
+    [
+      "c",
+      "re"
+    ],
+    [
+      "ar",
+      "e"
+    ],
+    [
+      "p",
+      "ho"
+    ],
+    [
+      "h",
+      "ell"
+    ],
+    [
+      "mi",
+      "cro"
+    ],
+    [
+      "l",
+      "u"
+    ],
+    [
+      "d",
+      "irt</w>"
+    ],
+    [
+      "wat",
+      "ching</w>"
+    ],
+    [
+      "hel",
+      "m</w>"
+    ],
+    [
+      "a",
+      "cross</w>"
+    ],
+    [
+      "wei",
+      "ß</w>"
+    ],
+    [
+      "ta",
+      "g</w>"
+    ],
+    [
+      "sle",
+      "e"
+    ],
+    [
+      "gu",
+      "y</w>"
+    ],
+    [
+      "th",
+      "ere</w>"
+    ],
+    [
+      "tz",
+      "e</w>"
+    ],
+    [
+      "dar",
+      "k</w>"
+    ],
+    [
+      "bu",
+      "s</w>"
+    ],
+    [
+      "are",
+      "a</w>"
+    ],
+    [
+      "te",
+      "am</w>"
+    ],
+    [
+      "s",
+      "be"
+    ],
+    [
+      "hin",
+      "unter</w>"
+    ],
+    [
+      "skate",
+      "boar"
+    ],
+    [
+      "f",
+      "e</w>"
+    ],
+    [
+      "tra",
+      "gen</w>"
+    ],
+    [
+      "bla",
+      "u</w>"
+    ],
+    [
+      "versu",
+      "cht</w>"
+    ],
+    [
+      "wi",
+      "e</w>"
+    ],
+    [
+      "ten",
+      "nis</w>"
+    ],
+    [
+      "h",
+      "l"
+    ],
+    [
+      "ge",
+      "si"
+    ],
+    [
+      "an",
+      "g</w>"
+    ],
+    [
+      "co",
+      "ver"
+    ],
+    [
+      "ss",
+      "en"
+    ],
+    [
+      "jum",
+      "ps</w>"
+    ],
+    [
+      "boo",
+      "t</w>"
+    ],
+    [
+      "st",
+      "at"
+    ],
+    [
+      "le",
+      "d</w>"
+    ],
+    [
+      "h",
+      "ands</w>"
+    ],
+    [
+      "co",
+      "at</w>"
+    ],
+    [
+      "bede",
+      "ck"
+    ],
+    [
+      "et",
+      "te</w>"
+    ],
+    [
+      "ut",
+      "h</w>"
+    ],
+    [
+      "it",
+      "ing</w>"
+    ],
+    [
+      "ir",
+      "e</w>"
+    ],
+    [
+      "f",
+      "on</w>"
+    ],
+    [
+      "clim",
+      "b"
+    ],
+    [
+      "zei",
+      "gt</w>"
+    ],
+    [
+      "fem",
+      "ale</w>"
+    ],
+    [
+      "f",
+      "ten</w>"
+    ],
+    [
+      "ki",
+      "ds</w>"
+    ],
+    [
+      "en",
+      "de</w>"
+    ],
+    [
+      "sp",
+      "e"
+    ],
+    [
+      "s",
+      "and"
+    ],
+    [
+      "ro",
+      "t</w>"
+    ],
+    [
+      "f",
+      "re"
+    ],
+    [
+      "ein",
+      "g</w>"
+    ],
+    [
+      "arbeit",
+      "en</w>"
+    ],
+    [
+      "st",
+      "ell"
+    ],
+    [
+      "perform",
+      "ing</w>"
+    ],
+    [
+      "p",
+      "at"
+    ],
+    [
+      "d",
+      "ri"
+    ],
+    [
+      "sch",
+      "il"
+    ],
+    [
+      "d",
+      "ame</w>"
+    ],
+    [
+      "wh",
+      "o</w>"
+    ],
+    [
+      "gro",
+      "ße</w>"
+    ],
+    [
+      "ge",
+      "strei"
+    ],
+    [
+      "w",
+      "s</w>"
+    ],
+    [
+      "shir",
+      "ts</w>"
+    ],
+    [
+      "re",
+      "it"
+    ],
+    [
+      "ck",
+      "ing</w>"
+    ],
+    [
+      "ss",
+      "e</w>"
+    ],
+    [
+      "ma",
+      "chen</w>"
+    ],
+    [
+      "e",
+      "ating</w>"
+    ],
+    [
+      "un",
+      "der</w>"
+    ],
+    [
+      "läch",
+      "elt</w>"
+    ],
+    [
+      "li",
+      "chen</w>"
+    ],
+    [
+      "ha",
+      "ar"
+    ],
+    [
+      "u",
+      "sing</w>"
+    ],
+    [
+      "t",
+      "ru"
+    ],
+    [
+      "c",
+      "at"
+    ],
+    [
+      "bah",
+      "n</w>"
+    ],
+    [
+      "b",
+      "eing</w>"
+    ],
+    [
+      "stri",
+      "ped</w>"
+    ],
+    [
+      "s",
+      "a</w>"
+    ],
+    [
+      "ri",
+      "cht</w>"
+    ],
+    [
+      "sig",
+      "n</w>"
+    ],
+    [
+      "orange",
+      "farbenen</w>"
+    ],
+    [
+      "mar",
+      "k"
+    ],
+    [
+      "le",
+      "u"
+    ],
+    [
+      "fa",
+      "mi"
+    ],
+    [
+      "u",
+      "e</w>"
+    ],
+    [
+      "ihr",
+      "em</w>"
+    ],
+    [
+      "c",
+      "or"
+    ],
+    [
+      "bür",
+      "ger"
+    ],
+    [
+      "man",
+      "n"
+    ],
+    [
+      "d",
+      "ge</w>"
+    ],
+    [
+      "tri",
+      "ko"
+    ],
+    [
+      "sh",
+      "a"
+    ],
+    [
+      "i",
+      "ert</w>"
+    ],
+    [
+      "wat",
+      "ch</w>"
+    ],
+    [
+      "hor",
+      "se</w>"
+    ],
+    [
+      "älter",
+      "e</w>"
+    ],
+    [
+      "st",
+      "s</w>"
+    ],
+    [
+      "rad",
+      "fahrer</w>"
+    ],
+    [
+      "au",
+      "to</w>"
+    ],
+    [
+      "stor",
+      "e</w>"
+    ],
+    [
+      "sch",
+      "n"
+    ],
+    [
+      "man",
+      "y</w>"
+    ],
+    [
+      "fi",
+      "t</w>"
+    ],
+    [
+      "bil",
+      "d</w>"
+    ],
+    [
+      "s",
+      "li"
+    ],
+    [
+      "ih",
+      "m</w>"
+    ],
+    [
+      "ad",
+      "ul"
+    ],
+    [
+      "s",
+      "si"
+    ],
+    [
+      "pur",
+      "ple</w>"
+    ],
+    [
+      "mo",
+      "uth</w>"
+    ],
+    [
+      "i",
+      "red</w>"
+    ],
+    [
+      "stu",
+      "hl</w>"
+    ],
+    [
+      "k",
+      "ar"
+    ],
+    [
+      "jun",
+      "ges</w>"
+    ],
+    [
+      "con",
+      "stru"
+    ],
+    [
+      "bo",
+      "w"
+    ],
+    [
+      "ar",
+      "m</w>"
+    ],
+    [
+      "ir",
+      "s</w>"
+    ],
+    [
+      "er",
+      "wachsen"
+    ],
+    [
+      "mm",
+      "t</w>"
+    ],
+    [
+      "to",
+      "war"
+    ],
+    [
+      "th",
+      "is</w>"
+    ],
+    [
+      "loo",
+      "k</w>"
+    ],
+    [
+      "k",
+      "u"
+    ],
+    [
+      "ho",
+      "sen</w>"
+    ],
+    [
+      "ha",
+      "ired</w>"
+    ],
+    [
+      "bürger",
+      "steig</w>"
+    ],
+    [
+      "out",
+      "fit</w>"
+    ],
+    [
+      "lie",
+      "st</w>"
+    ],
+    [
+      "k",
+      "el"
+    ],
+    [
+      "gro",
+      "ß"
+    ],
+    [
+      "en",
+      "den</w>"
+    ],
+    [
+      "sp",
+      "richt</w>"
+    ],
+    [
+      "s",
+      "wimm"
+    ],
+    [
+      "fe",
+      "u"
+    ],
+    [
+      "f",
+      "an"
+    ],
+    [
+      "ch",
+      "air</w>"
+    ],
+    [
+      "p",
+      "ut"
+    ],
+    [
+      "l",
+      "ine</w>"
+    ],
+    [
+      "en",
+      "jo"
+    ],
+    [
+      "en",
+      "a"
+    ],
+    [
+      "ander",
+      "er</w>"
+    ],
+    [
+      "win",
+      "do"
+    ],
+    [
+      "run",
+      "s</w>"
+    ],
+    [
+      "ho",
+      "ck"
+    ],
+    [
+      "fü",
+      "hrt</w>"
+    ],
+    [
+      "at",
+      "t"
+    ],
+    [
+      "ro",
+      "sa</w>"
+    ],
+    [
+      "po",
+      "sing</w>"
+    ],
+    [
+      "wass",
+      "er"
+    ],
+    [
+      "rea",
+      "ding</w>"
+    ],
+    [
+      "i",
+      "l</w>"
+    ],
+    [
+      "gra",
+      "ff"
+    ],
+    [
+      "d",
+      "ra"
+    ],
+    [
+      "b",
+      "ele"
+    ],
+    [
+      "unter",
+      "halten</w>"
+    ],
+    [
+      "u",
+      "s</w>"
+    ],
+    [
+      "play",
+      "ers</w>"
+    ],
+    [
+      "sun",
+      "glasses</w>"
+    ],
+    [
+      "ss",
+      "ing</w>"
+    ],
+    [
+      "re",
+      "s</w>"
+    ],
+    [
+      "man",
+      "tel</w>"
+    ],
+    [
+      "constru",
+      "ction</w>"
+    ],
+    [
+      "t",
+      "u"
+    ],
+    [
+      "sp",
+      "r"
+    ],
+    [
+      "t",
+      "h</w>"
+    ],
+    [
+      "t",
+      "ed</w>"
+    ],
+    [
+      "m",
+      "on"
+    ],
+    [
+      "k",
+      "an"
+    ],
+    [
+      "in",
+      "di"
+    ],
+    [
+      "be",
+      "tra"
+    ],
+    [
+      "wor",
+      "k</w>"
+    ],
+    [
+      "haar",
+      "en</w>"
+    ],
+    [
+      "c",
+      "es</w>"
+    ],
+    [
+      "weiß",
+      "em</w>"
+    ],
+    [
+      "s",
+      "el"
+    ],
+    [
+      "kun",
+      "st"
+    ],
+    [
+      "graff",
+      "it"
+    ],
+    [
+      "g",
+      "ol"
+    ],
+    [
+      "d",
+      "in"
+    ],
+    [
+      "co",
+      "w"
+    ],
+    [
+      "clo",
+      "thing</w>"
+    ],
+    [
+      "am",
+      "m"
+    ],
+    [
+      "pfer",
+      "d</w>"
+    ],
+    [
+      "o",
+      "ce"
+    ],
+    [
+      "micro",
+      "phone</w>"
+    ],
+    [
+      "ar",
+      "s</w>"
+    ],
+    [
+      "a",
+      "th"
+    ],
+    [
+      "o",
+      "ba"
+    ],
+    [
+      "g",
+      "h</w>"
+    ],
+    [
+      "ba",
+      "r</w>"
+    ],
+    [
+      "to",
+      "y</w>"
+    ],
+    [
+      "sch",
+      "t</w>"
+    ],
+    [
+      "mounta",
+      "in</w>"
+    ],
+    [
+      "li",
+      "ght</w>"
+    ],
+    [
+      "gel",
+      "än"
+    ],
+    [
+      "oce",
+      "an</w>"
+    ],
+    [
+      "cover",
+      "ed</w>"
+    ],
+    [
+      "wor",
+      "kers</w>"
+    ],
+    [
+      "te",
+      "ena"
+    ],
+    [
+      "viel",
+      "e</w>"
+    ],
+    [
+      "k",
+      "am"
+    ],
+    [
+      "dur",
+      "ing</w>"
+    ],
+    [
+      "comp",
+      "ut"
+    ],
+    [
+      "a",
+      "fri"
+    ],
+    [
+      "ß",
+      "t</w>"
+    ],
+    [
+      "c",
+      "t</w>"
+    ],
+    [
+      "w",
+      "ä"
+    ],
+    [
+      "u",
+      "se</w>"
+    ],
+    [
+      "sonnen",
+      "brille</w>"
+    ],
+    [
+      "k",
+      "on"
+    ],
+    [
+      "k",
+      "la"
+    ],
+    [
+      "gr",
+      "auen</w>"
+    ],
+    [
+      "em",
+      "p"
+    ],
+    [
+      "zu",
+      "m</w>"
+    ],
+    [
+      "ze",
+      "it"
+    ],
+    [
+      "wat",
+      "ches</w>"
+    ],
+    [
+      "t",
+      "et</w>"
+    ],
+    [
+      "o",
+      "ver"
+    ],
+    [
+      "o",
+      "p</w>"
+    ],
+    [
+      "fl",
+      "u"
+    ],
+    [
+      "f",
+      "all"
+    ],
+    [
+      "en",
+      "d</w>"
+    ],
+    [
+      "sur",
+      "f"
+    ],
+    [
+      "st",
+      "um"
+    ],
+    [
+      "m",
+      "et</w>"
+    ],
+    [
+      "k",
+      "it"
+    ],
+    [
+      "hol",
+      "z"
+    ],
+    [
+      "di",
+      "e"
+    ],
+    [
+      "dan",
+      "cing</w>"
+    ],
+    [
+      "d",
+      "ru"
+    ],
+    [
+      "climb",
+      "ing</w>"
+    ],
+    [
+      "tri",
+      "ck</w>"
+    ],
+    [
+      "le",
+      "y"
+    ],
+    [
+      "k",
+      "ör"
+    ],
+    [
+      "blau",
+      "em</w>"
+    ],
+    [
+      "a",
+      "ga"
+    ],
+    [
+      "schne",
+      "e"
+    ],
+    [
+      "pa",
+      "st</w>"
+    ],
+    [
+      "n",
+      "um"
+    ],
+    [
+      "in",
+      "st</w>"
+    ],
+    [
+      "gekleide",
+      "te</w>"
+    ],
+    [
+      "er",
+      "ten</w>"
+    ],
+    [
+      "be",
+      "oba"
+    ],
+    [
+      "ar",
+      "t</w>"
+    ],
+    [
+      "s",
+      "einer</w>"
+    ],
+    [
+      "outdo",
+      "or</w>"
+    ],
+    [
+      "ha",
+      "ari"
+    ],
+    [
+      "el",
+      "der"
+    ],
+    [
+      "elder",
+      "ly</w>"
+    ],
+    [
+      "b",
+      "rau"
+    ],
+    [
+      "zu",
+      "schau"
+    ],
+    [
+      "par",
+      "k"
+    ],
+    [
+      "mü",
+      "tze</w>"
+    ],
+    [
+      "er",
+      "i"
+    ],
+    [
+      "schir",
+      "m</w>"
+    ],
+    [
+      "hel",
+      "met</w>"
+    ],
+    [
+      "col",
+      "or"
+    ],
+    [
+      "bau",
+      "m</w>"
+    ],
+    [
+      "tr",
+      "in"
+    ],
+    [
+      "to",
+      "s</w>"
+    ],
+    [
+      "s",
+      "et</w>"
+    ],
+    [
+      "gesi",
+      "cht</w>"
+    ],
+    [
+      "f",
+      "ol"
+    ],
+    [
+      "aga",
+      "inst</w>"
+    ],
+    [
+      "s",
+      "ol"
+    ],
+    [
+      "rau",
+      "m</w>"
+    ],
+    [
+      "geschä",
+      "ft</w>"
+    ],
+    [
+      "f",
+      "ul"
+    ],
+    [
+      "co",
+      "o"
+    ],
+    [
+      "tra",
+      "in</w>"
+    ],
+    [
+      "schil",
+      "d</w>"
+    ],
+    [
+      "fri",
+      "sbe"
+    ],
+    [
+      "c",
+      "u"
+    ],
+    [
+      "c",
+      "la"
+    ],
+    [
+      "at",
+      "e</w>"
+    ],
+    [
+      "windo",
+      "w</w>"
+    ],
+    [
+      "w",
+      "ie"
+    ],
+    [
+      "um",
+      "bre"
+    ],
+    [
+      "sin",
+      "gt</w>"
+    ],
+    [
+      "sch",
+      "o"
+    ],
+    [
+      "p",
+      "lan"
+    ],
+    [
+      "j",
+      "u"
+    ],
+    [
+      "e",
+      "y"
+    ],
+    [
+      "wei",
+      "ße</w>"
+    ],
+    [
+      "ta",
+      "l</w>"
+    ],
+    [
+      "stü",
+      "ck</w>"
+    ],
+    [
+      "snow",
+      "boar"
+    ],
+    [
+      "kletter",
+      "t</w>"
+    ],
+    [
+      "i",
+      "ce</w>"
+    ],
+    [
+      "ri",
+      "des</w>"
+    ],
+    [
+      "o",
+      "red</w>"
+    ],
+    [
+      "le",
+      "an"
+    ],
+    [
+      "kop",
+      "f"
+    ],
+    [
+      "ko",
+      "stü"
+    ],
+    [
+      "ih",
+      "nen</w>"
+    ],
+    [
+      "graffit",
+      "i</w>"
+    ],
+    [
+      "e",
+      "ts</w>"
+    ],
+    [
+      "dun",
+      "kel"
+    ],
+    [
+      "vol",
+      "ley"
+    ],
+    [
+      "ut",
+      "i"
+    ],
+    [
+      "kl",
+      "ein"
+    ],
+    [
+      "fuß",
+      "ball</w>"
+    ],
+    [
+      "c",
+      "ell"
+    ],
+    [
+      "th",
+      "ey</w>"
+    ],
+    [
+      "pu",
+      "bli"
+    ],
+    [
+      "k",
+      "or"
+    ],
+    [
+      "abo",
+      "ut</w>"
+    ],
+    [
+      "motor",
+      "rad</w>"
+    ],
+    [
+      "flo",
+      "w"
+    ],
+    [
+      "fi",
+      "ve</w>"
+    ],
+    [
+      "col",
+      "ored</w>"
+    ],
+    [
+      "woo",
+      "den</w>"
+    ],
+    [
+      "v",
+      "ie"
+    ],
+    [
+      "o",
+      "th"
+    ],
+    [
+      "ga",
+      "th"
+    ],
+    [
+      "fü",
+      "n"
+    ],
+    [
+      "v",
+      "en"
+    ],
+    [
+      "tre",
+      "es</w>"
+    ],
+    [
+      "t",
+      "y"
+    ],
+    [
+      "sch",
+      "ut"
+    ],
+    [
+      "posi",
+      "ert</w>"
+    ],
+    [
+      "mar",
+      "kt</w>"
+    ],
+    [
+      "ho",
+      "ch"
+    ],
+    [
+      "ba",
+      "g</w>"
+    ],
+    [
+      "wa",
+      "iting</w>"
+    ],
+    [
+      "vers",
+      "amm"
+    ],
+    [
+      "ten",
+      "ni"
+    ],
+    [
+      "sp",
+      "la"
+    ],
+    [
+      "s",
+      "er"
+    ],
+    [
+      "pul",
+      "lo"
+    ],
+    [
+      "m",
+      "in"
+    ],
+    [
+      "l",
+      "it"
+    ],
+    [
+      "ha",
+      "ving</w>"
+    ],
+    [
+      "fel",
+      "sen</w>"
+    ],
+    [
+      "dar",
+      "auf</w>"
+    ],
+    [
+      "bu",
+      "s"
+    ],
+    [
+      "tru",
+      "ck</w>"
+    ],
+    [
+      "fün",
+      "f</w>"
+    ],
+    [
+      "t",
+      "ü"
+    ],
+    [
+      "pf",
+      "en</w>"
+    ],
+    [
+      "ob",
+      "je"
+    ],
+    [
+      "k",
+      "ani"
+    ],
+    [
+      "f",
+      "li"
+    ],
+    [
+      "den",
+      "en</w>"
+    ],
+    [
+      "a",
+      "b</w>"
+    ],
+    [
+      "ö",
+      "ff"
+    ],
+    [
+      "ver",
+      "y</w>"
+    ],
+    [
+      "st",
+      "ein"
+    ],
+    [
+      "spor",
+      "t"
+    ],
+    [
+      "hi",
+      "gh</w>"
+    ],
+    [
+      "eini",
+      "ge</w>"
+    ],
+    [
+      "bl",
+      "es</w>"
+    ],
+    [
+      "un",
+      "g"
+    ],
+    [
+      "swimm",
+      "ing</w>"
+    ],
+    [
+      "blau",
+      "er</w>"
+    ],
+    [
+      "befin",
+      "det</w>"
+    ],
+    [
+      "h",
+      "ör"
+    ],
+    [
+      "ge",
+      "tting</w>"
+    ],
+    [
+      "el",
+      "n"
+    ],
+    [
+      "co",
+      "ur"
+    ],
+    [
+      "wir",
+      "ft</w>"
+    ],
+    [
+      "co",
+      "stum"
+    ],
+    [
+      "flo",
+      "or</w>"
+    ],
+    [
+      "tr",
+      "ying</w>"
+    ],
+    [
+      "sch",
+      "rei"
+    ],
+    [
+      "n",
+      "s</w>"
+    ],
+    [
+      "frisbe",
+      "e</w>"
+    ],
+    [
+      "pullo",
+      "ver</w>"
+    ],
+    [
+      "n",
+      "et</w>"
+    ],
+    [
+      "mikro",
+      "fon</w>"
+    ],
+    [
+      "gath",
+      "er"
+    ],
+    [
+      "f",
+      "fe"
+    ],
+    [
+      "lean",
+      "ing</w>"
+    ],
+    [
+      "f",
+      "il"
+    ],
+    [
+      "color",
+      "ful</w>"
+    ],
+    [
+      "boo",
+      "k</w>"
+    ],
+    [
+      "bereit",
+      "et</w>"
+    ],
+    [
+      "fen",
+      "ster</w>"
+    ],
+    [
+      "stat",
+      "ue</w>"
+    ],
+    [
+      "ss",
+      "y</w>"
+    ],
+    [
+      "seh",
+      "r</w>"
+    ],
+    [
+      "schwarz",
+      "em</w>"
+    ],
+    [
+      "h",
+      "an"
+    ],
+    [
+      "g",
+      "g"
+    ],
+    [
+      "c",
+      "al</w>"
+    ],
+    [
+      "ber",
+      "ei"
+    ],
+    [
+      "r",
+      "ut"
+    ],
+    [
+      "na",
+      "ch"
+    ],
+    [
+      "mm",
+      "er</w>"
+    ],
+    [
+      "li",
+      "ch</w>"
+    ],
+    [
+      "jum",
+      "p</w>"
+    ],
+    [
+      "gekleide",
+      "ter</w>"
+    ],
+    [
+      "cyc",
+      "li"
+    ],
+    [
+      "bus",
+      "y</w>"
+    ],
+    [
+      "sin",
+      "ging</w>"
+    ],
+    [
+      "schu",
+      "hen</w>"
+    ],
+    [
+      "le",
+      "it"
+    ],
+    [
+      "hil",
+      "l</w>"
+    ],
+    [
+      "fo",
+      "re"
+    ],
+    [
+      "fen",
+      "ce</w>"
+    ],
+    [
+      "el",
+      "le</w>"
+    ],
+    [
+      "tra",
+      "ck</w>"
+    ],
+    [
+      "ta",
+      "sche</w>"
+    ],
+    [
+      "i",
+      "d</w>"
+    ],
+    [
+      "be",
+      "cken</w>"
+    ],
+    [
+      "al",
+      "ter</w>"
+    ],
+    [
+      "tenni",
+      "s"
+    ],
+    [
+      "scha",
+      "ft</w>"
+    ],
+    [
+      "sa",
+      "ck</w>"
+    ],
+    [
+      "mark",
+      "et</w>"
+    ],
+    [
+      "m",
+      "ut"
+    ],
+    [
+      "it",
+      "t</w>"
+    ],
+    [
+      "de",
+      "o</w>"
+    ],
+    [
+      "clo",
+      "th"
+    ],
+    [
+      "car",
+      "t</w>"
+    ],
+    [
+      "triko",
+      "t</w>"
+    ],
+    [
+      "le",
+      "h"
+    ],
+    [
+      "er",
+      "in</w>"
+    ],
+    [
+      "ck",
+      "et</w>"
+    ],
+    [
+      "ch",
+      "in"
+    ],
+    [
+      "c",
+      "an"
+    ],
+    [
+      "wie",
+      "se</w>"
+    ],
+    [
+      "ro",
+      "tem</w>"
+    ],
+    [
+      "ro",
+      "sa"
+    ],
+    [
+      "of",
+      "fi"
+    ],
+    [
+      "me",
+      "er</w>"
+    ],
+    [
+      "grü",
+      "n"
+    ],
+    [
+      "d",
+      "ers</w>"
+    ],
+    [
+      "te",
+      "il"
+    ],
+    [
+      "sprin",
+      "gen</w>"
+    ],
+    [
+      "schwarz",
+      "e</w>"
+    ],
+    [
+      "schau",
+      "k"
+    ],
+    [
+      "s",
+      "ä"
+    ],
+    [
+      "o",
+      "der</w>"
+    ],
+    [
+      "ge",
+      "d</w>"
+    ],
+    [
+      "wal",
+      "d</w>"
+    ],
+    [
+      "ter",
+      "n</w>"
+    ],
+    [
+      "si",
+      "l"
+    ],
+    [
+      "s",
+      "k</w>"
+    ],
+    [
+      "ro",
+      "ter</w>"
+    ],
+    [
+      "me",
+      "t"
+    ],
+    [
+      "lan",
+      "gen</w>"
+    ],
+    [
+      "kör",
+      "per</w>"
+    ],
+    [
+      "kin",
+      "dern</w>"
+    ],
+    [
+      "com",
+      "pe"
+    ],
+    [
+      "mit",
+      "ten</w>"
+    ],
+    [
+      "läch",
+      "eln"
+    ],
+    [
+      "li",
+      "che</w>"
+    ],
+    [
+      "instru",
+      "men"
+    ],
+    [
+      "hü",
+      "gel</w>"
+    ],
+    [
+      "en",
+      "s</w>"
+    ],
+    [
+      "b",
+      "rü"
+    ],
+    [
+      "ro",
+      "un"
+    ],
+    [
+      "ri",
+      "de</w>"
+    ],
+    [
+      "p",
+      "ie"
+    ],
+    [
+      "i",
+      "sst</w>"
+    ],
+    [
+      "bi",
+      "g</w>"
+    ],
+    [
+      "wh",
+      "e"
+    ],
+    [
+      "sh",
+      "op"
+    ],
+    [
+      "roll",
+      "er</w>"
+    ],
+    [
+      "männ",
+      "ern</w>"
+    ],
+    [
+      "la",
+      "ying</w>"
+    ],
+    [
+      "in",
+      "side</w>"
+    ],
+    [
+      "f",
+      "on"
+    ],
+    [
+      "volley",
+      "ball</w>"
+    ],
+    [
+      "h",
+      "ats</w>"
+    ],
+    [
+      "gestrei",
+      "ften</w>"
+    ],
+    [
+      "bo",
+      "dy</w>"
+    ],
+    [
+      "blu",
+      "se</w>"
+    ],
+    [
+      "war",
+      "tet</w>"
+    ],
+    [
+      "t",
+      "an</w>"
+    ],
+    [
+      "schne",
+      "i"
+    ],
+    [
+      "ca",
+      "p</w>"
+    ],
+    [
+      "sto",
+      "ck</w>"
+    ],
+    [
+      "g",
+      "ang</w>"
+    ],
+    [
+      "bri",
+      "ght</w>"
+    ],
+    [
+      "y",
+      "m"
+    ],
+    [
+      "h",
+      "u"
+    ],
+    [
+      "su",
+      "b"
+    ],
+    [
+      "sho",
+      "p</w>"
+    ],
+    [
+      "oth",
+      "ers</w>"
+    ],
+    [
+      "kit",
+      "chen</w>"
+    ],
+    [
+      "pla",
+      "sti"
+    ],
+    [
+      "pat",
+      "h</w>"
+    ],
+    [
+      "m",
+      "men</w>"
+    ],
+    [
+      "gra",
+      "ssy</w>"
+    ],
+    [
+      "cell",
+      "phone</w>"
+    ],
+    [
+      "bu",
+      "ch</w>"
+    ],
+    [
+      "t",
+      "t</w>"
+    ],
+    [
+      "spiel",
+      "zeug</w>"
+    ],
+    [
+      "some",
+      "one</w>"
+    ],
+    [
+      "par",
+      "ade</w>"
+    ],
+    [
+      "n",
+      "y</w>"
+    ],
+    [
+      "l",
+      "and"
+    ],
+    [
+      "vol",
+      "ler</w>"
+    ],
+    [
+      "tre",
+      "ppe</w>"
+    ],
+    [
+      "schut",
+      "z"
+    ],
+    [
+      "ru",
+      "ck"
+    ],
+    [
+      "pre",
+      "p"
+    ],
+    [
+      "ma",
+      "king</w>"
+    ],
+    [
+      "bri",
+      "ck</w>"
+    ],
+    [
+      "au",
+      "n</w>"
+    ],
+    [
+      "u",
+      "fer</w>"
+    ],
+    [
+      "ta",
+      "kes</w>"
+    ],
+    [
+      "posi",
+      "eren</w>"
+    ],
+    [
+      "ni",
+      "ght</w>"
+    ],
+    [
+      "mal",
+      "t</w>"
+    ],
+    [
+      "k",
+      "ä"
+    ],
+    [
+      "ha",
+      "ar</w>"
+    ],
+    [
+      "cloth",
+      "es</w>"
+    ],
+    [
+      "back",
+      "pa"
+    ],
+    [
+      "b",
+      "run"
+    ],
+    [
+      "an",
+      "ge"
+    ],
+    [
+      "a",
+      "p"
+    ],
+    [
+      "wer",
+      "den</w>"
+    ],
+    [
+      "un",
+      "der"
+    ],
+    [
+      "ti",
+      "on</w>"
+    ],
+    [
+      "sur",
+      "roun"
+    ],
+    [
+      "se",
+      "ite</w>"
+    ],
+    [
+      "motor",
+      "cycle</w>"
+    ],
+    [
+      "li",
+      "cher</w>"
+    ],
+    [
+      "fe",
+      "sti"
+    ],
+    [
+      "umbre",
+      "ll"
+    ],
+    [
+      "umbrell",
+      "a</w>"
+    ],
+    [
+      "tan",
+      "zen</w>"
+    ],
+    [
+      "sch",
+      "i"
+    ],
+    [
+      "op",
+      "en</w>"
+    ],
+    [
+      "k",
+      "ne"
+    ],
+    [
+      "c",
+      "ra"
+    ],
+    [
+      "au",
+      "ft</w>"
+    ],
+    [
+      "über",
+      "qu"
+    ],
+    [
+      "wi",
+      "schen</w>"
+    ],
+    [
+      "towar",
+      "ds</w>"
+    ],
+    [
+      "ter",
+      "s</w>"
+    ],
+    [
+      "tan",
+      "k</w>"
+    ],
+    [
+      "ful",
+      "l</w>"
+    ],
+    [
+      "fo",
+      "togra"
+    ],
+    [
+      "bele",
+      "b"
+    ],
+    [
+      "uni",
+      "form"
+    ],
+    [
+      "sweat",
+      "shirt</w>"
+    ],
+    [
+      "sch",
+      "ul"
+    ],
+    [
+      "ober",
+      "körper</w>"
+    ],
+    [
+      "o",
+      "ben</w>"
+    ],
+    [
+      "k",
+      "ö"
+    ],
+    [
+      "hock",
+      "ey</w>"
+    ],
+    [
+      "fuß",
+      "ball"
+    ],
+    [
+      "enjo",
+      "ying</w>"
+    ],
+    [
+      "ein",
+      "k"
+    ],
+    [
+      "comput",
+      "er</w>"
+    ],
+    [
+      "zi",
+      "eht</w>"
+    ],
+    [
+      "te",
+      "am"
+    ],
+    [
+      "sur",
+      "fer</w>"
+    ],
+    [
+      "se",
+      "e</w>"
+    ],
+    [
+      "pi",
+      "er</w>"
+    ],
+    [
+      "p",
+      "ra"
+    ],
+    [
+      "cht",
+      "ung</w>"
+    ],
+    [
+      "st",
+      "one</w>"
+    ],
+    [
+      "s",
+      "wing</w>"
+    ],
+    [
+      "me",
+      "tal</w>"
+    ],
+    [
+      "h",
+      "ä"
+    ],
+    [
+      "e",
+      "p</w>"
+    ],
+    [
+      "dun",
+      "kl"
+    ],
+    [
+      "dan",
+      "ce</w>"
+    ],
+    [
+      "äu",
+      "men</w>"
+    ],
+    [
+      "um",
+      "ge"
+    ],
+    [
+      "ri",
+      "ver</w>"
+    ],
+    [
+      "pa",
+      "per</w>"
+    ],
+    [
+      "k",
+      "ni"
+    ],
+    [
+      "h",
+      "t</w>"
+    ],
+    [
+      "gar",
+      "ette</w>"
+    ],
+    [
+      "reit",
+      "et</w>"
+    ],
+    [
+      "rea",
+      "dy</w>"
+    ],
+    [
+      "pie",
+      "ce</w>"
+    ],
+    [
+      "ma",
+      "sch"
+    ],
+    [
+      "fü",
+      "hr"
+    ],
+    [
+      "f",
+      "f</w>"
+    ],
+    [
+      "at",
+      "ed</w>"
+    ],
+    [
+      "al",
+      "ten</w>"
+    ],
+    [
+      "z",
+      "er</w>"
+    ],
+    [
+      "spa",
+      "zi"
+    ],
+    [
+      "sh",
+      "es</w>"
+    ],
+    [
+      "or",
+      "t</w>"
+    ],
+    [
+      "h",
+      "of</w>"
+    ],
+    [
+      "bi",
+      "kin"
+    ],
+    [
+      "betra",
+      "chtet</w>"
+    ],
+    [
+      "a",
+      "ge</w>"
+    ],
+    [
+      "ss",
+      "er</w>"
+    ],
+    [
+      "sh",
+      "e</w>"
+    ],
+    [
+      "s",
+      "mo"
+    ],
+    [
+      "par",
+      "ty</w>"
+    ],
+    [
+      "mau",
+      "er</w>"
+    ],
+    [
+      "i",
+      "e</w>"
+    ],
+    [
+      "b",
+      "rea"
+    ],
+    [
+      "z",
+      "wischen</w>"
+    ],
+    [
+      "war",
+      "ten</w>"
+    ],
+    [
+      "to",
+      "u"
+    ],
+    [
+      "st",
+      "er"
+    ],
+    [
+      "pho",
+      "togra"
+    ],
+    [
+      "li",
+      "e</w>"
+    ],
+    [
+      "leu",
+      "ten</w>"
+    ],
+    [
+      "hand",
+      "y</w>"
+    ],
+    [
+      "gen",
+      "ie"
+    ],
+    [
+      "en",
+      "e</w>"
+    ],
+    [
+      "blon",
+      "de</w>"
+    ],
+    [
+      "ba",
+      "de"
+    ],
+    [
+      "b",
+      "el"
+    ],
+    [
+      "snowboar",
+      "der</w>"
+    ],
+    [
+      "o",
+      "us</w>"
+    ],
+    [
+      "instru",
+      "ment</w>"
+    ],
+    [
+      "h",
+      "aus</w>"
+    ],
+    [
+      "zi",
+      "mmer</w>"
+    ],
+    [
+      "sweat",
+      "er</w>"
+    ],
+    [
+      "me",
+      "l</w>"
+    ],
+    [
+      "lo",
+      "t</w>"
+    ],
+    [
+      "gri",
+      "ll</w>"
+    ],
+    [
+      "e",
+      "v"
+    ],
+    [
+      "c",
+      "am"
+    ],
+    [
+      "th",
+      "e"
+    ],
+    [
+      "schlä",
+      "ft</w>"
+    ],
+    [
+      "s",
+      "ell"
+    ],
+    [
+      "i",
+      "c"
+    ],
+    [
+      "en",
+      "der</w>"
+    ],
+    [
+      "ch",
+      "s</w>"
+    ],
+    [
+      "ber",
+      "g</w>"
+    ],
+    [
+      "al",
+      "t"
+    ],
+    [
+      "z",
+      "aun</w>"
+    ],
+    [
+      "wor",
+      "ker</w>"
+    ],
+    [
+      "tr",
+      "itt</w>"
+    ],
+    [
+      "tele",
+      "fon"
+    ],
+    [
+      "sti",
+      "ck</w>"
+    ],
+    [
+      "st",
+      "ä"
+    ],
+    [
+      "ru",
+      "n</w>"
+    ],
+    [
+      "ri",
+      "e"
+    ],
+    [
+      "kleid",
+      "et</w>"
+    ],
+    [
+      "feu",
+      "er"
+    ],
+    [
+      "b",
+      "äumen</w>"
+    ],
+    [
+      "a",
+      "c"
+    ],
+    [
+      "x",
+      "ing</w>"
+    ],
+    [
+      "la",
+      "ke</w>"
+    ],
+    [
+      "ho",
+      "o"
+    ],
+    [
+      "gr",
+      "au"
+    ],
+    [
+      "gel",
+      "b"
+    ],
+    [
+      "t",
+      "at"
+    ],
+    [
+      "stu",
+      "den"
+    ],
+    [
+      "s",
+      "ed</w>"
+    ],
+    [
+      "pain",
+      "ting</w>"
+    ],
+    [
+      "leh",
+      "nt</w>"
+    ],
+    [
+      "ameri",
+      "can</w>"
+    ],
+    [
+      "abo",
+      "ve</w>"
+    ],
+    [
+      "m",
+      "itt"
+    ],
+    [
+      "hä",
+      "uti"
+    ],
+    [
+      "ho",
+      "use</w>"
+    ],
+    [
+      "ha",
+      "ben</w>"
+    ],
+    [
+      "h",
+      "ard</w>"
+    ],
+    [
+      "ge",
+      "gen</w>"
+    ],
+    [
+      "afri",
+      "can</w>"
+    ],
+    [
+      "sch",
+      "ö"
+    ],
+    [
+      "s",
+      "qu"
+    ],
+    [
+      "j",
+      "ug"
+    ],
+    [
+      "hän",
+      "den</w>"
+    ],
+    [
+      "go",
+      "ing</w>"
+    ],
+    [
+      "fan",
+      "gen</w>"
+    ],
+    [
+      "cow",
+      "boy</w>"
+    ],
+    [
+      "adul",
+      "ts</w>"
+    ],
+    [
+      "v",
+      "ed</w>"
+    ],
+    [
+      "shop",
+      "ping</w>"
+    ],
+    [
+      "re",
+      "gen"
+    ],
+    [
+      "musi",
+      "c</w>"
+    ],
+    [
+      "mau",
+      "l</w>"
+    ],
+    [
+      "hea",
+      "d"
+    ],
+    [
+      "h",
+      "ei"
+    ],
+    [
+      "f",
+      "ter</w>"
+    ],
+    [
+      "che",
+      "er"
+    ],
+    [
+      "bedeck",
+      "ten</w>"
+    ],
+    [
+      "z",
+      "o"
+    ],
+    [
+      "ve",
+      "st</w>"
+    ],
+    [
+      "snow",
+      "y</w>"
+    ],
+    [
+      "on",
+      "es</w>"
+    ],
+    [
+      "mit",
+      "einander</w>"
+    ],
+    [
+      "kü",
+      "che</w>"
+    ],
+    [
+      "fu",
+      "ß</w>"
+    ],
+    [
+      "flu",
+      "ss</w>"
+    ],
+    [
+      "di",
+      "es</w>"
+    ],
+    [
+      "d",
+      "iti"
+    ],
+    [
+      "beoba",
+      "chtet</w>"
+    ],
+    [
+      "wa",
+      "ve</w>"
+    ],
+    [
+      "to",
+      "dd"
+    ],
+    [
+      "surroun",
+      "ded</w>"
+    ],
+    [
+      "sub",
+      "way</w>"
+    ],
+    [
+      "st",
+      "elle</w>"
+    ],
+    [
+      "s",
+      "car"
+    ],
+    [
+      "qu",
+      "i"
+    ],
+    [
+      "po",
+      "in"
+    ],
+    [
+      "m",
+      "mel</w>"
+    ],
+    [
+      "g",
+      "lei"
+    ],
+    [
+      "en",
+      "d"
+    ],
+    [
+      "c",
+      "ur"
+    ],
+    [
+      "uniform",
+      "s</w>"
+    ],
+    [
+      "tan",
+      "zt</w>"
+    ],
+    [
+      "op",
+      "s</w>"
+    ],
+    [
+      "on",
+      "to</w>"
+    ],
+    [
+      "ihr",
+      "er</w>"
+    ],
+    [
+      "en",
+      "en</w>"
+    ],
+    [
+      "ch",
+      "ter</w>"
+    ],
+    [
+      "a",
+      "pp"
+    ],
+    [
+      "ruck",
+      "sack</w>"
+    ],
+    [
+      "pho",
+      "to</w>"
+    ],
+    [
+      "outdo",
+      "ors</w>"
+    ],
+    [
+      "li",
+      "ke</w>"
+    ],
+    [
+      "l",
+      "en</w>"
+    ],
+    [
+      "klein",
+      "kind</w>"
+    ],
+    [
+      "ki",
+      "d</w>"
+    ],
+    [
+      "ge",
+      "wä"
+    ],
+    [
+      "el",
+      "s</w>"
+    ],
+    [
+      "crow",
+      "ded</w>"
+    ],
+    [
+      "ch",
+      "ed</w>"
+    ],
+    [
+      "brau",
+      "n</w>"
+    ],
+    [
+      "bau",
+      "arbeiter</w>"
+    ],
+    [
+      "base",
+      "ball"
+    ],
+    [
+      "z",
+      "ie"
+    ],
+    [
+      "ver",
+      "schie"
+    ],
+    [
+      "ri",
+      "chtung</w>"
+    ],
+    [
+      "pro",
+      "te"
+    ],
+    [
+      "po",
+      "le</w>"
+    ],
+    [
+      "o",
+      "ff"
+    ],
+    [
+      "läch",
+      "eln</w>"
+    ],
+    [
+      "le",
+      "ss</w>"
+    ],
+    [
+      "cou",
+      "ch</w>"
+    ],
+    [
+      "con",
+      "vers"
+    ],
+    [
+      "t",
+      "or</w>"
+    ],
+    [
+      "stell",
+      "t</w>"
+    ],
+    [
+      "smi",
+      "les</w>"
+    ],
+    [
+      "schie",
+      "bt</w>"
+    ],
+    [
+      "sch",
+      "auf"
+    ],
+    [
+      "k",
+      "ari"
+    ],
+    [
+      "ge",
+      "ar</w>"
+    ],
+    [
+      "be",
+      "side</w>"
+    ],
+    [
+      "backpa",
+      "ck</w>"
+    ],
+    [
+      "b",
+      "r"
+    ],
+    [
+      "b",
+      "ir"
+    ],
+    [
+      "wel",
+      "le</w>"
+    ],
+    [
+      "h",
+      "n"
+    ],
+    [
+      "bal",
+      "an"
+    ],
+    [
+      "v",
+      "om</w>"
+    ],
+    [
+      "ti",
+      "schen</w>"
+    ],
+    [
+      "sch",
+      "ein"
+    ],
+    [
+      "p",
+      "on"
+    ],
+    [
+      "masch",
+      "ine</w>"
+    ],
+    [
+      "lau",
+      "gh"
+    ],
+    [
+      "lan",
+      "g"
+    ],
+    [
+      "k",
+      "re"
+    ],
+    [
+      "il",
+      "ing</w>"
+    ],
+    [
+      "bar",
+      "t</w>"
+    ],
+    [
+      "schwimm",
+      "becken</w>"
+    ],
+    [
+      "ne",
+      "w"
+    ],
+    [
+      "ge",
+      "tr"
+    ],
+    [
+      "drin",
+      "king</w>"
+    ],
+    [
+      "befin",
+      "den</w>"
+    ],
+    [
+      "b",
+      "or"
+    ],
+    [
+      "we",
+      "tt"
+    ],
+    [
+      "st",
+      "ro"
+    ],
+    [
+      "spr",
+      "ung</w>"
+    ],
+    [
+      "rü",
+      "cken</w>"
+    ],
+    [
+      "p",
+      "t"
+    ],
+    [
+      "it",
+      "en</w>"
+    ],
+    [
+      "farben",
+      "er</w>"
+    ],
+    [
+      "fami",
+      "ly</w>"
+    ],
+    [
+      "eink",
+      "auf"
+    ],
+    [
+      "bikin",
+      "i</w>"
+    ],
+    [
+      "y",
+      "ard</w>"
+    ],
+    [
+      "we",
+      "ste</w>"
+    ],
+    [
+      "t",
+      "au"
+    ],
+    [
+      "st",
+      "ation</w>"
+    ],
+    [
+      "ma",
+      "ch"
+    ],
+    [
+      "g",
+      "o</w>"
+    ],
+    [
+      "g",
+      "n"
+    ],
+    [
+      "g",
+      "ers</w>"
+    ],
+    [
+      "flow",
+      "ers</w>"
+    ],
+    [
+      "f",
+      "ire</w>"
+    ],
+    [
+      "ev",
+      "ent</w>"
+    ],
+    [
+      "bri",
+      "dge</w>"
+    ],
+    [
+      "be",
+      "au"
+    ],
+    [
+      "todd",
+      "ler</w>"
+    ],
+    [
+      "sp",
+      "ea"
+    ],
+    [
+      "skateboar",
+      "der</w>"
+    ],
+    [
+      "sch",
+      "w"
+    ],
+    [
+      "s",
+      "er</w>"
+    ],
+    [
+      "k",
+      "ra"
+    ],
+    [
+      "f",
+      "läch"
+    ],
+    [
+      "diti",
+      "on"
+    ],
+    [
+      "tra",
+      "in"
+    ],
+    [
+      "ro",
+      "pe</w>"
+    ],
+    [
+      "ro",
+      "deo</w>"
+    ],
+    [
+      "poli",
+      "ce</w>"
+    ],
+    [
+      "l",
+      "ü"
+    ],
+    [
+      "gu",
+      "ys</w>"
+    ],
+    [
+      "getr",
+      "än"
+    ],
+    [
+      "gather",
+      "ed</w>"
+    ],
+    [
+      "fo",
+      "unta"
+    ],
+    [
+      "fläch",
+      "e</w>"
+    ],
+    [
+      "eini",
+      "gen</w>"
+    ],
+    [
+      "beau",
+      "ti"
+    ],
+    [
+      "b",
+      "ru"
+    ],
+    [
+      "sho",
+      "es</w>"
+    ],
+    [
+      "or",
+      "i"
+    ],
+    [
+      "ni",
+      "mmt</w>"
+    ],
+    [
+      "mi",
+      "lit"
+    ],
+    [
+      "kur",
+      "zen</w>"
+    ],
+    [
+      "han",
+      "ging</w>"
+    ],
+    [
+      "g",
+      "ent"
+    ],
+    [
+      "ch",
+      "er"
+    ],
+    [
+      "be",
+      "g"
+    ],
+    [
+      "ar",
+      "ms</w>"
+    ],
+    [
+      "an",
+      "t</w>"
+    ],
+    [
+      "sho",
+      "w</w>"
+    ],
+    [
+      "schauk",
+      "el</w>"
+    ],
+    [
+      "sch",
+      "es</w>"
+    ],
+    [
+      "en",
+      "ce</w>"
+    ],
+    [
+      "cat",
+      "ch</w>"
+    ],
+    [
+      "asiati",
+      "sche</w>"
+    ],
+    [
+      "ar",
+      "y</w>"
+    ],
+    [
+      "a",
+      "way</w>"
+    ],
+    [
+      "we",
+      "en</w>"
+    ],
+    [
+      "sch",
+      "ri"
+    ],
+    [
+      "s",
+      "win"
+    ],
+    [
+      "prep",
+      "aring</w>"
+    ],
+    [
+      "pp",
+      "en</w>"
+    ],
+    [
+      "h",
+      "ar"
+    ],
+    [
+      "car",
+      "ri"
+    ],
+    [
+      "brü",
+      "cke</w>"
+    ],
+    [
+      "beauti",
+      "ful</w>"
+    ],
+    [
+      "b",
+      "ur"
+    ],
+    [
+      "z",
+      "er"
+    ],
+    [
+      "tra",
+      "dition"
+    ],
+    [
+      "schnei",
+      "det</w>"
+    ],
+    [
+      "mar",
+      "ath"
+    ],
+    [
+      "c",
+      "ut"
+    ],
+    [
+      "aus",
+      "ge"
+    ],
+    [
+      "an",
+      "st"
+    ],
+    [
+      "zu",
+      "r</w>"
+    ],
+    [
+      "we",
+      "hr"
+    ],
+    [
+      "w",
+      "and"
+    ],
+    [
+      "verk",
+      "auft</w>"
+    ],
+    [
+      "ta",
+      "bles</w>"
+    ],
+    [
+      "ste",
+      "ps</w>"
+    ],
+    [
+      "slee",
+      "ping</w>"
+    ],
+    [
+      "obje",
+      "ct</w>"
+    ],
+    [
+      "ma",
+      "l</w>"
+    ],
+    [
+      "m",
+      "p</w>"
+    ],
+    [
+      "in",
+      "ter"
+    ],
+    [
+      "hl",
+      "en</w>"
+    ],
+    [
+      "gebäu",
+      "des</w>"
+    ],
+    [
+      "fami",
+      "lie</w>"
+    ],
+    [
+      "em",
+      "and</w>"
+    ],
+    [
+      "costum",
+      "e</w>"
+    ],
+    [
+      "blu",
+      "men</w>"
+    ],
+    [
+      "bal",
+      "lo"
+    ],
+    [
+      "ar",
+      "men</w>"
+    ],
+    [
+      "woo",
+      "d</w>"
+    ],
+    [
+      "w",
+      "il"
+    ],
+    [
+      "un",
+      "gen</w>"
+    ],
+    [
+      "shor",
+      "t</w>"
+    ],
+    [
+      "mach",
+      "ine</w>"
+    ],
+    [
+      "m",
+      "el"
+    ],
+    [
+      "groß",
+      "er</w>"
+    ],
+    [
+      "fla",
+      "g"
+    ],
+    [
+      "fi",
+      "shing</w>"
+    ],
+    [
+      "ffe",
+      "e</w>"
+    ],
+    [
+      "c",
+      "lu"
+    ],
+    [
+      "au",
+      "ss"
+    ],
+    [
+      "att",
+      "emp"
+    ],
+    [
+      "ap",
+      "pe"
+    ],
+    [
+      "ameri",
+      "kani"
+    ],
+    [
+      "a",
+      "fter</w>"
+    ],
+    [
+      "versamm",
+      "elt</w>"
+    ]
+  ]
+}
