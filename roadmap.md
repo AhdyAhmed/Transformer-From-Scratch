@@ -107,9 +107,11 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Log deterministic validation translations after every epoch.
 - [x] Resume from the epoch-3 checkpoint and complete epoch 4 with optimizer/RNG state restored.
 
-**Day 20 — Extended PyTorch training run**
-- Scale the same reproducible command to the full corpus or a longer run.
-- Improve translation quality before formal Day-23 evaluation.
+**Day 20 — Extended PyTorch training run — completed**
+- [x] Resume the deterministic CUDA run from epoch 4 through epoch 40 (1,280 optimizer steps) on the same 2,000/200-pair subset.
+- [x] Reduce training loss from 4.8897 to 3.5473 and best validation loss from 4.9280 to 3.7800 without non-finite values or runtime failures.
+- [x] Preserve full metric history, per-epoch greedy samples, an updated loss curve, and latest/best checkpoints.
+- [x] Verify checkpoint loading and continuation with model, optimizer, scheduler step, and RNG state restored; reserve formal BLEU scoring for Day 23.
 
 **Day 21–22 — TensorFlow training run**
 - Same dataset, same hyperparameters, same number of steps/epochs as PyTorch run.

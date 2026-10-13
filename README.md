@@ -86,7 +86,8 @@ Transformer-From-Scratch/
 - [x] Day 17 — PyTorch training loop and checkpointing
 - [x] Day 18 — TensorFlow training loop and checkpointing
 - [x] Day 19 — Reproducible PyTorch CUDA subset run with metrics, checkpoints & samples
-- [ ] Day 20–23 — Extended runs, TensorFlow comparison & evaluation
+- [x] Day 20 — Extended 40-epoch PyTorch CUDA run with resume verification
+- [ ] Day 21–23 — TensorFlow comparison & evaluation
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
 
@@ -194,6 +195,35 @@ artifacts are in [`results/day19/`](results/day19/); model checkpoints remain
 git-ignored because of their size.
 
 ![Day 19 train and validation loss](results/day19/loss_curve.svg)
+
+### Day 20 — Extended PyTorch CUDA training run
+
+Day 20 resumed the exact Day 19 model, optimizer, scheduler, and RNG state at
+epoch 4 and continued the same deterministic 2,000/200-pair Multi30k subset to
+40 epochs (1,280 optimizer steps). The run stayed on CUDA throughout and
+retained append-only metrics, qualitative samples, atomic latest/best
+checkpoints, and the regenerated loss curve.
+
+```bash
+python -m torch_impl.training.train \
+  --config configs/day20-torch.json \
+  --train-src data/multi30k/train.en --train-tgt data/multi30k/train.de \
+  --val-src data/multi30k/val.en --val-tgt data/multi30k/val.de \
+  --max-train-pairs 2000 --max-val-pairs 200 \
+  --tokenizer checkpoints/day19/tokenizer.json \
+  --checkpoint-dir checkpoints/day19/torch --sample-translations 3 \
+  --resume checkpoints/day19/torch/latest.pt
+```
+
+From the Day 19 handoff to Day 20 completion, training loss decreased from
+4.8897 to 3.5473 and the best validation loss improved from 4.9280 to 3.7800
+(epoch 39). The lightweight reproducibility artifacts are in
+[`results/day20/`](results/day20/). The samples show modest source-dependent
+variation but remain weak because this deliberately compact run uses only
+2,000 pairs and a 512-token vocabulary; formal BLEU evaluation remains a Day
+23 task rather than being overstated here.
+
+![Day 20 train and validation loss](results/day20/loss_curve.svg)
 
 ## Setup
 
