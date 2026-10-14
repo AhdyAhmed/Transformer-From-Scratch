@@ -87,7 +87,8 @@ Transformer-From-Scratch/
 - [x] Day 18 — TensorFlow training loop and checkpointing
 - [x] Day 19 — Reproducible PyTorch CUDA subset run with metrics, checkpoints & samples
 - [x] Day 20 — Extended full-corpus PyTorch CUDA run (30 epochs / 13,620 steps)
-- [ ] Day 21–23 — TensorFlow comparison & evaluation
+- [x] Day 21 — TensorFlow CPU subset training with metrics, samples & resume
+- [ ] Day 22–23 — Extended TensorFlow run & evaluation
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
 
@@ -229,6 +230,39 @@ remains a Day 23 task. Reproducibility artifacts and the exact tokenizer are in
 retained in [`results/day20/`](results/day20/) for comparison.
 
 ![Day 20 full-corpus train and validation loss](results/day20-full/loss_curve.svg)
+
+### Day 21 — TensorFlow CPU training run
+
+Day 21 brings the TensorFlow CLI to feature parity with the PyTorch training
+workflow: deterministic train/validation subset controls, greedy validation
+samples, `translations.jsonl`, an SVG loss curve, and clean log initialization
+for fresh runs. The selected tokenizer is trained only on the selected
+training pairs.
+
+Because TensorFlow 2.21 cannot use CUDA on native Windows, the verified run
+used `/device:CPU:0` with 5,000 Multi30k training pairs, 500 validation pairs,
+the 512-token joint BPE vocabulary, and the 299,776-parameter compact model.
+Epochs 1–9 ran in the initial process; epoch 10 restored model weights, Adam
+slots, epoch 9, optimizer step 711, and best-validation state from the latest
+checkpoint before completing step 790.
+
+```bash
+python -m tf_impl.training.train \
+  --config configs/day21-tf.json --device cpu \
+  --train-src data/multi30k/train.en --train-tgt data/multi30k/train.de \
+  --val-src data/multi30k/val.en --val-tgt data/multi30k/val.de \
+  --max-train-pairs 5000 --max-val-pairs 500 --vocab-size 512 \
+  --tokenizer checkpoints/day21-medium/tokenizer.json \
+  --checkpoint-dir checkpoints/day21-medium/tf --sample-translations 3
+```
+
+Training loss decreased from 4.8390 to 3.3631 and validation loss from 4.1279
+to 3.4998. The final epoch is also the best checkpoint. The compact CPU run is
+an execution and learning verification; translations remain limited and are
+not presented as a quality match for the much larger full-corpus PyTorch run.
+Artifacts are in [`results/day21/`](results/day21/).
+
+![Day 21 TensorFlow train and validation loss](results/day21/loss_curve.svg)
 
 ## Setup
 

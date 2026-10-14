@@ -10,11 +10,21 @@ from tf_impl.data.dataset import TFBatchLoader
 from tf_impl.model.transformer import Transformer
 from tf_impl.training.losses import LabelSmoothingLoss
 from tf_impl.training.lr_schedule import NoamSchedule
-from tf_impl.training.train import build_parser, configure_device, run_epoch
+from tf_impl.training.train import (
+    build_parser,
+    configure_device,
+    greedy_decode,
+    run_epoch,
+    save_loss_curve,
+)
 
 
 def test_training_defaults_to_gpu():
-    assert build_parser().parse_args([]).device == "gpu"
+    args = build_parser().parse_args([])
+    assert args.device == "gpu"
+    assert args.max_train_pairs is None
+    assert args.max_val_pairs is None
+    assert args.sample_translations == 3
 
 
 def test_requested_gpu_never_silently_falls_back(monkeypatch):
@@ -76,3 +86,37 @@ def test_validation_epoch_does_not_update_weights():
     assert step == 0
     assert tokens_per_sec > 0 and elapsed > 0
     assert all(np.array_equal(old, new.numpy()) for old, new in zip(before, model.trainable_variables))
+
+
+def test_greedy_decode_returns_bos_prefixed_bounded_sequence():
+    tf.keras.utils.set_random_seed(19)
+    loader, config = _fixture()
+    model = Transformer.from_config(config)
+    batch = next(iter(loader))
+    masks = model.create_masks(batch.src, batch.tgt_in)
+    model(batch.src, batch.tgt_in, *masks, training=False)
+
+    decoded = greedy_decode(
+        model,
+        batch.src[0].numpy().tolist(),
+        config.bos_idx,
+        config.eos_idx,
+        config.max_seq_len,
+    )
+
+    assert decoded[0] == config.bos_idx
+    assert 2 <= len(decoded) <= config.max_seq_len
+
+
+def test_save_loss_curve_creates_svg(tmp_path):
+    history = tmp_path / "history.jsonl"
+    history.write_text(
+        '{"epoch": 1, "train_loss": 2.0, "val_loss": 2.2}\n'
+        '{"epoch": 2, "train_loss": 1.5, "val_loss": 1.8}\n',
+        encoding="utf-8",
+    )
+    output = tmp_path / "curve.svg"
+
+    save_loss_curve(history, output)
+
+    assert output.read_text(encoding="utf-8").lstrip().startswith("<?xml")

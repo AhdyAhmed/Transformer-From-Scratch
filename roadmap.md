@@ -114,9 +114,16 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Preserve the exact tokenizer, full metric history, 90 greedy samples, loss curve, and atomic latest/best checkpoints; verify epoch/step integrity.
 - [x] Retain formal BLEU scoring for Day 23 while confirming strong source-conditioned qualitative improvement.
 
-**Day 21–22 — TensorFlow training run**
-- Same dataset, same hyperparameters, same number of steps/epochs as PyTorch run.
-- Track identical metrics for fair comparison.
+**Day 21 — TensorFlow CPU subset training run — completed**
+- [x] Add deterministic subset controls, per-epoch greedy samples, JSONL translation logs, and SVG loss curves to the TensorFlow CLI.
+- [x] Train on 5,000/500 Multi30k train/validation pairs for 10 CPU epochs (790 optimizer steps).
+- [x] Reduce training loss from 4.8390 to 3.3631 and validation loss from 4.1279 to 3.4998 without non-finite values or runtime failures.
+- [x] Restore epoch 9, optimizer step 711, Adam slots, and best-validation state, then complete epoch 10 in a separate process.
+- [x] Preserve the exact tokenizer, full metric history, 30 greedy samples, loss curve, and TensorFlow latest/best checkpoints.
+
+**Day 22 — Extended TensorFlow training run**
+- Scale the verified CPU command where practical, or move the same configuration to a supported WSL2/Linux CUDA environment.
+- Track identical metrics for fair comparison with the PyTorch run.
 
 **Day 23 — Evaluation**
 - Compute BLEU (or chosen metric) for both models.
