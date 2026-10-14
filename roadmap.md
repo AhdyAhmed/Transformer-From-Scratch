@@ -121,9 +121,12 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Restore epoch 9, optimizer step 711, Adam slots, and best-validation state, then complete epoch 10 in a separate process.
 - [x] Preserve the exact tokenizer, full metric history, 30 greedy samples, loss curve, and TensorFlow latest/best checkpoints.
 
-**Day 22 — Extended TensorFlow training run**
-- Scale the verified CPU command where practical, or move the same configuration to a supported WSL2/Linux CUDA environment.
-- Track identical metrics for fair comparison with the PyTorch run.
+**Day 22 — Extended TensorFlow training run — completed**
+- [x] Restore the Day 21 model, Adam slots, epoch 10, optimizer step 790, and best-validation state.
+- [x] Continue the identical 5,000/500-pair native-Windows CPU run through epoch 20 and optimizer step 1,580.
+- [x] Improve training loss from 3.3631 to 3.2172 and validation loss from 3.4998 to 3.4132 during the continuation.
+- [x] Verify that epoch 20 is both the latest and best TensorFlow checkpoint with finite metrics throughout.
+- [x] Preserve the exact tokenizer, complete 20-epoch history, 60 greedy samples, and updated loss curve for Day 23 evaluation.
 
 **Day 23 — Evaluation**
 - Compute BLEU (or chosen metric) for both models.

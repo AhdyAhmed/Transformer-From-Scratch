@@ -88,7 +88,8 @@ Transformer-From-Scratch/
 - [x] Day 19 — Reproducible PyTorch CUDA subset run with metrics, checkpoints & samples
 - [x] Day 20 — Extended full-corpus PyTorch CUDA run (30 epochs / 13,620 steps)
 - [x] Day 21 — TensorFlow CPU subset training with metrics, samples & resume
-- [ ] Day 22–23 — Extended TensorFlow run & evaluation
+- [x] Day 22 — Extended TensorFlow CPU continuation to 20 epochs
+- [ ] Day 23 — Cross-framework evaluation
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
 
@@ -263,6 +264,34 @@ not presented as a quality match for the much larger full-corpus PyTorch run.
 Artifacts are in [`results/day21/`](results/day21/).
 
 ![Day 21 TensorFlow train and validation loss](results/day21/loss_curve.svg)
+
+### Day 22 — Extended TensorFlow CPU training run
+
+Day 22 restored the verified Day 21 checkpoint at epoch 10 and optimizer step
+790, then continued the identical 5,000/500-pair TensorFlow experiment through
+epoch 20 and step 1,580. Model weights, Adam slots, epoch, optimizer iteration,
+and best-validation state were restored before training continued on
+`/device:CPU:0`.
+
+```bash
+python -m tf_impl.training.train \
+  --config configs/day22-tf.json --device cpu \
+  --train-src data/multi30k/train.en --train-tgt data/multi30k/train.de \
+  --val-src data/multi30k/val.en --val-tgt data/multi30k/val.de \
+  --max-train-pairs 5000 --max-val-pairs 500 \
+  --tokenizer checkpoints/day21-medium/tokenizer.json \
+  --checkpoint-dir checkpoints/day21-medium/tf --sample-translations 3 \
+  --resume checkpoints/day21-medium/tf/latest
+```
+
+Between epochs 10 and 20, training loss improved from 3.3631 to 3.2172 and
+validation loss from 3.4998 to 3.4132. Across the complete 20-epoch history,
+the reductions are 33.5% and 17.3%, respectively. Epoch 20 is both the latest
+and best checkpoint. Greedy samples remain weak because the run deliberately
+keeps the compact CPU configuration; formal corpus-level evaluation remains
+the Day 23 task. Artifacts are in [`results/day22/`](results/day22/).
+
+![Day 22 TensorFlow train and validation loss](results/day22/loss_curve.svg)
 
 ## Setup
 
