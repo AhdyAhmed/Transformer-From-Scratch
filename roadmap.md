@@ -128,9 +128,12 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Verify that epoch 20 is both the latest and best TensorFlow checkpoint with finite metrics throughout.
 - [x] Preserve the exact tokenizer, complete 20-epoch history, 60 greedy samples, and updated loss curve for Day 23 evaluation.
 
-**Day 23 — Evaluation**
-- Compute BLEU (or chosen metric) for both models.
-- Save qualitative translation examples side by side.
+**Day 23 — Evaluation — completed**
+- [x] Add a reusable shared-corpus evaluation CLI with strict PyTorch and full-object-graph TensorFlow checkpoint restoration.
+- [x] Evaluate both best checkpoints on the same 100 Multi30k validation examples with reproducible lowercase tokenized corpus BLEU-4.
+- [x] Record PyTorch BLEU 37.8505 and TensorFlow BLEU 1.6422, including n-gram precisions, brevity penalty, length ratio, and decode throughput.
+- [x] Save all 100 source/reference/prediction records and a ten-example side-by-side Markdown comparison.
+- [x] Document that unequal training data, vocabulary, model capacity, and hardware prevent interpreting the score gap as framework-only.
 
 ---
 

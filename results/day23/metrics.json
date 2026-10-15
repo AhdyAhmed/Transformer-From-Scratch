@@ -1,0 +1,52 @@
+{
+  "evaluation_pairs": 100,
+  "metric": {
+    "name": "lowercase tokenized corpus BLEU-4",
+    "tokenizer": "data.bpe_tokenizer._pretokenize",
+    "smoothing": "exponential zero-count smoothing"
+  },
+  "pytorch": {
+    "bleu": {
+      "score": 37.850451958447195,
+      "precisions": [
+        67.88553259141494,
+        44.55958549222798,
+        31.379962192816635,
+        23.48643006263048
+      ],
+      "brevity_penalty": 0.9795443870946833,
+      "length_ratio": 0.9797507788161994,
+      "hypothesis_length": 1258,
+      "reference_length": 1284
+    },
+    "decode_seconds": 51.10306579999997,
+    "sentences_per_second": 1.9568297602998226,
+    "checkpoint": {
+      "epoch": 30,
+      "step": 13620,
+      "best_validation_loss": 2.39100698079159
+    }
+  },
+  "tensorflow": {
+    "bleu": {
+      "score": 1.642222561372382,
+      "precisions": [
+        22.610294117647058,
+        3.0678851174934727,
+        0.6983240223463687,
+        0.15015015015015015
+      ],
+      "brevity_penalty": 1.0,
+      "length_ratio": 1.2710280373831775,
+      "hypothesis_length": 1632,
+      "reference_length": 1284
+    },
+    "decode_seconds": 364.33928549999996,
+    "sentences_per_second": 0.27446944092994335,
+    "checkpoint": {
+      "epoch": 20,
+      "step": 1580,
+      "best_validation_loss": 3.4132466316223145
+    }
+  }
+}

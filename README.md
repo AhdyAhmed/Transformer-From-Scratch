@@ -89,7 +89,7 @@ Transformer-From-Scratch/
 - [x] Day 20 — Extended full-corpus PyTorch CUDA run (30 epochs / 13,620 steps)
 - [x] Day 21 — TensorFlow CPU subset training with metrics, samples & resume
 - [x] Day 22 — Extended TensorFlow CPU continuation to 20 epochs
-- [ ] Day 23 — Cross-framework evaluation
+- [x] Day 23 — Shared-corpus BLEU evaluation & side-by-side translations
 - [ ] Day 24–28 — Visualization, comparison writeup, polish
 - [ ] Day 29–30 — Stretch goal & final release
 
@@ -292,6 +292,40 @@ keeps the compact CPU configuration; formal corpus-level evaluation remains
 the Day 23 task. Artifacts are in [`results/day22/`](results/day22/).
 
 ![Day 22 TensorFlow train and validation loss](results/day22/loss_curve.svg)
+
+### Day 23 — Cross-framework evaluation
+
+Day 23 adds a reusable evaluation CLI that strictly restores both best
+checkpoints, greedily translates the same validation examples, computes
+lowercase tokenized corpus BLEU-4, and writes machine-readable metrics plus
+side-by-side qualitative outputs. The metric uses the repository's Unicode
+word/punctuation tokenizer and exponential zero-count smoothing, so it remains
+fully reproducible without a network-installed metric dependency.
+
+```bash
+python -m evaluation.evaluate --max-pairs 100 \
+  --torch-checkpoint checkpoints/day20-full/torch/best.pt \
+  --torch-tokenizer checkpoints/day20-full/tokenizer.json \
+  --torch-device cuda \
+  --tf-checkpoint checkpoints/day21-medium/tf/best \
+  --tf-config checkpoints/day21-medium/tf/config.json \
+  --tf-tokenizer checkpoints/day21-medium/tokenizer.json \
+  --tf-device cpu --output-dir results/day23
+```
+
+On the first 100 shared Multi30k validation examples, the PyTorch model scored
+37.8505 BLEU and the TensorFlow model scored 1.6422 BLEU. PyTorch decoded at
+1.957 sentences/s on CUDA; TensorFlow decoded at 0.274 sentences/s on CPU.
+This is a checkpoint comparison, not a controlled framework benchmark: the
+PyTorch model used the full 29,000-pair corpus, 2,048-token vocabulary, and
+1.92M parameters, while TensorFlow used 5,000 pairs, 512 tokens, and 300k
+parameters. Full metrics and examples are in
+[`results/day23/`](results/day23/).
+
+The evaluator reconstructs TensorFlow's full checkpoint object graph—including
+optimizer slots and state variables—before restoring. A regression test guards
+this because a model-only object restore can appear successful while resolving
+the object graph incorrectly.
 
 ## Setup
 
