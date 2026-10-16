@@ -139,8 +139,12 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 
 ## Phase 6: Visualization, Comparison & Polish (Days 24–28)
 
-**Day 24 — Attention visualization notebook**
-- Extract attention weights, plot heatmaps for a few example sentences.
+**Day 24 — Attention visualization notebook — completed**
+- [x] Add a reproducible notebook and CLI for the trained PyTorch and TensorFlow checkpoints.
+- [x] Extract last-layer encoder self-attention, masked decoder self-attention, and decoder cross-attention.
+- [x] Validate every per-head matrix for shape, finite values, probability bounds, and normalized rows.
+- [x] Plot head-mean heatmaps for three shared Multi30k validation examples per framework.
+- [x] Save six PNGs and the exact per-head matrices under `results/day24/`.
 
 **Day 25 — Framework comparison notebook/writeup**
 - Compare training speed, memory use, debugging experience, code verbosity.

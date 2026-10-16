@@ -90,7 +90,8 @@ Transformer-From-Scratch/
 - [x] Day 21 — TensorFlow CPU subset training with metrics, samples & resume
 - [x] Day 22 — Extended TensorFlow CPU continuation to 20 epochs
 - [x] Day 23 — Shared-corpus BLEU evaluation & side-by-side translations
-- [ ] Day 24–28 — Visualization, comparison writeup, polish
+- [x] Day 24 — Attention extraction notebook and validated heatmaps
+- [ ] Day 25–28 — Framework comparison writeup and polish
 - [ ] Day 29–30 — Stretch goal & final release
 
 Full detail on each phase lives in [`roadmap.md`](roadmap.md).
@@ -326,6 +327,30 @@ The evaluator reconstructs TensorFlow's full checkpoint object graph—including
 optimizer slots and state variables—before restoring. A regression test guards
 this because a model-only object restore can appear successful while resolving
 the object graph incorrectly.
+
+### Day 24 — Attention visualization
+
+Day 24 adds [`notebooks/day24_attention_visualization.ipynb`](notebooks/day24_attention_visualization.ipynb)
+and a reusable CLI that extracts the selected encoder and decoder layer's
+cached attention weights during real greedy translation. It validates the
+shape, finite values, `[0, 1]` bounds, and row normalization of every head
+before writing any results.
+
+```bash
+python -m visualization.attention --examples 3 \
+  --torch-device cuda --tf-device cpu \
+  --output-dir results/day24
+```
+
+The completed run uses the final layer of each best checkpoint and produces
+three panels per example: encoder self-attention, masked decoder
+self-attention, and decoder-to-encoder cross-attention. The PNGs average four
+heads to stay readable; [`results/day24/attention.json`](results/day24/attention.json)
+retains all per-head probability matrices for further analysis. Six rendered
+examples and their translations are indexed in
+[`results/day24/`](results/day24/).
+
+![PyTorch attention heatmaps](results/day24/pytorch-example-2.png)
 
 ## Setup
 
