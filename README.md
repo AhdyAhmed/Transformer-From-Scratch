@@ -91,7 +91,8 @@ Transformer-From-Scratch/
 - [x] Day 22 — Extended TensorFlow CPU continuation to 20 epochs
 - [x] Day 23 — Shared-corpus BLEU evaluation & side-by-side translations
 - [x] Day 24 — Attention extraction notebook and validated heatmaps
-- [ ] Day 25–28 — Framework comparison writeup and polish
+- [x] Day 25 — Measured framework comparison notebook and design writeup
+- [ ] Day 26–28 — Inference scripts, documentation, and polish
 - [ ] Day 29–30 — Stretch goal & final release
 
 Full detail on each phase lives in [`roadmap.md`](roadmap.md).
@@ -351,6 +352,30 @@ examples and their translations are indexed in
 [`results/day24/`](results/day24/).
 
 ![PyTorch attention heatmaps](results/day24/pytorch-example-2.png)
+
+### Day 25 — Framework comparison and design writeup
+
+Day 25 adds a reproducible comparison generator and
+[`notebooks/day25_framework_comparison.ipynb`](notebooks/day25_framework_comparison.ipynb).
+It derives training throughput from saved epoch histories, inference speed and
+BLEU from Day 23, exact parameter memory from built model variables, checkpoint
+size from disk, and code verbosity from a documented physical-line count.
+
+```bash
+python -m evaluation.framework_comparison --output-dir results/day25
+```
+
+The observed PyTorch run averaged 6,234 training tokens/s on CUDA and the
+TensorFlow run averaged 1,256 tokens/s on CPU. Those numbers are intentionally
+not presented as a controlled framework benchmark: the runs also differ in
+model size, data volume, vocabulary, sequence length, normalization, and epoch
+count. Runtime peak memory was not historically captured, so the report limits
+memory claims to exact parameter footprint and checkpoint size.
+
+The generated table and throughput chart are in
+[`results/day25/`](results/day25/). [`WRITEUP.md`](WRITEUP.md) covers the
+architecture decisions, framework ergonomics, debugging experience, measured
+verbosity, checkpoint behavior, and requirements for a future fair benchmark.
 
 ## Setup
 

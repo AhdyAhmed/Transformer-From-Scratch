@@ -146,9 +146,12 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Plot head-mean heatmaps for three shared Multi30k validation examples per framework.
 - [x] Save six PNGs and the exact per-head matrices under `results/day24/`.
 
-**Day 25 — Framework comparison notebook/writeup**
-- Compare training speed, memory use, debugging experience, code verbosity.
-- Draft `WRITEUP.md` covering design decisions (pre-norm vs post-norm, warmup schedule, etc.).
+**Day 25 — Framework comparison notebook/writeup — completed**
+- [x] Generate a reproducible comparison from saved histories, evaluation metrics, model variables, checkpoints, and source files.
+- [x] Compare observed training/decode speed, parameter/checkpoint memory, debugging experience, and measured code verbosity.
+- [x] Clearly separate observations from controlled framework claims because the historical workloads and hardware differ.
+- [x] Add a framework-comparison notebook, machine-readable metrics, and throughput visualization.
+- [x] Add `WRITEUP.md` covering normalization, masking, warmup, label smoothing, initialization, checkpoints, testing, and API tradeoffs.
 
 **Day 26 — Inference scripts**
 - Clean `inference.py` for both frameworks — load checkpoint, translate a sentence.
