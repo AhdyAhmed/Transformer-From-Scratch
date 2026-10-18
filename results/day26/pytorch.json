@@ -1,0 +1,15 @@
+{
+  "framework": "pytorch",
+  "device": "cuda",
+  "source": "A man sleeping in a green room on a couch.",
+  "source_token_count": 13,
+  "source_truncated": false,
+  "translation": "ein mann schläft in einem grünen zimmer auf einem sofa .",
+  "output_token_count": 15,
+  "output_ended_with_eos": true,
+  "checkpoint": {
+    "epoch": 30,
+    "step": 13620,
+    "best_validation_loss": 2.39100698079159
+  }
+}

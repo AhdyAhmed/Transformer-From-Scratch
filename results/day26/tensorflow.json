@@ -1,0 +1,15 @@
+{
+  "framework": "tensorflow",
+  "device": "cpu",
+  "source": "A man sleeping in a green room on a couch.",
+  "source_token_count": 20,
+  "source_truncated": false,
+  "translation": "ein mann mit einem roten hemd , der einen kopf auf dem boden .",
+  "output_token_count": 19,
+  "output_ended_with_eos": true,
+  "checkpoint": {
+    "epoch": 20,
+    "step": 1580,
+    "best_validation_loss": 3.4132466316223145
+  }
+}

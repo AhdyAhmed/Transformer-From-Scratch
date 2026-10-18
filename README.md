@@ -92,7 +92,8 @@ Transformer-From-Scratch/
 - [x] Day 23 — Shared-corpus BLEU evaluation & side-by-side translations
 - [x] Day 24 — Attention extraction notebook and validated heatmaps
 - [x] Day 25 — Measured framework comparison notebook and design writeup
-- [ ] Day 26–28 — Inference scripts, documentation, and polish
+- [x] Day 26 — Standalone checkpoint-backed inference CLIs
+- [ ] Day 27–28 — Documentation, diagrams, and polish
 - [ ] Day 29–30 — Stretch goal & final release
 
 Full detail on each phase lives in [`roadmap.md`](roadmap.md).
@@ -376,6 +377,32 @@ The generated table and throughput chart are in
 [`results/day25/`](results/day25/). [`WRITEUP.md`](WRITEUP.md) covers the
 architecture decisions, framework ergonomics, debugging experience, measured
 verbosity, checkpoint behavior, and requirements for a future fair benchmark.
+
+### Day 26 — Standalone inference
+
+Each framework now has an independent inference entry point, so PyTorch-only
+inference does not import TensorFlow and TensorFlow-only inference does not
+import PyTorch. Both scripts strictly load the trained configuration and model,
+validate tokenizer compatibility, preserve BOS/EOS when truncating long input,
+and prevent decoding beyond the positional-encoding capacity.
+
+```bash
+# PyTorch best checkpoint; CUDA is strict and does not silently fall back
+python -m torch_impl.inference \
+  --text "A man sleeping in a green room on a couch." \
+  --device cuda
+
+# TensorFlow best checkpoint on the current native-Windows CPU environment
+python -m tf_impl.inference \
+  --text "A man sleeping in a green room on a couch." \
+  --device cpu
+```
+
+Pass `--output result.json` for a machine-readable record containing device,
+token counts, truncation/EOS status, translation, epoch, optimizer step, and
+best validation loss. TensorFlow recreates the complete model/optimizer/state
+object graph before strict restoration. Verified real-checkpoint outputs are
+in [`results/day26/`](results/day26/).
 
 ## Setup
 

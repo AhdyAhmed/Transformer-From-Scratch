@@ -153,8 +153,13 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Add a framework-comparison notebook, machine-readable metrics, and throughput visualization.
 - [x] Add `WRITEUP.md` covering normalization, masking, warmup, label smoothing, initialization, checkpoints, testing, and API tradeoffs.
 
-**Day 26 — Inference scripts**
-- Clean `inference.py` for both frameworks — load checkpoint, translate a sentence.
+**Day 26 — Inference scripts — completed**
+- [x] Add independent PyTorch and TensorFlow inference CLIs with production checkpoint defaults.
+- [x] Strictly restore model configuration/state and TensorFlow's full training object graph.
+- [x] Validate tokenizer vocabulary and special-token compatibility before decoding.
+- [x] Support explicit device selection, bounded output length, safe source truncation, and optional JSON output.
+- [x] Run both CLIs against the real best checkpoints and save verified translation records.
+- [x] Add CLI, checkpoint, EOS, truncation, device, and compatibility regression tests.
 
 **Day 27 — README & diagrams**
 - Root README: project overview, architecture diagram, results table, how to run.
