@@ -10,9 +10,10 @@ No `nn.Transformer`, no `keras.layers.MultiHeadAttention` — every component
 stacks, masking, the warmup LR schedule) is implemented by hand in both
 frameworks.
 
-> 🚧 **Status:** Work in progress. Follow along via [`roadmap.md`](roadmap.md)
-> for the day-by-day build log, and [`design.md`](design.md) for the full
-> architecture and project design.
+> **Status:** Days 1–27 are complete: both implementations, training runs,
+> evaluation, attention visualization, comparison, inference, and documentation
+> are validated. [`roadmap.md`](roadmap.md) tracks the remaining polish and
+> stretch goals.
 
 ---
 
@@ -21,48 +22,112 @@ frameworks.
 Most "transformer from scratch" repos pick one framework. This one
 deliberately implements the **same architecture twice**, so the repo also
 serves as a practical PyTorch-vs-TensorFlow comparison — in API ergonomics,
-training loop design, and debugging experience. See `WRITEUP.md` (added
-later in the build) for that comparison.
+training loop design, and debugging experience. See [`WRITEUP.md`](WRITEUP.md)
+for the measured comparison and design rationale.
+
+## Highlights
+
+- Complete encoder-decoder Transformer built from primitive tensor operations
+  in both frameworks—no packaged Transformer or attention layer.
+- Deterministic shared BPE tokenizer, aligned batching, boolean masks, Noam
+  schedule, label smoothing, gradient clipping, and resumable checkpoints.
+- Weight-synchronized numerical parity tests from attention through full-model
+  logits, plus tiny-task overfit tests that prove gradients work end to end.
+- Real Multi30k English→German training, shared-corpus BLEU evaluation,
+  attention heatmaps, and standalone inference CLIs.
+- A comprehensive test suite covering math, masks, parity, training,
+  checkpoints, evaluation, visualization, and inference.
+
+## Architecture
+
+![Encoder-decoder Transformer architecture](assets/transformer-architecture.svg)
+
+Every encoder layer contains self-attention and an FFN. Every decoder layer
+adds causally masked self-attention and cross-attention over encoder memory.
+Both stacks support pre-norm and post-norm, use fixed sinusoidal positions, and
+cache post-softmax attention probabilities for inspection. The two source
+trees intentionally mirror one another; see the dedicated
+[`PyTorch`](torch_impl/README.md) and
+[`TensorFlow`](tf_impl/README.md) guides.
+
+## Results
+
+| Metric | PyTorch full run | TensorFlow compact run |
+|---|---:|---:|
+| Device | Quadro M2000M CUDA | Native Windows CPU |
+| Training pairs | 29,000 | 5,000 |
+| Parameters | 1,915,392 | 299,776 |
+| Epochs / optimizer steps | 30 / 13,620 | 20 / 1,580 |
+| Best validation loss | **2.3910** | **3.4132** |
+| BLEU-4, same 100 examples | **37.8505** | **1.6422** |
+| Decode throughput | 1.957 sentences/s | 0.274 sentences/s |
+
+These are validated project checkpoints, **not a controlled framework
+benchmark**: hardware, model capacity, vocabulary, data volume, sequence
+length, normalization mode, and epoch count differ. Exact metrics and the
+interpretation boundary are in [`results/day25/`](results/day25/) and
+[`WRITEUP.md`](WRITEUP.md).
+
+PyTorch example:
+
+```text
+Source:      A man sleeping in a green room on a couch.
+Translation: ein mann schläft in einem grünen zimmer auf einem sofa .
+```
+
+## Quick start
+
+Clone the repository, choose one framework environment, and run a complete
+CPU smoke train on the bundled corpus. No dataset download is needed.
+
+```bash
+# PyTorch environment (Windows activation shown)
+python -m venv .venv-torch
+.venv-torch\Scripts\Activate.ps1
+pip install -r requirements-torch.txt
+
+python -m torch_impl.training.train --device cpu --num-threads 1 --epochs 1 --batch-size 4 --vocab-size 64 --max-len 16 --warmup-steps 4 --tokenizer checkpoints/smoke-torch/tokenizer.json --checkpoint-dir checkpoints/smoke-torch
+
+python -m torch_impl.inference --text "A man is sleeping on a couch." --checkpoint checkpoints/smoke-torch/best.pt --tokenizer checkpoints/smoke-torch/tokenizer.json --device cpu
+```
+
+For full Multi30k training, resume behavior, GPU setup, inference options, and
+tests, use [`torch_impl/README.md`](torch_impl/README.md) or
+[`tf_impl/README.md`](tf_impl/README.md). Trained datasets and checkpoints are
+Git-ignored; compact histories, metrics, translations, and plots are committed
+under [`results/`](results/).
+
+## Documentation map
+
+| Document | Contents |
+|---|---|
+| [`design.md`](design.md) | Architecture specification and implementation history |
+| [`WRITEUP.md`](WRITEUP.md) | Design choices and measured framework comparison |
+| [`roadmap.md`](roadmap.md) | Day-by-day plan and completion record |
+| [`torch_impl/README.md`](torch_impl/README.md) | PyTorch setup, training, resume, inference, and tests |
+| [`tf_impl/README.md`](tf_impl/README.md) | TensorFlow CPU/GPU setup, training, resume, inference, and tests |
+| [`results/`](results/) | Reproducibility artifacts from actual runs |
 
 ## Repository structure
 
 ```
 Transformer-From-Scratch/
 ├── README.md
-├── design.md              # full architecture & design decisions
-├── roadmap.md             # day-by-day build plan
+├── design.md / WRITEUP.md / roadmap.md
 ├── requirements-torch.txt
 ├── requirements-tf.txt
-├── requirements-tf-gpu.txt          # TensorFlow + CUDA extras for Linux/WSL2
+├── requirements-tf-gpu.txt
 ├── pytest.ini / Makefile
-├── data/                                # shared, framework-agnostic (see design.md, Days 14-15)
-│   ├── bpe_tokenizer.py                   # from-scratch BPE tokenizer
-│   ├── build_vocab.py                     # CLI: train + save one shared vocab file
-│   ├── parallel_data.py                   # read pairs, encode, pad, teacher-force, seeded batching
-│   ├── download_multi30k.py               # fetch the real dataset (git-ignored once downloaded)
-│   └── sample/                            # tiny hand-written EN/DE corpus to run everything now
-├── tests/                             # framework-agnostic tests
-│   ├── test_bpe_tokenizer.py            # Day 14 — pure stdlib
-│   ├── test_parallel_data.py            # Day 15 — pure stdlib
-│   ├── test_data_loader_parity.py       # Day 15 — both loaders yield identical batches
-│   ├── weight_sync.py                   # copy weights from a torch module into its tf twin
-│   ├── test_mha_parity.py               # weight-matched MultiHeadAttention parity (Day 6)
-│   ├── test_ffn_residual_parity.py          # weight-matched FFN/LayerNorm parity (Day 8)
-│   ├── test_encoder_parity.py           # weight-matched EncoderLayer parity (Day 9)
-│   ├── test_encoder_stack_parity.py         # weight-matched full Encoder parity (Day 10)
-│   ├── test_decoder_parity.py           # weight-matched DecoderLayer parity (Day 11)
-│   ├── test_transformer_parity.py       # weight-matched FULL MODEL parity (Day 12)
-│   └── ...                              # config / embeddings / attention parity
-├── torch_impl/                          # PyTorch implementation
-│   ├── config.py                          # TransformerConfig (identical to tf_impl/config.py)
-│   ├── model/                              # masking, embeddings, attention, encoder, decoder, transformer
-│   ├── data/dataset.py                     # TorchBatchLoader: shared batches -> torch.long tensors
-│   ├── training/                            # NoamSchedule + padding-aware LabelSmoothingLoss (Day 16)
-│   └── tests/                               # component, parity, dataset, and training utility tests
-├── tf_impl/                              # TensorFlow implementation, mirrors torch_impl/
-│   └── training/                            # Keras NoamSchedule + padding-aware label smoothing
-├── notebooks/                              # attention visualization, framework comparison
-└── assets/diagrams/                         # architecture diagrams, attention heatmaps
+├── assets/                             # architecture artwork
+├── configs/                            # checked training configurations
+├── data/                               # shared BPE, corpus, batching, sample data
+├── evaluation/                         # BLEU and framework-comparison CLIs
+├── notebooks/                          # attention and comparison notebooks
+├── results/                            # compact artifacts from real runs
+├── tests/                              # shared and numerical-parity tests
+├── torch_impl/                         # model, data adapter, training, inference, tests
+├── tf_impl/                            # mirrored TensorFlow/Keras implementation
+└── visualization/                      # attention extraction and plotting
 ```
 
 ## Status / Progress
@@ -73,7 +138,7 @@ Transformer-From-Scratch/
 - [x] Day 4 — Scaled dot-product attention (+ numerical parity check)
 - [x] Day 5 — Multi-head attention
 - [x] Day 6 — Weight-matched cross-framework parity check (MultiHeadAttention)
-- [ ] Day 7 — Buffer / bug-fix day
+- [x] Day 7 — Buffer / bug-fix day and parity regression coverage
 - [x] Day 8 — Feed-forward network, residual connections & LayerNorm
 - [x] Day 9 — Encoder layer
 - [x] Day 10 — Encoder stack
@@ -93,7 +158,8 @@ Transformer-From-Scratch/
 - [x] Day 24 — Attention extraction notebook and validated heatmaps
 - [x] Day 25 — Measured framework comparison notebook and design writeup
 - [x] Day 26 — Standalone checkpoint-backed inference CLIs
-- [ ] Day 27–28 — Documentation, diagrams, and polish
+- [x] Day 27 — Root/framework documentation, architecture diagram, results, usage
+- [ ] Day 28 — Code cleanup, docstrings, and final consistency pass
 - [ ] Day 29–30 — Stretch goal & final release
 
 Full detail on each phase lives in [`roadmap.md`](roadmap.md).

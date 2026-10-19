@@ -161,9 +161,13 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Run both CLIs against the real best checkpoints and save verified translation records.
 - [x] Add CLI, checkpoint, EOS, truncation, device, and compatibility regression tests.
 
-**Day 27 — README & diagrams**
-- Root README: project overview, architecture diagram, results table, how to run.
-- Per-framework READMEs with setup + usage instructions.
+**Day 27 — README & diagrams — completed**
+- [x] Polish the root overview with project highlights, navigation, and verified status.
+- [x] Add an accessible architecture SVG covering encoder, decoder, cross-attention, masks, and generation.
+- [x] Add a consolidated results table with an explicit non-controlled-benchmark warning.
+- [x] Add a checkpoint-independent CPU quick start using the bundled sample corpus.
+- [x] Add dedicated PyTorch and TensorFlow guides for setup, GPU policy, training, resume, inference, tests, and package layout.
+- [x] Validate documentation links, SVG structure, and every documented CLI entry point.
 
 **Day 28 — Code cleanup & docstrings**
 - Pass over both codebases for consistent naming, comments, type hints.

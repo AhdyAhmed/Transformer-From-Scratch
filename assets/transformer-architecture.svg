@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title description">
+  <title id="title">Encoder-decoder Transformer architecture</title>
+  <desc id="description">English source tokens flow through embeddings and an encoder stack. Shifted German target tokens flow through masked decoder layers that cross-attend to encoder memory, followed by a vocabulary projection.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 24px system-ui, sans-serif; fill: #0f172a; }
+      .label { font: 600 16px system-ui, sans-serif; fill: #0f172a; }
+      .small { font: 14px system-ui, sans-serif; fill: #334155; }
+      .box { stroke-width: 2; rx: 12; }
+      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="560" fill="#f8fafc" rx="18"/>
+  <text x="600" y="40" text-anchor="middle" class="title">From-scratch encoder–decoder Transformer</text>
+
+  <rect x="45" y="110" width="170" height="70" class="box" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="130" y="140" text-anchor="middle" class="label">English source</text>
+  <text x="130" y="163" text-anchor="middle" class="small">BPE token ids</text>
+
+  <rect x="275" y="95" width="195" height="100" class="box" fill="#e0e7ff" stroke="#4f46e5"/>
+  <text x="372" y="130" text-anchor="middle" class="label">Source embedding</text>
+  <text x="372" y="154" text-anchor="middle" class="small">token × √d_model</text>
+  <text x="372" y="176" text-anchor="middle" class="small">+ sinusoidal position</text>
+
+  <rect x="535" y="78" width="225" height="134" class="box" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="647" y="108" text-anchor="middle" class="label">Encoder layer × N</text>
+  <text x="647" y="137" text-anchor="middle" class="small">multi-head self-attention</text>
+  <text x="647" y="162" text-anchor="middle" class="small">position-wise FFN</text>
+  <text x="647" y="187" text-anchor="middle" class="small">residual + LayerNorm</text>
+
+  <rect x="815" y="110" width="160" height="70" class="box" fill="#ccfbf1" stroke="#0f766e"/>
+  <text x="895" y="140" text-anchor="middle" class="label">Memory</text>
+  <text x="895" y="163" text-anchor="middle" class="small">encoded source</text>
+
+  <path d="M 215 145 L 275 145" class="arrow"/>
+  <path d="M 470 145 L 535 145" class="arrow"/>
+  <path d="M 760 145 L 815 145" class="arrow"/>
+
+  <rect x="45" y="385" width="170" height="70" class="box" fill="#ffedd5" stroke="#ea580c"/>
+  <text x="130" y="415" text-anchor="middle" class="label">German target</text>
+  <text x="130" y="438" text-anchor="middle" class="small">shifted right / generated</text>
+
+  <rect x="275" y="370" width="195" height="100" class="box" fill="#fef3c7" stroke="#d97706"/>
+  <text x="372" y="405" text-anchor="middle" class="label">Target embedding</text>
+  <text x="372" y="429" text-anchor="middle" class="small">token × √d_model</text>
+  <text x="372" y="451" text-anchor="middle" class="small">+ sinusoidal position</text>
+
+  <rect x="535" y="338" width="225" height="164" class="box" fill="#fce7f3" stroke="#db2777"/>
+  <text x="647" y="368" text-anchor="middle" class="label">Decoder layer × N</text>
+  <text x="647" y="397" text-anchor="middle" class="small">masked self-attention</text>
+  <text x="647" y="422" text-anchor="middle" class="small">encoder cross-attention</text>
+  <text x="647" y="447" text-anchor="middle" class="small">position-wise FFN</text>
+  <text x="647" y="472" text-anchor="middle" class="small">residual + LayerNorm</text>
+
+  <rect x="815" y="370" width="160" height="100" class="box" fill="#ede9fe" stroke="#7c3aed"/>
+  <text x="895" y="407" text-anchor="middle" class="label">Linear projection</text>
+  <text x="895" y="432" text-anchor="middle" class="small">d_model → vocabulary</text>
+  <text x="895" y="454" text-anchor="middle" class="small">greedy argmax</text>
+
+  <rect x="1030" y="385" width="135" height="70" class="box" fill="#fee2e2" stroke="#dc2626"/>
+  <text x="1097" y="415" text-anchor="middle" class="label">Translation</text>
+  <text x="1097" y="438" text-anchor="middle" class="small">until EOS</text>
+
+  <path d="M 215 420 L 275 420" class="arrow"/>
+  <path d="M 470 420 L 535 420" class="arrow"/>
+  <path d="M 760 420 L 815 420" class="arrow"/>
+  <path d="M 975 420 L 1030 420" class="arrow"/>
+  <path d="M 895 180 L 895 275 L 700 275 L 700 338" class="arrow"/>
+  <text x="810" y="263" text-anchor="middle" class="small">keys + values</text>
+
+  <rect x="65" y="515" width="1070" height="28" rx="8" fill="#e2e8f0"/>
+  <text x="600" y="535" text-anchor="middle" class="small">Boolean masks: True = visible · source padding mask · target padding + causal mask · cross-attention memory mask</text>
+</svg>
