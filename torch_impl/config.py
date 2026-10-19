@@ -7,6 +7,7 @@ settings. ``tests/test_config_parity.py`` enforces that they never drift.
 Defaults describe a small "base-lite" model that trains quickly on Multi30k,
 not the full 65M-parameter model from the paper. ``paper_base()`` returns the
 original hyperparameters for reference.
+
 """
 
 from __future__ import annotations
