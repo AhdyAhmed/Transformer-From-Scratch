@@ -59,6 +59,7 @@ class ResidualConnection(tf.keras.layers.Layer):
         sublayer: Callable[[tf.Tensor], tf.Tensor],
         training: bool | None = None,
     ) -> tf.Tensor:
+        """Apply ``sublayer`` with the configured pre/post-norm ordering."""
         if self.norm_first:
             return x + self.dropout(sublayer(self.norm(x)), training=training)
         return self.norm(x + self.dropout(sublayer(x), training=training))

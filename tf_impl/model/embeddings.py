@@ -35,7 +35,8 @@ class TokenEmbedding(tf.keras.layers.Layer):
         scale = tf.math.sqrt(tf.cast(self.d_model, tf.float32))
         return self.embedding(x) * scale
 
-    def get_config(self):
+    def get_config(self) -> dict[str, object]:
+        """Return the serializable Keras layer configuration."""
         cfg = super().get_config()
         cfg.update(vocab_size=self.vocab_size, d_model=self.d_model, pad_idx=self.pad_idx)
         return cfg
@@ -81,7 +82,8 @@ class PositionalEncoding(tf.keras.layers.Layer):
         x = x + self.pe[:, :seq_len, :]
         return self.dropout(x, training=training)
 
-    def get_config(self):
+    def get_config(self) -> dict[str, object]:
+        """Return the serializable Keras layer configuration."""
         cfg = super().get_config()
         cfg.update(d_model=self.d_model, max_len=self.max_len)
         return cfg
@@ -108,4 +110,5 @@ class TransformerEmbedding(tf.keras.layers.Layer):
         self.positional_encoding = PositionalEncoding(d_model, max_len, dropout)
 
     def call(self, x: tf.Tensor, training: bool | None = None) -> tf.Tensor:
+        """Embed token ids, add fixed positions, and apply dropout."""
         return self.positional_encoding(self.token_embedding(x), training=training)

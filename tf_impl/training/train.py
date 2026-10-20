@@ -75,6 +75,7 @@ def seed_everything(seed: int) -> None:
 def load_or_train_tokenizer(
     path: Path, train_pairs: list[tuple[str, str]], vocab_size: int,
 ) -> BPETokenizer:
+    """Load an existing BPE tokenizer or train it on training text only."""
     if path.exists():
         tokenizer = BPETokenizer.load(path)
         print(f"Loaded tokenizer: {path} ({tokenizer.vocab_size} tokens)")
@@ -250,6 +251,7 @@ def _checkpoint_path(value: Path) -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the end-to-end TensorFlow training CLI parser."""
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
@@ -290,6 +292,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
+    """Train or resume a TensorFlow Transformer from CLI-style arguments."""
     args = build_parser().parse_args(argv)
     if args.epochs is not None and args.epochs < 1:
         raise SystemExit("--epochs must be at least 1")

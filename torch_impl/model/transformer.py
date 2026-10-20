@@ -79,6 +79,7 @@ class Transformer(nn.Module):
 
     @classmethod
     def from_config(cls, config: TransformerConfig) -> "Transformer":
+        """Build a model from the shared framework-neutral configuration."""
         return cls(
             src_vocab_size=config.src_vocab_size,
             tgt_vocab_size=config.tgt_vocab_size,
@@ -93,13 +94,16 @@ class Transformer(nn.Module):
             share_embeddings=config.share_embeddings,
         )
 
-    def create_masks(self, src: torch.Tensor, tgt: torch.Tensor):
+    def create_masks(
+        self, src: torch.Tensor, tgt: torch.Tensor
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Convenience wrapper around ``model.masking.create_masks`` using
         this model's own ``pad_idx``, so callers don't have to track it
         separately."""
         return create_masks(src, tgt, self.pad_idx)
 
     def encode(self, src: torch.Tensor, src_mask: torch.Tensor | None = None) -> torch.Tensor:
+        """Encode source token ids into contextual memory vectors."""
         return self.encoder(self.src_embed(src), src_mask)
 
     def decode(
@@ -109,6 +113,7 @@ class Transformer(nn.Module):
         tgt_mask: torch.Tensor | None = None,
         memory_mask: torch.Tensor | None = None,
     ) -> torch.Tensor:
+        """Decode target token ids while attending to encoder memory."""
         return self.decoder(self.tgt_embed(tgt), memory, tgt_mask, memory_mask)
 
     def forward(

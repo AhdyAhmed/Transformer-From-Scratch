@@ -96,7 +96,7 @@ def copy_encoder_stack(torch_encoder, tf_encoder) -> None:
     """Copy every layer of a PyTorch ``Encoder`` (Day 10) into an
     already-built TensorFlow one with the same number of layers, plus the
     stack's own final LayerNorm."""
-    for torch_layer, tf_layer in zip(torch_encoder.layers, tf_encoder.enc_layers):
+    for torch_layer, tf_layer in zip(torch_encoder.layers, tf_encoder.layers):
         copy_encoder_layer(torch_layer, tf_layer)
     copy_layer_norm(torch_encoder.final_norm, tf_encoder.final_norm)
 
@@ -105,7 +105,7 @@ def copy_decoder_stack(torch_decoder, tf_decoder) -> None:
     """Copy every layer of a PyTorch ``Decoder`` (Day 12) into an
     already-built TensorFlow one with the same number of layers, plus the
     stack's own final LayerNorm."""
-    for torch_layer, tf_layer in zip(torch_decoder.layers, tf_decoder.dec_layers):
+    for torch_layer, tf_layer in zip(torch_decoder.layers, tf_decoder.layers):
         copy_decoder_layer(torch_layer, tf_layer)
     copy_layer_norm(torch_decoder.final_norm, tf_decoder.final_norm)
 

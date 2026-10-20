@@ -35,7 +35,7 @@ def create_padding_mask(seq: tf.Tensor, pad_idx: int = 0) -> tf.Tensor:
     return mask[:, tf.newaxis, tf.newaxis, :]
 
 
-def create_look_ahead_mask(size) -> tf.Tensor:
+def create_look_ahead_mask(size: int | tf.Tensor) -> tf.Tensor:
     """Causal mask: position *i* may only attend to positions ``<= i``.
 
     ``size`` may be a Python int or a scalar tensor (so it works inside
@@ -62,7 +62,9 @@ def create_target_mask(tgt: tf.Tensor, pad_idx: int = 0) -> tf.Tensor:
     return tf.logical_and(pad_mask, causal)           # (B, 1, T, T)
 
 
-def create_masks(src: tf.Tensor, tgt: tf.Tensor, pad_idx: int = 0):
+def create_masks(
+    src: tf.Tensor, tgt: tf.Tensor, pad_idx: int = 0
+) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]:
     """Build every mask the encoder-decoder Transformer needs.
 
     Returns:

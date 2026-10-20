@@ -35,7 +35,8 @@ class TorchBatch:
     tgt_out: torch.Tensor
     num_tgt_tokens: int
 
-    def to(self, device) -> "TorchBatch":
+    def to(self, device: torch.device | str) -> "TorchBatch":
+        """Return a new batch whose tensors reside on ``device``."""
         return TorchBatch(
             self.src.to(device),
             self.tgt_in.to(device),
@@ -45,6 +46,8 @@ class TorchBatch:
 
 
 class TorchBatchLoader:
+    """Convert deterministic shared batches to PyTorch tensors."""
+
     def __init__(
         self,
         dataset: ParallelDataset,
@@ -58,6 +61,7 @@ class TorchBatchLoader:
         self.device = device
 
     def set_epoch(self, epoch: int) -> None:
+        """Select the epoch used by the shared deterministic shuffler."""
         self._iterator.set_epoch(epoch)
 
     def __len__(self) -> int:

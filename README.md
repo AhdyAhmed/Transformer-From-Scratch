@@ -10,10 +10,9 @@ No `nn.Transformer`, no `keras.layers.MultiHeadAttention` — every component
 stacks, masking, the warmup LR schedule) is implemented by hand in both
 frameworks.
 
-> **Status:** Days 1–27 are complete: both implementations, training runs,
+> **Status:** Days 1–28 are complete: both implementations, training runs,
 > evaluation, attention visualization, comparison, inference, and documentation
-> are validated. [`roadmap.md`](roadmap.md) tracks the remaining polish and
-> stretch goals.
+> are validated. [`roadmap.md`](roadmap.md) tracks the remaining stretch goals.
 
 ---
 
@@ -49,6 +48,19 @@ cache post-softmax attention probabilities for inspection. The two source
 trees intentionally mirror one another; see the dedicated
 [`PyTorch`](torch_impl/README.md) and
 [`TensorFlow`](tf_impl/README.md) guides.
+
+### Detailed post-norm architecture
+
+![Detailed full Transformer architecture showing encoder and decoder internals](assets/full-transformer-architecture.webp)
+
+This detailed reference follows the original paper's **post-norm** ordering:
+each attention or feed-forward sublayer is followed by residual addition and
+layer normalization. The decoder's first attention block is causally masked;
+its second is cross-attention, with queries from the decoder and keys/values
+from encoder memory. The final softmax shown in the diagram converts output
+logits to probabilities; the repository deliberately returns logits so its
+numerically stable loss and decoding code can apply the appropriate operation.
+Set `norm_first=True` to use the supported pre-norm variant instead.
 
 ## Results
 
@@ -159,7 +171,7 @@ Transformer-From-Scratch/
 - [x] Day 25 — Measured framework comparison notebook and design writeup
 - [x] Day 26 — Standalone checkpoint-backed inference CLIs
 - [x] Day 27 — Root/framework documentation, architecture diagram, results, usage
-- [ ] Day 28 — Code cleanup, docstrings, and final consistency pass
+- [x] Day 28 — Code cleanup, docstrings, and final consistency pass
 - [ ] Day 29–30 — Stretch goal & final release
 
 Full detail on each phase lives in [`roadmap.md`](roadmap.md).

@@ -48,6 +48,7 @@ class ResidualConnection(nn.Module):
         self.norm_first = norm_first
 
     def forward(self, x: torch.Tensor, sublayer: Callable[[torch.Tensor], torch.Tensor]) -> torch.Tensor:
+        """Apply ``sublayer`` with the configured pre/post-norm ordering."""
         if self.norm_first:
             return x + self.dropout(sublayer(self.norm(x)))
         return self.norm(x + self.dropout(sublayer(x)))

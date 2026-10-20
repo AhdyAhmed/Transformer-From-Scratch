@@ -57,6 +57,14 @@ Mirroring the folder structure across `torch_impl/` and `tf_impl/` is intentiona
 
 ### Shared conventions (both frameworks)
 
+The following detailed view depicts the original post-norm encoder-decoder
+architecture. In this repository, the masked decoder self-attention and
+encoder-decoder cross-attention are implemented explicitly in both frameworks;
+`norm_first=True` switches the residual blocks to the supported pre-norm
+variant without changing the surrounding topology.
+
+![Detailed full Transformer architecture](assets/full-transformer-architecture.webp)
+
 - **Mask convention:** boolean masks where `True` = "may attend", `False` = "blocked". Masks broadcast to attention scores of shape `(batch, heads, q_len, k_len)`.
 - **Special token ids:** `PAD=0, BOS=1, EOS=2, UNK=3`.
 - **Config:** one `TransformerConfig` dataclass per framework with identical fields and defaults (stdlib only), verified by `tests/test_config_parity.py`.

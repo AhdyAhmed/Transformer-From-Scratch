@@ -169,9 +169,12 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 - [x] Add dedicated PyTorch and TensorFlow guides for setup, GPU policy, training, resume, inference, tests, and package layout.
 - [x] Validate documentation links, SVG structure, and every documented CLI entry point.
 
-**Day 28 — Code cleanup & docstrings**
-- Pass over both codebases for consistent naming, comments, type hints.
-- Ensure the two implementations are genuinely parallel/comparable file-by-file.
+**Day 28 — Code cleanup & docstrings — completed**
+- [x] Add complete public-API docstrings and type hints across both implementation trees.
+- [x] Standardize TensorFlow encoder/decoder stack access through the checkpoint-safe `layers` interface.
+- [x] Add static regression checks for mirrored model files, public symbols, method contracts, documentation, and annotations.
+- [x] Integrate and explain the detailed full-Transformer architecture image in the root and design documentation.
+- [x] Re-run the complete cross-framework test suite and verify clean source compilation.
 
 ---
 

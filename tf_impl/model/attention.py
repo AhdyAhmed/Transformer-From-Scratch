@@ -23,7 +23,7 @@ def scaled_dot_product_attention(
     mask: tf.Tensor | None = None,
     dropout: tf.keras.layers.Dropout | None = None,
     training: bool | None = None,
-):
+) -> tuple[tf.Tensor, tf.Tensor]:
     """
     Args:
         query: (..., q_len, d_k)

@@ -51,6 +51,15 @@ class Encoder(tf.keras.layers.Layer):
         ]
         self.final_norm = tf.keras.layers.LayerNormalization(epsilon=1e-6)
 
+    @property
+    def layers(self) -> list[EncoderLayer]:
+        """Expose the stack using the same public name as PyTorch.
+
+        ``enc_layers`` remains the stored attribute so existing TensorFlow
+        checkpoints retain their original object graph.
+        """
+        return self.enc_layers
+
     def call(self, x: tf.Tensor, mask: tf.Tensor | None = None, training: bool | None = None) -> tf.Tensor:
         """
         Args:
@@ -62,6 +71,6 @@ class Encoder(tf.keras.layers.Layer):
             (batch, seq_len, d_model) — the encoder "memory" passed to every
             decoder layer's cross-attention.
         """
-        for layer in self.enc_layers:
+        for layer in self.layers:
             x = layer(x, mask=mask, training=training)
         return self.final_norm(x)

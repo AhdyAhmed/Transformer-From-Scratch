@@ -15,6 +15,8 @@ import tensorflow as tf
 
 
 class PositionwiseFeedForward(tf.keras.layers.Layer):
+    """Two-layer position-wise MLP with ReLU or GELU activation."""
+
     def __init__(
         self,
         d_model: int,
@@ -46,7 +48,8 @@ class PositionwiseFeedForward(tf.keras.layers.Layer):
         h = self.dropout(h, training=training)
         return self.linear2(h)
 
-    def get_config(self):
+    def get_config(self) -> dict[str, object]:
+        """Return the serializable Keras layer configuration."""
         cfg = super().get_config()
         cfg.update(d_model=self.d_model, d_ff=self.d_ff, activation=self.activation_name)
         return cfg

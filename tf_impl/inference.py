@@ -148,6 +148,7 @@ def translate(
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the standalone TensorFlow inference CLI parser."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--text", required=True, help="English sentence to translate")
     parser.add_argument(
@@ -169,6 +170,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
+    """Run checkpoint-backed translation from CLI-style arguments."""
     args = build_parser().parse_args(argv)
     try:
         device_label = configure_device(args.device)

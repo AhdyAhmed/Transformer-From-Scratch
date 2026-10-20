@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def seed_everything(seed: int) -> None:
+    """Seed Python, NumPy, and PyTorch for repeatable runs."""
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -40,6 +41,7 @@ def seed_everything(seed: int) -> None:
 def load_or_train_tokenizer(
     path: Path, train_pairs: list[tuple[str, str]], vocab_size: int
 ) -> BPETokenizer:
+    """Load an existing BPE tokenizer or train it on training text only."""
     if path.exists():
         tokenizer = BPETokenizer.load(path)
         print(f"Loaded tokenizer: {path} ({tokenizer.vocab_size} tokens)")
@@ -155,6 +157,7 @@ def _atomic_torch_save(payload: dict[str, Any], path: Path) -> None:
 def save_checkpoint(path: Path, model: Transformer, optimizer: torch.optim.Optimizer,
                     config: TransformerConfig, epoch: int, global_step: int,
                     best_val_loss: float, tokenizer_path: Path) -> None:
+    """Atomically save model, optimizer, progress, config, and RNG state."""
     _atomic_torch_save({
         "format_version": 1,
         "model_state_dict": model.state_dict(),
@@ -172,6 +175,7 @@ def save_checkpoint(path: Path, model: Transformer, optimizer: torch.optim.Optim
 
 def load_checkpoint(path: Path, model: Transformer, optimizer: torch.optim.Optimizer,
                     device: torch.device) -> dict[str, Any]:
+    """Restore a supported training checkpoint and all saved RNG state."""
     # Checkpoints are user-created local files and include Python/NumPy RNG tuples.
     try:
         payload = torch.load(path, map_location=device, weights_only=False)
@@ -194,6 +198,7 @@ def run_epoch(model: Transformer, loader: TorchBatchLoader, loss_fn: LabelSmooth
               device: torch.device, optimizer: torch.optim.Optimizer | None = None,
               schedule: NoamSchedule | None = None, global_step: int = 0,
               grad_clip: float = 1.0) -> tuple[float, int, float, float]:
+    """Run one train or validation epoch and return loss/progress metrics."""
     training = optimizer is not None
     model.train(training)
     total_loss = 0.0
@@ -226,6 +231,7 @@ def run_epoch(model: Transformer, loader: TorchBatchLoader, loss_fn: LabelSmooth
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the end-to-end PyTorch training CLI parser."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     sample = ROOT / "data" / "sample"
     parser.add_argument("--train-src", type=Path, default=sample / "train.en")
@@ -265,6 +271,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
+    """Train or resume a PyTorch Transformer from CLI-style arguments."""
     args = build_parser().parse_args(argv)
     if args.epochs is not None and args.epochs < 1:
         raise SystemExit("--epochs must be at least 1")

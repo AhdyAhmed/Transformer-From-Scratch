@@ -16,6 +16,8 @@ import torch.nn as nn
 
 
 class PositionwiseFeedForward(nn.Module):
+    """Two-layer position-wise MLP with ReLU or GELU activation."""
+
     def __init__(
         self,
         d_model: int,

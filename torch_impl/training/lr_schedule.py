@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import math
 
+import torch
+
 
 class NoamSchedule:
     """Warmup followed by inverse-square-root decay.
@@ -38,7 +40,7 @@ class NoamSchedule:
 
     __call__ = rate
 
-    def apply(self, optimizer, step: int) -> float:
+    def apply(self, optimizer: torch.optim.Optimizer, step: int) -> float:
         """Set every optimizer parameter group's LR and return the value."""
         lr = self.rate(step)
         for group in optimizer.param_groups:
@@ -46,4 +48,5 @@ class NoamSchedule:
         return lr
 
     def state_dict(self) -> dict[str, int | float]:
+        """Return the framework-neutral schedule state."""
         return {"d_model": self.d_model, "warmup_steps": self.warmup_steps, "factor": self.factor}

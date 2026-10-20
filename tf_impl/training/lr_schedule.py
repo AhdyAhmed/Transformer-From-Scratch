@@ -21,7 +21,7 @@ class NoamSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
         self.factor = float(factor)
         self.name = name
 
-    def __call__(self, step):
+    def __call__(self, step: int | tf.Tensor) -> tf.Tensor:
         with tf.name_scope(self.name):
             step = tf.cast(step, tf.float32) + 1.0
             model_scale = tf.math.rsqrt(tf.cast(self.d_model, tf.float32))
@@ -30,6 +30,7 @@ class NoamSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
                 tf.math.rsqrt(step), step * tf.pow(warmup, -1.5)
             )
 
-    def get_config(self):
+    def get_config(self) -> dict[str, int | float | str]:
+        """Return the serializable Keras schedule configuration."""
         return {"d_model": self.d_model, "warmup_steps": self.warmup_steps,
                 "factor": self.factor, "name": self.name}

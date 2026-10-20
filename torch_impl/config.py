@@ -1,13 +1,12 @@
 """Hyperparameter configuration for the Transformer.
 
-This file is intentionally *identical* to ``tf_impl/config.py`` (stdlib only,
-no framework imports) so both implementations train with exactly the same
-settings. ``tests/test_config_parity.py`` enforces that they never drift.
+This file is intentionally *identical* to its counterpart config module
+(stdlib only, no framework imports) so both implementations train with exactly
+the same settings. ``tests/test_config_parity.py`` enforces that they never drift.
 
 Defaults describe a small "base-lite" model that trains quickly on Multi30k,
 not the full 65M-parameter model from the paper. ``paper_base()`` returns the
 original hyperparameters for reference.
-
 """
 
 from __future__ import annotations
@@ -25,6 +24,8 @@ UNK_IDX = 3
 
 @dataclass
 class TransformerConfig:
+    """Shared model, vocabulary, and optimization hyperparameters."""
+
     # --- model size ---
     d_model: int = 256
     num_heads: int = 8
@@ -64,6 +65,7 @@ class TransformerConfig:
         return self.d_model // self.num_heads
 
     def validate(self) -> None:
+        """Reject invalid or internally inconsistent hyperparameters."""
         if self.d_model % self.num_heads != 0:
             raise ValueError(
                 f"d_model ({self.d_model}) must be divisible by "
@@ -96,18 +98,22 @@ class TransformerConfig:
             raise ValueError("share_embeddings requires src_vocab_size == tgt_vocab_size")
 
     # ------------------------------------------------------------------ #
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, object]:
+        """Return a JSON-serializable configuration mapping."""
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, d: dict) -> "TransformerConfig":
+    def from_dict(cls, d: dict[str, object]) -> "TransformerConfig":
+        """Construct a configuration from a serialized mapping."""
         return cls(**d)
 
     def save(self, path: str | Path) -> None:
+        """Write the configuration as human-readable JSON."""
         Path(path).write_text(json.dumps(self.to_dict(), indent=2))
 
     @classmethod
     def load(cls, path: str | Path) -> "TransformerConfig":
+        """Load a configuration from a JSON file."""
         return cls.from_dict(json.loads(Path(path).read_text()))
 
     @classmethod

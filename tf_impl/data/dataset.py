@@ -41,6 +41,8 @@ class TFBatch:
 
 
 class TFBatchLoader:
+    """Convert deterministic shared batches to TensorFlow tensors."""
+
     def __init__(
         self,
         dataset: ParallelDataset,
@@ -52,6 +54,7 @@ class TFBatchLoader:
         self._iterator = BatchIterator(dataset, batch_size, shuffle, seed, drop_last)
 
     def set_epoch(self, epoch: int) -> None:
+        """Select the epoch used by the shared deterministic shuffler."""
         self._iterator.set_epoch(epoch)
 
     def __len__(self) -> int:

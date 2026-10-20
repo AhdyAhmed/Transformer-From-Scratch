@@ -43,6 +43,15 @@ class Decoder(tf.keras.layers.Layer):
         ]
         self.final_norm = tf.keras.layers.LayerNormalization(epsilon=1e-6)
 
+    @property
+    def layers(self) -> list[DecoderLayer]:
+        """Expose the stack using the same public name as PyTorch.
+
+        ``dec_layers`` remains the stored attribute so existing TensorFlow
+        checkpoints retain their original object graph.
+        """
+        return self.dec_layers
+
     def call(
         self,
         x: tf.Tensor,
@@ -62,6 +71,6 @@ class Decoder(tf.keras.layers.Layer):
         Returns:
             (batch, tgt_len, d_model)
         """
-        for layer in self.dec_layers:
+        for layer in self.layers:
             x = layer(x, memory, tgt_mask=tgt_mask, memory_mask=memory_mask, training=training)
         return self.final_norm(x)

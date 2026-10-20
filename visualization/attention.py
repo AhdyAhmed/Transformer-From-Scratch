@@ -181,7 +181,7 @@ def extract_tf_attention(
     layer: int = -1,
 ) -> AttentionRecord:
     """TensorFlow equivalent of :func:`extract_torch_attention`."""
-    layer_index = resolve_layer(layer, len(model.encoder.enc_layers))
+    layer_index = resolve_layer(layer, len(model.encoder.layers))
     src_ids, _ = ParallelDataset(
         [(source, reference)], tokenizer, config.max_seq_len
     ).examples[0]
@@ -189,7 +189,7 @@ def extract_tf_attention(
     src_mask = tf.expand_dims(tf.expand_dims(src != model.pad_idx, 1), 1)
     memory = model.encode(src, src_mask, training=False)
     encoder_self = _tf_array(
-        model.encoder.enc_layers[layer_index].self_attn.attn_weights,
+        model.encoder.layers[layer_index].self_attn.attn_weights,
         "encoder self",
     )
     generated = tf.constant([[config.bos_idx]], dtype=tf.int32)
@@ -208,7 +208,7 @@ def extract_tf_attention(
             break
     generated_ids = generated[0].numpy().tolist()
     target_ids = generated_ids[:-1]
-    decoder_layer = model.decoder.dec_layers[layer_index]
+    decoder_layer = model.decoder.layers[layer_index]
     record = AttentionRecord(
         framework="tensorflow",
         source=source,

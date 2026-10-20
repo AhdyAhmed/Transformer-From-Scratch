@@ -12,7 +12,7 @@ class LabelSmoothingLoss:
     not equal to ``pad_idx``, rather than by padded sequence length.
     """
     def __init__(self, label_smoothing: float = 0.1, pad_idx: int = 0,
-                 reduction: str = "mean"):
+                 reduction: str = "mean") -> None:
         if not 0.0 <= label_smoothing < 1.0:
             raise ValueError("label_smoothing must be in [0, 1)")
         if reduction not in {"none", "sum", "mean"}:
@@ -21,7 +21,8 @@ class LabelSmoothingLoss:
         self.pad_idx = int(pad_idx)
         self.reduction = reduction
 
-    def __call__(self, targets, logits):
+    def __call__(self, targets: tf.Tensor, logits: tf.Tensor) -> tf.Tensor:
+        """Compute label-smoothed loss over non-padding target tokens."""
         logits = tf.convert_to_tensor(logits)
         targets = tf.cast(targets, tf.int32)
         tf.debugging.assert_equal(tf.shape(logits)[:-1], tf.shape(targets),

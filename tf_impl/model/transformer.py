@@ -66,6 +66,7 @@ class Transformer(tf.keras.Model):
 
     @classmethod
     def from_config(cls, config: TransformerConfig) -> "Transformer":
+        """Build a model from the shared framework-neutral configuration."""
         return cls(
             src_vocab_size=config.src_vocab_size,
             tgt_vocab_size=config.tgt_vocab_size,
@@ -80,13 +81,21 @@ class Transformer(tf.keras.Model):
             share_embeddings=config.share_embeddings,
         )
 
-    def create_masks(self, src: tf.Tensor, tgt: tf.Tensor):
+    def create_masks(
+        self, src: tf.Tensor, tgt: tf.Tensor
+    ) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]:
         """Convenience wrapper around ``model.masking.create_masks`` using
         this model's own ``pad_idx``, so callers don't have to track it
         separately."""
         return create_masks(src, tgt, self.pad_idx)
 
-    def encode(self, src: tf.Tensor, src_mask: tf.Tensor | None = None, training: bool | None = None) -> tf.Tensor:
+    def encode(
+        self,
+        src: tf.Tensor,
+        src_mask: tf.Tensor | None = None,
+        training: bool | None = None,
+    ) -> tf.Tensor:
+        """Encode source token ids into contextual memory vectors."""
         return self.encoder(self.src_embed(src, training=training), mask=src_mask, training=training)
 
     def decode(
@@ -97,6 +106,7 @@ class Transformer(tf.keras.Model):
         memory_mask: tf.Tensor | None = None,
         training: bool | None = None,
     ) -> tf.Tensor:
+        """Decode target token ids while attending to encoder memory."""
         return self.decoder(
             self.tgt_embed(tgt, training=training),
             memory,

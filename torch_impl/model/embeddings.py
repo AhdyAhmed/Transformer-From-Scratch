@@ -91,4 +91,5 @@ class TransformerEmbedding(nn.Module):
         self.positional_encoding = PositionalEncoding(d_model, max_len, dropout)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Embed token ids, add fixed positions, and apply dropout."""
         return self.positional_encoding(self.token_embedding(x))

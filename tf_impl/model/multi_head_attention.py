@@ -96,7 +96,8 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         merged = self._merge_heads(attn_out)
         return self.w_o(merged)
 
-    def get_config(self):
+    def get_config(self) -> dict[str, object]:
+        """Return the serializable Keras layer configuration."""
         cfg = super().get_config()
         cfg.update(d_model=self.d_model, num_heads=self.num_heads)
         return cfg

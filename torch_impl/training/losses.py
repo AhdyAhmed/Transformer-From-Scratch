@@ -30,6 +30,7 @@ class LabelSmoothingLoss(nn.Module):
         self.reduction = reduction
 
     def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Compute label-smoothed loss over non-padding target tokens."""
         if logits.ndim < 2:
             raise ValueError("logits must have at least 2 dimensions (..., vocab_size)")
         if tuple(logits.shape[:-1]) != tuple(targets.shape):

@@ -41,6 +41,17 @@ def test_architecture_svg_is_valid_and_accessible():
         assert component in visible_text
 
 
+def test_detailed_transformer_architecture_image_is_documented():
+    image_path = ROOT / "assets" / "full-transformer-architecture.webp"
+    image = image_path.read_bytes()
+    assert image[:4] == b"RIFF"
+    assert image[8:12] == b"WEBP"
+    for document in (ROOT / "README.md", ROOT / "design.md"):
+        assert "assets/full-transformer-architecture.webp" in document.read_text(
+            encoding="utf-8"
+        )
+
+
 def test_root_results_table_matches_generated_metrics():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     day25 = json.loads(
