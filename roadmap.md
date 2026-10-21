@@ -178,16 +178,18 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 
 ---
 
-## Phase 7: Stretch Goals & Final Polish (Days 29–30)
+## Phase 7: Final Polish (Day 30)
 
-**Day 29 — Pick 1 stretch goal**
-- Options: RoPE/relative positional encoding toggle, KV-caching for inference, ONNX export.
-- Implement in whichever framework is more convenient; note the other as "future work" in README.
+The optional Day 29 stretch phase was removed from project scope. The final
+release intentionally keeps the original sinusoidal, full-sequence
+encoder-decoder implementation complete and comparable in both frameworks.
 
-**Day 30 — Final review**
-- Re-run all tests.
-- Proofread README/writeup.
-- Tag a `v1.0` release, publish repo, share on portfolio/LinkedIn.
+**Day 30 — Final review — completed**
+- [x] Re-run all 350 tests, including both real overfit tests and full-model numerical parity.
+- [x] Compile every Python source file and run Git whitespace validation.
+- [x] Run checkpoint-backed PyTorch CUDA and TensorFlow CPU inference end to end.
+- [x] Proofread and synchronize the README, design document, writeup, roadmap, and release results.
+- [x] Prepare the clean v1.0 release commit and tag for GitHub publication.
 
 ---
 
@@ -195,6 +197,6 @@ Assumes roughly **2–3 focused hours/day**, part-time pace. Adjust up/down by c
 
 | Pace | Total duration | Notes |
 |---|---|---|
-| Intensive (4–5 hrs/day) | ~2 weeks | Compress each phase by ~50%; skip Day 7/29 buffer days |
+| Intensive (4–5 hrs/day) | ~2 weeks | Compress each phase by ~50%; skip the Day 7 buffer |
 | Standard (2–3 hrs/day) | 30 days (above) | Default plan |
 | Relaxed (weekends only) | ~10–12 weeks | Treat each "day" above as one weekend session |

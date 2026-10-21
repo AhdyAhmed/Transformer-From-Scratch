@@ -10,9 +10,11 @@ No `nn.Transformer`, no `keras.layers.MultiHeadAttention` — every component
 stacks, masking, the warmup LR schedule) is implemented by hand in both
 frameworks.
 
-> **Status:** Days 1–28 are complete: both implementations, training runs,
-> evaluation, attention visualization, comparison, inference, and documentation
-> are validated. [`roadmap.md`](roadmap.md) tracks the remaining stretch goals.
+> **Status: Complete.** The implementation, training runs, evaluation,
+> visualization, comparison, inference, documentation, and Day 30 release
+> review are validated. The optional Day 29 stretch scope was intentionally
+> removed; see [`roadmap.md`](roadmap.md) and the
+> [final verification record](results/day30/README.md).
 
 ---
 
@@ -34,8 +36,8 @@ for the measured comparison and design rationale.
   logits, plus tiny-task overfit tests that prove gradients work end to end.
 - Real Multi30k English→German training, shared-corpus BLEU evaluation,
   attention heatmaps, and standalone inference CLIs.
-- A comprehensive test suite covering math, masks, parity, training,
-  checkpoints, evaluation, visualization, and inference.
+- A 350-test suite covering math, masks, parity, training, checkpoints,
+  evaluation, visualization, inference, documentation, and source consistency.
 
 ## Architecture
 
@@ -172,7 +174,7 @@ Transformer-From-Scratch/
 - [x] Day 26 — Standalone checkpoint-backed inference CLIs
 - [x] Day 27 — Root/framework documentation, architecture diagram, results, usage
 - [x] Day 28 — Code cleanup, docstrings, and final consistency pass
-- [ ] Day 29–30 — Stretch goal & final release
+- [x] Day 30 — Final verification and v1.0 release preparation
 
 Full detail on each phase lives in [`roadmap.md`](roadmap.md).
 
@@ -206,7 +208,7 @@ loss_fn = LabelSmoothingLoss(config.label_smoothing, pad_idx=config.pad_idx)
 loss = loss_fn(batch.tgt_out, logits)  # Keras convention: targets first
 ```
 
-Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. Both framework suites and their cross-framework parity tests are exercised by the full test command. The Day 17 PyTorch and Day 18 TensorFlow training loops are implemented; full-scale framework comparison runs are scheduled for Days 19–23.
+Validation: `torch_impl/tests/test_training_utils.py` and `tf_impl/tests/test_training_utils.py` cover the schedule formula/peak/decay, configuration errors, zero-smoothing equivalence to ordinary cross-entropy, padding exclusion, reductions, and finite gradients. Both framework suites and their cross-framework parity tests are exercised by the full test command. The completed Days 19–23 runs and shared-corpus evaluation are summarized in the Results table above.
 
 ### Day 17 — PyTorch training loop and checkpointing
 

@@ -68,3 +68,13 @@ def test_root_results_table_matches_generated_metrics():
     for value in expected_values:
         assert value in readme
     assert "not a controlled framework benchmark" in readme
+
+
+def test_final_release_status_and_scope_are_documented():
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    roadmap = (ROOT / "roadmap.md").read_text(encoding="utf-8")
+    assert "**Status: Complete.**" in readme
+    assert "results/day30/README.md" in readme
+    assert "Day 30 — Final review — completed" in roadmap
+    for removed_stretch_item in ("RoPE", "KV-caching", "ONNX export"):
+        assert removed_stretch_item not in roadmap
